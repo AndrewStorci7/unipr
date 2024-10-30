@@ -1,0 +1,3 @@
+/home/andrew-drink/Scrivania/uni-mp/Lesson-6/Razionale/cmake-build-debug/CMakeFiles/Razionale.dir
+/home/andrew-drink/Scrivania/uni-mp/Lesson-6/Razionale/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/andrew-drink/Scrivania/uni-mp/Lesson-6/Razionale/cmake-build-debug/CMakeFiles/rebuild_cache.dir
