@@ -1,22 +1,15 @@
-### Lezione Universitaria: Progettazione di un Tipo di Dato Concreto e Programmazione per Contratto
-
-**Docente:** Enea Zaffanella  
-**Corso:** Metodologie di Programmazione  
-**Livello:** Laurea triennale in Informatica  
-**Università:** Università di Parma
-
----
+# Progettazione di un Tipo di Dato Concreto e Programmazione per Contratto
 
 ### Introduzione alla Progettazione di un Tipo di Dato Concreto
 La progettazione di un tipo di dato concreto è fondamentale per creare software robusti e manutenibili. Prendiamo come esempio la classe `Razionale`, un tipo di dato che rappresenta numeri razionali (frazioni). Questo esempio è scelto per la sua interfaccia intuitiva e per l'assenza di problematiche legate alla gestione diretta delle risorse. Lo scopo principale non è la perfezione dell'implementazione ma la comprensione di un metodo di sviluppo software.
 
-#### Obiettivi della Lezione
+### Obiettivi della Lezione
 - Apprendere il processo di progettazione di classi.
 - Comprendere il concetto di **invariante di classe**.
 - Imparare ad utilizzare il **Test Driven Design (TDD)**.
 - Approfondire la **programmazione per contratto**.
 
-### 1. Strutturazione del Codice
+## 1. Strutturazione del Codice
 Per lo sviluppo della classe `Razionale`, dividiamo il codice in tre file:
 - **Razionale.hh**: interfaccia della classe.
 - **Razionale.cc**: implementazione della classe.
@@ -24,7 +17,7 @@ Per lo sviluppo della classe `Razionale`, dividiamo il codice in tre file:
 
 La suddivisione del codice permette una gestione modulare del progetto, facilitando il mantenimento e l'aggiornamento del software.
 
-### 2. Test Driven Design (TDD)
+## 2. Test Driven Design (TDD)
 Il **Test Driven Design (TDD)** è un approccio alla programmazione in cui i test vengono scritti prima dell'implementazione. I passaggi principali sono:
 1. Scrivere il codice di test per le funzionalità desiderate.
 2. Implementare il codice per soddisfare i test.
@@ -32,26 +25,26 @@ Il **Test Driven Design (TDD)** è un approccio alla programmazione in cui i tes
 
 Questo metodo garantisce che il codice sia sempre verificato rispetto ai requisiti e consente di correggere rapidamente errori di logica.
 
-### 3. Invarianti di Classe
+## 3. Invarianti di Classe
 Un concetto fondamentale nella progettazione di classi è quello dell'**invariante di classe**, ovvero una proprietà che deve rimanere vera durante tutta la vita dell'oggetto, eccetto durante modifiche temporanee all'interno di un metodo.
 - **Check delle Invarianti**: Si realizza un metodo `check_inv()` che verifica l'invariante e utilizza asserzioni per garantirne la correttezza.
 - **Gestione delle Invarianti**: Durante l'esecuzione di un metodo, l'invariante può essere temporaneamente violata ma deve essere ripristinata alla fine.
 
-### 4. Programmazione per Contratto
+## 4. Programmazione per Contratto
 La **programmazione per contratto** definisce un accordo tra lo sviluppatore e l'utilizzatore di una classe. Si basa su:
 - **Precondizioni**: Condizioni che devono essere vere prima di chiamare un metodo.
 - **Postcondizioni**: Condizioni che devono essere vere dopo l'esecuzione del metodo.
 - **Invarianti di Classe**: Proprietà che devono restare vere prima e dopo l'esecuzione dei metodi, ma possono essere temporaneamente violate durante l'esecuzione.
 
 L'idea è di descrivere il contratto con la notazione:  
-\[ \text{precondizioni} \Rightarrow \text{postcondizioni} \]  
+**precondizioni** :arrow_right: **postcondizioni**  
 Se le precondizioni non sono soddisfatte, l'implementatore non è obbligato a garantire la correttezza delle postcondizioni.
 
-### 5. Contratti Narrow e Wide
+## 5. Contratti Narrow e Wide
 - **Contratti Narrow**: L'implementatore si assume la responsabilità solo quando le precondizioni sono soddisfatte. L'utilizzatore deve assicurarsi che i dati di input siano validi. Ad esempio, nel caso di una divisione tra numeri razionali, è responsabilità dell'utilizzatore assicurarsi che il denominatore non sia zero.
 - **Contratti Wide**: L'implementatore gestisce i casi particolari come input non validi. Ad esempio, se il denominatore è zero, viene lanciata un'eccezione `DivByZero` all'interno del metodo. Questo approccio richiede più codice e può essere meno efficiente, ma è più sicuro per l'utilizzatore.
 
-### 6. Esempi Pratici di Contratti nella Classe `Razionale`
+## 6. Esempi Pratici di Contratti nella Classe `Razionale`
 - **Esempio di Contratto Narrow**:
   ```cpp
   Razionale operator /(const Razionale& x, const Razionale& y) {
@@ -79,7 +72,7 @@ Se le precondizioni non sono soddisfatte, l'implementatore non è obbligato a ga
   ```
   In questo caso, è l'implementatore a gestire l'errore, garantendo un comportamento definito anche con input non validi.
 
-### 7. Classificazione dei Comportamenti nello Standard C++
+## 7. Classificazione dei Comportamenti nello Standard C++
 Nella programmazione in C++ e nella sua libreria standard, i comportamenti vengono descritti in base a:
 - **Specified behavior**: Comportamento descritto dallo standard, a cui tutte le implementazioni devono conformarsi.
 - **Implementation-defined behavior**: Comportamento che varia tra implementazioni, ma deve essere documentato (es. dimensione dei tipi interi).
