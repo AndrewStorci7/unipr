@@ -55,6 +55,18 @@ build CMakeFiles/_Matrix.dir/main.cpp.o: CXX_COMPILER___Matrix_unscanned_Debug /
   OBJECT_DIR = CMakeFiles/_Matrix.dir
   OBJECT_FILE_DIR = CMakeFiles/_Matrix.dir
 
+build CMakeFiles/_Matrix.dir/Matrix/Matrix.cpp.o: CXX_COMPILER___Matrix_unscanned_Debug /home/andrew/Scrivania/UNIpr/unipr/Metodologie$ Di$ Programmazione/_Matrix/Matrix/Matrix.cpp || cmake_object_order_depends_target__Matrix
+  DEP_FILE = CMakeFiles/_Matrix.dir/Matrix/Matrix.cpp.o.d
+  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles/_Matrix.dir
+  OBJECT_FILE_DIR = CMakeFiles/_Matrix.dir/Matrix
+
+build CMakeFiles/_Matrix.dir/Test.cpp.o: CXX_COMPILER___Matrix_unscanned_Debug /home/andrew/Scrivania/UNIpr/unipr/Metodologie$ Di$ Programmazione/_Matrix/Test.cpp || cmake_object_order_depends_target__Matrix
+  DEP_FILE = CMakeFiles/_Matrix.dir/Test.cpp.o.d
+  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles/_Matrix.dir
+  OBJECT_FILE_DIR = CMakeFiles/_Matrix.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target _Matrix
@@ -63,7 +75,7 @@ build CMakeFiles/_Matrix.dir/main.cpp.o: CXX_COMPILER___Matrix_unscanned_Debug /
 #############################################
 # Link the executable _Matrix
 
-build _Matrix: CXX_EXECUTABLE_LINKER___Matrix_Debug CMakeFiles/_Matrix.dir/main.cpp.o
+build _Matrix: CXX_EXECUTABLE_LINKER___Matrix_Debug CMakeFiles/_Matrix.dir/main.cpp.o CMakeFiles/_Matrix.dir/Matrix/Matrix.cpp.o CMakeFiles/_Matrix.dir/Test.cpp.o
   FLAGS = -g
   OBJECT_DIR = CMakeFiles/_Matrix.dir
   POST_BUILD = :

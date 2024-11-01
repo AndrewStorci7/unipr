@@ -17,11 +17,14 @@ namespace Algebric {
         // using ntot = int;
         using cols = std::vector<std::string>;
         using rows = std::vector<T>;
+
     private:
         size_t num_cols_;
         size_t num_rows_;
         cols cols_;
         rows rows_;
+
+    public:
 
         /**
          * Default Constructor with 0 params
@@ -36,7 +39,7 @@ namespace Algebric {
          * @param n_cols
          * @param n_rows
          */
-        Matrix(size_t n_cols, size_t n_rows);
+        Matrix(const size_t& n_cols, const size_t& n_rows);
 
         /**
          * Move Matrix Constructor
@@ -67,7 +70,7 @@ namespace Algebric {
          * @param os
          * @param m
          */
-        void print(ostream& os, const Matrix& m) const;
+        void print(std::ostream& os, const Matrix& m) const;
 
         /**
          * Move a data from a cell to another
@@ -79,6 +82,13 @@ namespace Algebric {
          */
         void move(const size_t& row_from, const size_t& col_from, const size_t& row_to, const size_t& col_to);
     };
+
+    template
+    <typename T>
+    std::ostream& operator<<(std::ostream& os, const Matrix<T>& m);
+
+
+
 }
 
 #endif //MATRIX_H
