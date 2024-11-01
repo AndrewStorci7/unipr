@@ -1,0 +1,3 @@
+/home/andrew/Scrivania/UNIpr/unipr/Metodologie Di Programmazione/_EvoSpan/cmake-build-debug/CMakeFiles/_EvoSpan.dir
+/home/andrew/Scrivania/UNIpr/unipr/Metodologie Di Programmazione/_EvoSpan/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/andrew/Scrivania/UNIpr/unipr/Metodologie Di Programmazione/_EvoSpan/cmake-build-debug/CMakeFiles/rebuild_cache.dir
