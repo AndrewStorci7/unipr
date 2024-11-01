@@ -1,0 +1,2 @@
+# Campo di azione (scope)
+
