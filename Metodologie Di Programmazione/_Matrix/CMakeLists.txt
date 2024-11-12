@@ -4,4 +4,6 @@ project(_Matrix)
 set(CMAKE_CXX_STANDARD 20)
 
 add_executable(_Matrix main.cpp
-        Matrix.h)
+        Matrix/Matrix.h
+        Matrix/Matrix.cpp
+        Test.cpp)
