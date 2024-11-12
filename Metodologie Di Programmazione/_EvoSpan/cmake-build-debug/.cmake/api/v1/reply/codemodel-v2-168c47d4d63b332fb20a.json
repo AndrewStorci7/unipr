@@ -27,7 +27,7 @@
 					[
 						0
 					],
-					"name" : "_Matrix",
+					"name" : "_EvoSpan",
 					"targetIndexes" : 
 					[
 						0
@@ -38,9 +38,9 @@
 			[
 				{
 					"directoryIndex" : 0,
-					"id" : "_Matrix::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-_Matrix-Debug-440a64e884d3ebe3e39d.json",
-					"name" : "_Matrix",
+					"id" : "_EvoSpan::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-_EvoSpan-Debug-c468d4c7ed72523ae512.json",
+					"name" : "_EvoSpan",
 					"projectIndex" : 0
 				}
 			]
@@ -49,8 +49,8 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "/home/andrew/Scrivania/UNIpr/unipr/Metodologie Di Programmazione/_Matrix/cmake-build-debug",
-		"source" : "/home/andrew/Scrivania/UNIpr/unipr/Metodologie Di Programmazione/_Matrix"
+		"build" : "/home/andrew/Scrivania/UNIpr/unipr/Metodologie Di Programmazione/_EvoSpan/cmake-build-debug",
+		"source" : "/home/andrew/Scrivania/UNIpr/unipr/Metodologie Di Programmazione/_EvoSpan"
 	},
 	"version" : 
 	{
