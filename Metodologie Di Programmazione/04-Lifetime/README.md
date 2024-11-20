@@ -39,5 +39,5 @@ void funzione() {
 
 Il processo di costruzione di un oggetto è suddiviso in due fasi:
 
-- **Allocazione della memoria "grezza"**:
+- **Allocazione della memoria "grezza"**: 
 
