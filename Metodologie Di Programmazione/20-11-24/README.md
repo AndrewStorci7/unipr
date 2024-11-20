@@ -123,6 +123,3 @@ L'operatore assegnamento della `back_insert_iterator` gestisce anche il caso in 
 
 > :bulb: Questo è un esempio di funzione di copia che **non va a sovrascrivere**.
 > :bulb: Le classi templatiche non supportano la deduzione automatica del tipo.
-
-#### Riassunto
-
