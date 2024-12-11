@@ -30,4 +30,13 @@ void enableANSI() {
     }
 }
 
+// Codici ANSI per i colori
+const std::string RESET = "\033[0m";  // Resetta il colore
+const std::string RED = "\033[31m";  // Rosso
+const std::string GREEN = "\033[32m";  // Verde
+const std::string YELLOW = "\033[33m";  // Giallo
+const std::string BLUE = "\033[34m";  // Blu
+const std::string MAGENTA = "\033[35m";  // Magenta
+const std::string CYAN = "\033[36m";  // Ciano
+
 #endif //CODE_CONSOLE_H
