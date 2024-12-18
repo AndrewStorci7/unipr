@@ -17,17 +17,33 @@ void swap(int, int);
 /// Stessa funzione con paramentri passati per riferimento
 void swap2(int&, int&);
 
+// Codici ANSI per i colori
+const std::string RESET = "\033[0m";  // Resetta il colore
+const std::string RED = "\033[31m";  // Rosso
+const std::string GREEN = "\033[32m";  // Verde
+const std::string YELLOW = "\033[33m";  // Giallo
+const std::string BLUE = "\033[34m";  // Blu
+const std::string MAGENTA = "\033[35m";  // Magenta
+const std::string CYAN = "\033[36m";  // Ciano
 
 int main() {
+
     int a = 34, b = 22, c = 0;
     int d = 27, e = 18, f = 0;
 
     std::cout << "Entità prima dello scambio" << std::endl;
-    std::cout << "A:" << a << ", B:" << b << ", C:" << c << ", D:" << d << ", E:" << e << ", F:" << f << std::endl;
+    std::cout << "A:" << a << ", B:" << b << std::endl;
+    swap(a, b);
+    std::cout << "Entità dopo dello scambio" << std::endl;
+    std::cout << "A:" << a << ", B:" << b << std::endl;
 
+    std::cout << std::endl;
+
+    std::cout << "Entità prima dello scambio" << std::endl;
+    std::cout << "A:" << a << ", B:" << b << std::endl;
     swap2(a, b);
     std::cout << "Entità dopo dello scambio" << std::endl;
-    std::cout << "A:" << a << ", B:" << b << ", C:" << c << ", D:" << d << ", E:" << e << ", F:" << f << std::endl;
+    std::cout << "A:" << a << ", B:" << b << std::endl;
 
     return 0;
 }
@@ -67,7 +83,7 @@ void sum(int& l, int& r, int& s) {
  * @param r PASSATO PER VALORE
  */
 void swap(int l, int r) {
-    std::cout << BLUE << "swap() con parametri passati per valore" << RESET << std::endl;
+    std::cout << BLUE << "chiamato swap() con parametri passati per valore" << RESET << std::endl;
     int tmp = l;
     l = r;
     r = tmp;
@@ -82,6 +98,7 @@ void swap(int l, int r) {
  * @param r PASSATO PER RIFERIMENTO
  */
 void swap2(int& l, int& r) {
+    std::cout << BLUE << "chiamato swap() con parametri passati per riferimento" << RESET << std::endl;
     int tmp = l;
     l = r;
     r = tmp;
