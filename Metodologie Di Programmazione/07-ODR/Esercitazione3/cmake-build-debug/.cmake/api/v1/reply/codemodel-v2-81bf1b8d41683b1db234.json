@@ -1,0 +1,60 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.26"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "Esercitazione3",
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "Esercitazione3::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Esercitazione3-Debug-985f446b682cde00a7cd.json",
+					"name" : "Esercitazione3",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/andrew-drink/Scrivania/UNIpr/unipr/Metodologie Di Programmazione/07-ODR/Esercitazione3/cmake-build-debug",
+		"source" : "/home/andrew-drink/Scrivania/UNIpr/unipr/Metodologie Di Programmazione/07-ODR/Esercitazione3"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 5
+	}
+}
