@@ -1,6 +1,6 @@
 # Lvalue & Rvalue
 
-> :pushhpin: In questo documento vediamo la differenza tra `lvalue` e `rvalue` e ne capiamo il senso
+> :pushpin: In questo documento vediamo la differenza tra `lvalue` e `rvalue` e ne capiamo il senso
 
 In C++, ogni espressione è caratterizzata da un tipo e da una categoria di valore. **Capire le categorie di valore è fondamentale perché influenza come le espressioni vengono valutate e utilizzate in diversi contesti, in particolare in relazione alla gestione della memoria e all'ottimizzazione delle prestazioni.**
 
