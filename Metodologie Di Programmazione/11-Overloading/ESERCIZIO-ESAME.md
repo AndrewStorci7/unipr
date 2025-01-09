@@ -41,5 +41,6 @@ void foo(N::C& cm, const N::C& cc) {
     // Funzioni candidate: #
 
     bar(s4.size()); // chiamata E
+    // Genera un errore perche non e presente nessuna dichiarazione dellonscope locale/interno della funzione bar()
 }
 ```
