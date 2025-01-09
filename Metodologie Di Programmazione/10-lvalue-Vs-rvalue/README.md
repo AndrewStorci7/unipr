@@ -1,10 +1,10 @@
 # Lvalue & Rvalue
 
-> :pushpin: In questo documento vediamo la differenza tra `lvalue` e `rvalue` e ne capiamo il senso
+> :pushpin: In questo documento vediamo la differenza tra le varie categorie di valore come `lvalue` e `rvalue` e ne capiamo il senso
 
-In C++, ogni espressione è caratterizzata da un tipo e da una categoria di valore. **Capire le categorie di valore è fondamentale perché influenza come le espressioni vengono valutate e utilizzate in diversi contesti, in particolare in relazione alla gestione della memoria e all'ottimizzazione delle prestazioni.**
+In C++, ogni espressione è caratterizzata da un tipo e da una categoria di valore. Capire le categorie di valore è fondamentale perché influenza come le espressioni vengono valutate e utilizzate in diversi contesti, in particolare in relazione alla gestione della memoria e all'ottimizzazione delle prestazioni.
 
-Esistono tre categorie di valore primarie: prvalue, xvalue e lvalue.
+Esistono tre categorie di valore primarie: **prvalue, xvalue e lvalue**.
 
 **Le categorie di valore classificano le espressioni, non i valori.**
 
