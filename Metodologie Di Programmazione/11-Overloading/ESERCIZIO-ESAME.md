@@ -38,7 +38,8 @@ void foo(N::C& cm, const N::C& cc) {
     // viene generato un errore per ambiguità, perché cc è un riferimento costante ad un oggetto C
 
     const std::string& s4 = cc.last(); // chiamata D
-    // Funzioni candidate: #
+    // Funzioni candidate: #4
+    // chiama la funzione #4 perché viene salvato in una variabile di tipo riferimento costante a stringa e l'oggetto è un riferimwnto costante
 
     bar(s4.size()); // chiamata E
     // Genera un errore perche non e presente nessuna dichiarazione dellonscope locale/interno della funzione bar()
