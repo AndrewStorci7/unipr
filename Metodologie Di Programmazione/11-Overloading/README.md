@@ -4,7 +4,7 @@
 
 ## Cos'è l'overloading
 
-L'**overloading** (in ingelse, _**sovraccaricamento**_) è quel meccanismo che permette la riscrittura di una funzione già definita cambiandone il tipo e il numero di parametri.
+L'**overloading** (in inglese, _**sovraccaricamento**_) è quel meccanismo che permette la riscrittura di una funzione già definita cambiandone il tipo e il numero di parametri.
 
 #### Esempio
 
