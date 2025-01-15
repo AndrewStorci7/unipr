@@ -1,0 +1,25 @@
+#include <iostream>
+#include <memory>
+
+void foo(std::shared_ptr<int> pi) {
+	*pi = 67;
+}
+
+void bar() {
+	std::shared_ptr<int> pj(new int(42));
+	
+	std::cout << "Puntatore prima della modifica: " << *pj << std::endl;
+	foo(pj);            // ok: copia ammessa, risorsa condivisa
+	std::cout << "Puntatore dopo la modifica: " << *pj << std::endl;
+
+	foo(std::move(pj)); // ok: spostamento ammesso
+	// std::cout << "Puntatore dopo lo spostamento: " << *pj << std::endl;
+	// dopo lo spostamento, pj non gestisce nessuna risorsa
+}
+
+int main() {
+	
+	bar();
+	
+	return 0;
+}
