@@ -52,6 +52,8 @@ MyClass<int> m_int_2 = {7};         // nessuna istanza di MyClass di tipo int pe
 ```
 > **L'istanza avviene a tempo di compilazione**.
 
+## :warning: Errori comuni
 
-
+- **Errori di deduzione del tipo**: quando si utilizzano classi templatiche, il compilatore deve dedurre i tipi degli argomenti del template. Se il codice non fornisce informazioni sufficienti per la deduzione del tipo, il compilatore può generare un errore.
+- **Errori di specializzazione**: le specializzazioni dei template permettono di fornire implementazioni specifiche per determinati tipi. Tuttavia, se una specializzazione non è definita correttamente o non è visibile nel punto di utilizzo, possono verificarsi errori. Per esempio, nel codice la funzione `g` potrebbe essere legata a `g(X,int)` se la specializzazione non è definita correttamente.
 
