@@ -10,18 +10,13 @@
 namespace Lesson19 {
 
     template <typename T>
-    inline T max(const T& a, const T& b) {
+    inline T max(T a, T b) {
         return (a > b) ? a : b;
     }
 
-    template <typename T>
+    template <>
     const char* max(const char* a, const char* b) {
         return (strcmp(a, b) > 0) ? b : a;
-    }
-
-    template <typename T>
-    inline T min(const T& a, const T& b) {
-        return not max(a, b);
     }
 
 } // namespace Lesson19
