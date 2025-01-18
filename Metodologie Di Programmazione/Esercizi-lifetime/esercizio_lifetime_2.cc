@@ -34,7 +34,7 @@ struct C : public B {
 
   C() : a3("C::a3") {
     std::cerr << "Constructor C::C()" << std::endl;
-    throw std::runtime_error("Error in C constructor");
+    // throw std::runtime_error("Error in C constructor");
   }
   ~C() {
     std::cerr << "Destructor C::~C()" << std::endl;
