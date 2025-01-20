@@ -1,0 +1,32 @@
+#ifndef SEQUENZA_H_ESERCITAZIONE_PG
+#define SEQUENZA_H_ESERCITAZIONE_PG
+
+#include <vector>
+
+namespace Sequenze {
+
+  struct PredicatoUnario {
+
+    int _N; // Dato con la quale effettuare il confronto
+    
+  PredicatoUnario(int i) : _N(i) {}
+
+    inline bool operator()(const int& i) const {
+      return i > _N;
+    }
+    
+  }
+
+    struct IsEqualTo {
+      
+    }
+  
+  template <typename Iter, typename UnaryPred>
+  Iter find_something(Iter first, Iter last, UnaryPred up);
+
+  // template <typename Iter, typename UnaryPred>
+  // Iter (Iter first, Iter last, UnaryPred up);
+  
+} // namespace Sequenze
+
+#endif
