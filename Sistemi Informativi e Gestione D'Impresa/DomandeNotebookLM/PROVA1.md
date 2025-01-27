@@ -17,10 +17,10 @@
 - ~~[Illustri i profili strutturale e dinamico di un'impresa, e il ruolo degli stakeholder](#domanda-8).~~
 - [Descriva il ruolo e le attività del controllo di gestione in un'azienda, spiegando come questo processo permette di monitorare e migliorare il rendimento](#domanda-9).
 - [Confronti le funzioni e i processi aziendali, chiarendo le loro differenze e interrelazioni](#domanda-10).
-- [Analizzi il modello dell'analisi di Porter, descrivendo i processi primari e di supporto]().
-- [Esponga il Paradosso di Strassmann, spiegando come le aziende devono utilizzare le ICT per trasformare l'organizzazione e non solo per supportarla, passando da una visione statica a una dinamica]().
-- [Descriva il ruolo delle ICT nella strategia aziendale, illustrando le tre prospettive principali e come le tecnologie digitali influenzano i confini organizzativi]().
-- [Analizzi le tre strategie competitive di base (costo, differenziazione, focalizzazione), evidenziando come le tecnologie possono supportarle]().
+- [Analizzi il modello dell'analisi di Porter, descrivendo i processi primari e di supporto](#domanda-11).
+- [Esponga il Paradosso di Strassmann, spiegando come le aziende devono utilizzare le ICT per trasformare l'organizzazione e non solo per supportarla, passando da una visione statica a una dinamica](#domanda-12).
+- [Descriva il ruolo delle ICT nella strategia aziendale, illustrando le tre prospettive principali e come le tecnologie digitali influenzano i confini organizzativi](#domanda-13).
+- [Analizzi le tre strategie competitive di base (costo, differenziazione, focalizzazione), evidenziando come le tecnologie possono supportarle](#domanda-14).
 - [Esponga la Teoria delle 5 forze di Porter, descrivendo come queste forze influenzano la struttura di un settore e come le tecnologie digitali le hanno alterate]().
 - [Spieghi il concetto di intensità informativa, come descritto da Porter e Millar e come questo si collega al ruolo strategico delle ICT]().
 - [Descriva le caratteristiche dei sistemi informatici (interfaccia, livello di personalizzazione, costo, accessibilità al codice), e come queste influenzano la scelta del sistema]().
@@ -38,8 +38,9 @@
 ### <font color="#225175">Risposta (MIA)</font>
 
 All'interno di un azienda, più nello specifico all'interno di un sistema informativo di un azienda, esistono vari tipi di criteri per l'archiviazione delle informazioni:
-- Archiviazione manuale: questo tipologia è totalmente manuale, ovvero, tutte le informazioni sono reperibili in una singola posizione della struttura dell azienda (a meno che non ci siano copie poste in altre parti della struttura) ed esse possono esser confrontate o aggiornate sempre in maniera manuale.
-- Archiviazione automatica: questa tipologia, invece, è totalmente digitale, ovvero le informazioni vengono inserite su Database, cartelle condivise nella rete oppure in cloud, per permettere a più persone contemporanemente di visualizzarle.
+- **Archiviazione manuale**: questo tipologia è totalmente manuale, ovvero, tutte le informazioni sono reperibili in una singola posizione della struttura dell azienda (a meno che non ci siano copie poste in altre parti della struttura) ed esse possono esser confrontate o aggiornate sempre in maniera manuale.
+- **Archiviazione automatica**: questa tipologia, invece, è totalmente digitale, ovvero le informazioni vengono inserite su Database, cartelle condivise nella rete oppure in cloud, per permettere a più persone contemporanemente di visualizzarle.
+- **Archiviazione soggetiva (personale)**: questa tipologia riguarda tutte le informazioni archiviate con un determinato criterio dal singolo lavoratore. 
 
 L'archiviazione manuale, al giorno d'oggi presenta prevalentemente degli svantaggi, invece per quella automatica possiamo spiegarne i vari vantaggi:
 - Reperibilità e consultazione immediata delle informazioni.
@@ -369,10 +370,67 @@ In più vengono fatte ealtre considerazioni:
 - **Margine operativo lordo**: calcolo del guadagno, ottenuto dalla differenza tra i ricavi e i costi di produzione.
 - **Analisi degli scostamenti**: revisione e interpretazione delle anomalie e varaizioni rispetto alle previsioni e di conseguenza ripianificarli.
 
+[Torna all'inizio](#domande)
+
 ## Domanda 10
 
 > **Confronti le funzioni e i processi aziendali, chiarendo le loro differenze e interrelazioni.**
 
 ### <font color="#225175">Risposta (MIA)</font>
 
+I **processi** aziendali è l'insieme delle attività e decisioni che servono per raggiungere un obiettivo o più obiettivi della stessa natura, ovvero, tutte quelle attività che servono per soddisfare una richiesta reale di un cliente. \
+Le **funzioni**, invece, sono l'insieme di risorse (prevalentemente risorse umane) che servono per poter svolgere le varie attività per raggiungere un obiettivo.
+
+Facendo un esempio: prendiamo come esempio un azienda che vende pasta. L'obiettivo predisposto è produrre pasta per vegani, quindi il <u>processo</u> sarà la decisione di prendere nuovi ingredienti, prendere più personale formato sull'alimentazione vegana e in più nuovi macchinari per poter lavorare impasti senza uova (perché c'è da tenere conto che l'impasto senza uova è più difficile da "legare").
+Le funzioni aziendali invece saranno:
+- **Studio scientifico per trovare la giusta ricetta**: ci sarà un attività da parte di scienziati atto a studiare un nuova ricetta che permetta di creare una pasta duratura (in modo da poterla conservare più a lungo), che non presenti ingredienti di tipo animale (compreso latte e uova, essendo una pasta per vegani) e che sia comunque commestibile, ovvero, ricercare la qualità nel prodotto.
+- **Analisi delle macchine esistenti**: analizzare le caratteristiche delle macchine già installate nello stabilimento per poter appurare che siano consone alla produzione di un tipo di pasta diverso.   
+
+[Torna all'inizio](#domande)
+
+## Domanda 11
+
+> **Analizzi il modello dell'analisi di Porter, descrivendo i processi primari e di supporto.**
+
+### <font color="#225175">Risposta (MIA)</font>
+
+L'**analisi di Porter** è un analisi atta a dividere i processi aziendali in due categorie: **primari** e **di supporto**.
+- I **processi primari** sono tutti quei processi che sono fondamentali per la produzione del prodotto finale.
+- I **processi di supporto**, invece, sono quei processi che non sono fondamentali alla produzione.
+
+[Torna all'inizio](#domande)
+
+## Domanda 12
+
+> **Esponga il Paradosso di Strassmann, spiegando come le aziende devono utilizzare le ICT per trasformare l'organizzazione e non solo per supportarla, passando da una visione statica a una dinamica.**
+
+### <font color="#225175">Risposta (MIA)</font>
+
+Il paradosso di Strassmann enuncia che negli anni 80 i sistemi ICT venivano integrato al lavoro che già svolgeva un gruppo di persone ed ha notato che il rapporto tra l'investimento e il guadagno non erano rapportati, ovvero, se le aziende investivano di più per intregare i sistemi informativi nelle aziende non era detto che portasse un guadagno maggiore nelle vendite. \
+Grazie a questo studio si è capito che inizialmente le ICT venivano integrate con un approccio **statico**, ovvero, era un sistema aggiuntivo a quello già esistente; invece, col tempo, si è capito che era da integrarlo con un approccio più **dinamico**, ovvero, utilizzare le ICT per <u>cambiare</u> il modo di lavorare, e sfruttarle per avere più dati e informazioni.
+
+[Torna all'inizio](#domande)
+
+## Domanda 13
+
+> **Descriva il ruolo delle ICT nella strategia aziendale, illustrando le tre prospettive principali e come le tecnologie digitali influenzano i confini organizzativi.**
+
+### <font color="#225175">Risposta (MIA)</font>
+
+[Torna all'inizio](#domande)
+
+## Domanda 14
+
+> **Analizzi le tre strategie competitive di base (costo, differenziazione, focalizzazione), evidenziando come le tecnologie possono supportarle.**
+
+### <font color="#225175">Risposta (MIA)</font>
+
+Esistono 3 strategie competitive di base fondamentali che sono: **strategia di costo**, **strategia di differenziazione** e **strategia di focalizzazione**.
+- La **strategia di costo** tende ad analizzare il mercato e a confontare il costo di vendita di ogni prodotto simile, ne trae dei dati che poi vengono esaminati per capire dove possono essere rimossi o diminuiti i costi di produzione. Un'altra strategia potrebbe essere sfruttare l'ecnomia di scala, oppure minimizzare gli investimenti in pubblicità.
+- La **strategia di differenziazione** tende invece a individuare e a studiare un prodotto già esistente ma con caratterstiche in più, come può essere ad esempio un monopattino elettrico: il prodotto esistente è il monopattino classico, l'aggiunta è il motore elettrico. Un'altra strategia di differenziazione è aumentare l'efficienza dell'assistenza clienti, per avere un maggior riscontro positivo da parte della clientela.
+- La **strategia di focalizazzione** tende invece a indivuare un target di persone, che può essere per età, per zona geografica o atto a risolvere un determinato problema.
+
+Le ICT sono fondamentali per supporatare queste strategie perché peremttono di lavorare con più dati e allo stesso di ottenere risposte e previsioni in tempi brevi.
+
+[Torna all'inizio](#domande)
 
