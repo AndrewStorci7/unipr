@@ -2,7 +2,7 @@
 
 ## Introduzione
 
-Un'**iteratore** è un _oggetto_ che serve per visitare tutti gli elementi di un _altro oggetto_ senza badare alla sua implementazione (non mi interessa conoscerla). \
+Un'<font color="#99f611">**iteratore**</font> è un _oggetto_ che serve per visitare tutti gli elementi di un _altro oggetto_ senza badare alla sua implementazione (non mi interessa conoscerla). \
 Un'iteratore è considerato un tipo di puntatore specializzato (concetto astratto) per la visita che fornisce un punto di **accesso sequenziale**, infatti molti degli algoritmi della **STL** utilizzano le sequenze.
 
 #### Cosa fa un iteratore
@@ -19,6 +19,17 @@ Esistono diversi tipi di iteratori, ed ognuno di essi ha operazioni e caratteris
 - **Iteratori bidirezionali** (BidiretionalIt)
 - **Iteratori Random Access** (RandomAccessIt)
 - **Iteratori di Output** (OutputIt)
+
+Questi tipi di iteratori sono organizzati in una **gerarchia concettuale**:
+
+```
+Iterator *, ++
+    Input Iterator ==, !=, single read, ->
+        Output Iterator single write
+        Forward Iterator repeated read and write
+            Bidirectional Iterator --
+                Random-access Iterator [], +, +=, -, -=, <, <=, >, >=
+```
 
 ### Iteratori di Input
 
