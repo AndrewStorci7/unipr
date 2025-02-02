@@ -7,11 +7,13 @@
 
 template <typename Iter>
 void advance_helper(Iter it, int n, std::random_access_iterator_tag) {
+    std::cout << YELLOW << "called advance_helper() for 'Random Access Iterator TAG'" << RESET << std::endl;
     it += n;
 }
 
 template <typename Iter>
 void advance_helper(Iter it, int n, std::forward_iterator_tag) {
+    std::cout << YELLOW << "called advance_helper() for 'Forward Iterator TAG'" << RESET << std::endl;
     for ( int i = 0; i < n; ++i ) {
         ++it; 
     }
