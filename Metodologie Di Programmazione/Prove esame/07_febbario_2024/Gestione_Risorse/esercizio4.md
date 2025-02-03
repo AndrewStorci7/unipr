@@ -2,7 +2,9 @@
 
 ### Gestione Risorse
 
-> **Il codice seguente presenta alcuni problemi relativi alla gestione delle risorse. Evidenziare questi problemi, differenziando tra: <u>(a) errori che si verificano in assenza di eccezioni</u>; <u>(b) errori che si verificano in presenza di eccezioni</u>.**
+> **Il codice seguente presenta alcuni problemi relativi alla gestione delle risorse. Evidenziare questi problemi, differenziando tra:**
+> - **(a)** errori che si verificano in assenza di eccezioni. 
+> - **(b)** errori che si verificano in presenza di eccezioni.
 >
 > ```c++
 > void foo() {
@@ -24,22 +26,22 @@
 
 Certamente, analizziamo il codice fornito e identifichiamo i problemi relativi alla gestione delle risorse, suddividendoli in base alla presenza o assenza di eccezioni, per poi proporre una soluzione basata su RAII.
 
-**Analisi del codice `foo()`**
+### **Analisi del codice `foo()`**
 
 Il codice presenta diversi problemi di gestione della memoria, in particolare riguardo all'uso di `new` e `delete` espliciti:
 
-**(a) Errori in assenza di eccezioni:**
+#### **(a) Errori in assenza di eccezioni:**
 
 *   **Potenziale memory leak:** Se `job1(a1, a2)` o `job2(a1, new A(3))` completano con successo, la memoria allocata con `new A(1)`, `new A(2)` e `new A(3)` non viene deallocata con `delete`. Questo è un classico esempio di *memory leak*, dove la memoria viene allocata ma non rilasciata, portando a un consumo crescente di risorse nel tempo. In particolare, l'oggetto creato con `new A(3)` viene passato a `job2` e non viene gestito nel blocco `try`, e quindi la memoria corrispondente non verrà mai deallocata.
 
-**(b) Errori in presenza di eccezioni:**
+#### **(b) Errori in presenza di eccezioni:**
 
 *   **Memory leak in caso di eccezione:** Se una delle funzioni `job1(a1, a2)` o `job2(a1, new A(3))` lancia un'eccezione, il blocco `catch` viene eseguito. Il blocco `catch` esegue `delete a2;` e `delete a1;`. Questo significa che in caso di eccezione, **solo** gli oggetti puntati da `a2` e `a1` vengono deallocati, mentre la memoria allocata con `new A(3)` (all'interno di `job2`) viene persa e non viene deallocata.
 *   **Doppia deallocazione (potenziale):** Se la funzione `job1` lancia un'eccezione **dopo** aver modificato gli oggetti puntati da `a1` o `a2`  in modo da far puntare ad un altro indirizzo di memoria non precedentemente allocato con `new`,  allora il blocco `catch` eseguirà un `delete` su un indirizzo di memoria non valido, causando un *undefined behavior*, e, in particolare, una possibile *double deletion*.
 
 **Soluzione con RAII**
 
-Per risolvere questi problemi, possiamo utilizzare l'idioma RAII (Resource Acquisition Is Initialization). L'idea è di **legare la gestione delle risorse alla durata di un oggetto**. In questo caso, useremo degli *smart pointer*, che gestiscono automaticamente la deallocazione della memoria. In particolare, useremo `std::unique_ptr`, appropriato per risorse che hanno un solo proprietario:
+Per risolvere questi problemi, possiamo utilizzare l'idioma **RAII (Resource Acquisition Is Initialization)**. L'idea è di **legare la gestione delle risorse alla durata di un oggetto**. In questo caso, useremo degli *smart pointer*, che gestiscono automaticamente la deallocazione della memoria. In particolare, useremo `std::unique_ptr`, appropriato per risorse che hanno un solo proprietario:
 
 ```c++
 #include <memory>
