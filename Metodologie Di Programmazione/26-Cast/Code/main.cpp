@@ -26,20 +26,14 @@ struct E {
 int main() {
 
     A* a;
-    D* a2;
-    A* aa = static_cast<D*>(a);
-    A* aaa = static_cast<A*>(a2);
+    D* d = static_cast<D*>(a);
 
-    // A* d;
-    // D* dd = static_cast<A*>(d); // Errore: no up-cast
-    // D* dd = dynamic_cast<A*>(d); // Errore: no up-cast
-    D* d;
-    C c; 
-    C& ref_c = c;
-    A* prova = dynamic_cast<A*>(d);
-    try {
-        A& ref_a = dynamic_cast<A&>(*d);
-        // A& ref_aa = dynamic_cast<A&>(ref_c);
+    try {    
+        D* dd;
+        E* e;
+        A* aa = dynamic_cast<A*>(dd);
+        A* aaa = dynamic_cast<D*>(dd);
+        // D* ddd = dynamic_cast<D*>(e);
     } catch (std::bad_cast e) {
         std::cerr << e.what() << std::endl;
     }
