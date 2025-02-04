@@ -10,4 +10,5 @@ int main() {
     Persona* p = new Persona();
 
     std::cout << *p << std::endl;
+    
 }
