@@ -9,7 +9,7 @@ Il controllo di gestione è un **processo** che consente alle aziende di <u>pian
 
 ### A Cosa Serve il Controllo di Gestione?
 Il controllo di gestione serve a:
-*   Fornire un feedback sull'operato dell'azienda, consentendo di migliorare le prestazioni.
+*   Fornire un <u>**feedback** sull'operato dell'azienda</u>, consentendo di migliorare le prestazioni.
 *   Analizzare le risorse economiche e i fattori produttivi per assicurare un impiego adeguato.
 *   Supportare il management aziendale nel prendere decisioni vincenti.
 *   Pianificare e monitorare il raggiungimento degli obiettivi aziendali.
