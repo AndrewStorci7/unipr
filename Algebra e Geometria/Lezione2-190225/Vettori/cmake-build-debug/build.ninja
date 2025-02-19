@@ -63,6 +63,13 @@ build CMakeFiles/Vettori.dir/main.cpp.o: CXX_COMPILER__Vettori_unscanned_Debug /
   OBJECT_DIR = CMakeFiles/Vettori.dir
   OBJECT_FILE_DIR = CMakeFiles/Vettori.dir
 
+build CMakeFiles/Vettori.dir/common/start/start.cpp.o: CXX_COMPILER__Vettori_unscanned_Debug /home/andrew/Scrivania/unipr/unipr/Algebra$ e$ Geometria/Lezione2-190225/Vettori/common/start/start.cpp || cmake_object_order_depends_target_Vettori
+  DEP_FILE = CMakeFiles/Vettori.dir/common/start/start.cpp.o.d
+  FLAGS = -g -std=gnu++14 -fdiagnostics-color=always
+  INCLUDES = -I"/home/andrew/Scrivania/unipr/unipr/Algebra e Geometria/Lezione2-190225/Vettori/common" -I"/home/andrew/Scrivania/unipr/unipr/Algebra e Geometria/Lezione2-190225/Vettori/vettore"
+  OBJECT_DIR = CMakeFiles/Vettori.dir
+  OBJECT_FILE_DIR = CMakeFiles/Vettori.dir/common/start
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target Vettori
@@ -71,7 +78,7 @@ build CMakeFiles/Vettori.dir/main.cpp.o: CXX_COMPILER__Vettori_unscanned_Debug /
 #############################################
 # Link the executable Vettori
 
-build Vettori: CXX_EXECUTABLE_LINKER__Vettori_Debug CMakeFiles/Vettori.dir/common/function.cpp.o CMakeFiles/Vettori.dir/main.cpp.o
+build Vettori: CXX_EXECUTABLE_LINKER__Vettori_Debug CMakeFiles/Vettori.dir/common/function.cpp.o CMakeFiles/Vettori.dir/main.cpp.o CMakeFiles/Vettori.dir/common/start/start.cpp.o
   FLAGS = -g
   OBJECT_DIR = CMakeFiles/Vettori.dir
   POST_BUILD = :

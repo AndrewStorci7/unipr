@@ -10,4 +10,6 @@ add_executable(Vettori
         common/function.cpp
         common/functions.h
         vettore/vettore.h
-        main.cpp)
+        main.cpp
+        common/start/start.h
+        common/start/start.cpp)

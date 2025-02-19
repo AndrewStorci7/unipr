@@ -1,15 +1,14 @@
 #include <iostream>
-#include "vettore.h"
-#include "functions.h"
+#include <map>
+#include "common/start/start.h"
 
 int main() {
 
-    using Lezione2_Vettori::Vettore;
-    Vettore<int> v;
-    std::cin >> v;
-    std::cout << v;
+    using START_AEG::map_v;
 
-    do {
+    map_v v_vettori;
 
-    } while ();
+    START_AEG::start(std::move(v_vettori));
+
+    return 0; // end of the program, bye bye, salamaleku
 }

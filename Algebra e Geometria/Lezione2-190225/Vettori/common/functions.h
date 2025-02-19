@@ -2,37 +2,66 @@
 #define VETTORE_AEG_FUNCTIONS_H
 
 #include <iostream>
-#include <cstring>
 #include <string>
 #include <vector>
 
 namespace CF_AEG {
 
     /**
-     * Function that split into an array of numbers the string `str` using `delimiter`
+     * Function that split into an array of Ts the string `str` using `delimiter`
      * @param str {`std::string&`}
      * @param delimiter {`const std::string&`}
-     * @return {`std::vector<Number>`}
+     * @return {`std::vector<T>`}
      */
-    template <typename Number>
-    std::vector<Number>
+    template <typename T>
+    std::vector<T>
     split (
         const std::string &str,
         const std::string &delimiter = ", "
     ) {
 
-        std::vector<Number> str_splitted;
+        std::vector<T> str_splitted;
         size_t start = 0, end = 0;
 
         while (( end = str.find(delimiter, start)) != std::string::npos) {
-            str_splitted.push_back(Number(str.substr(start, end - start)));
+            str_splitted.push_back(str.substr(start, end - start));
             start = end + delimiter.size();
         }
-        str_splitted.push_back(Number(str.substr(start)));
+        str_splitted.push_back(str.substr(start));
 
         return str_splitted;
     }
 
+    /**
+     * PROVVISORIA
+     * @param str {`std::string&`}
+     * @param delimiter {`const std::string&`}
+     * @return
+     */
+    template <>
+    inline std::vector<std::string>
+    split<std::string> (
+        const std::string &str,
+        const std::string &delimiter
+    ) {
+        std::vector<std::string> str_splitted;
+        size_t start = 0, end = 0;
+
+        while (( end = str.find(delimiter, start)) != std::string::npos) {
+            str_splitted.push_back(str.substr(start, end - start));
+            start = end + delimiter.size();
+        }
+        str_splitted.push_back(str.substr(start));
+
+        return str_splitted;
+    }
+
+    /**
+     * Overload of template function `split<T>()` for type `int`
+     * @param str {`std::string&`}
+     * @param delimiter {`const std::string&`}
+     * @return
+     */
     template <>
     inline std::vector<int>
     split<int> (
@@ -51,6 +80,12 @@ namespace CF_AEG {
         return str_splitted;
     }
 
+    /**
+     * Overload of template function `split<T>()` for type `double`
+     * @param str {`std::string&`}
+     * @param delimiter {`const std::string&`}
+     * @return
+     */
     template <>
     inline std::vector<double>
     split<double> (
@@ -69,6 +104,11 @@ namespace CF_AEG {
         return str_splitted;
     }
 
+    /**
+     * Clear the console terminal
+     */
+    void clear_console();
+
 }
 
-#endif // #ifndef VETTORE_AEG_FUNCTIONS_H
+#endif // VETTORE_AEG_FUNCTIONS_H
