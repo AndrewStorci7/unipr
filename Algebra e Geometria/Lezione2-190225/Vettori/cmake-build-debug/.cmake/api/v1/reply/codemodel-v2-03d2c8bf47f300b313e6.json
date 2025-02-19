@@ -39,7 +39,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "Vettori::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-Vettori-Debug-7e8b122cc14dd71b7fc1.json",
+					"jsonFile" : "target-Vettori-Debug-fb784b5bb517bd11946f.json",
 					"name" : "Vettori",
 					"projectIndex" : 0
 				}
@@ -49,12 +49,12 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "/home/andrew-drink/Scrivania/unipr/unipr/Algebra e Geometria/Lezione2-190225/Vettori/cmake-build-debug",
-		"source" : "/home/andrew-drink/Scrivania/unipr/unipr/Algebra e Geometria/Lezione2-190225/Vettori"
+		"build" : "/home/andrew/Scrivania/unipr/unipr/Algebra e Geometria/Lezione2-190225/Vettori/cmake-build-debug",
+		"source" : "/home/andrew/Scrivania/unipr/unipr/Algebra e Geometria/Lezione2-190225/Vettori"
 	},
 	"version" : 
 	{
 		"major" : 2,
-		"minor" : 5
+		"minor" : 7
 	}
 }

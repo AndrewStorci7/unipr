@@ -1,0 +1,11 @@
+# ninja log v6
+209	248	1739981291945192243	Vettori	a5729a4b7c668d14
+1	209	1739981291737186034	CMakeFiles/Vettori.dir/common/function.cpp.o	b1084532dd3a5ee5
+2	183	1739981938905455285	CMakeFiles/Vettori.dir/main.cpp.o	28dce14ce6d5f3c
+1	167	1739982161086222603	CMakeFiles/Vettori.dir/vettore/vettore.cpp.o	f3507d10491ca6a7
+1	15	1739982444680034423	build.ninja	7ead241ca4202ba2
+1	163	1739983002311998959	CMakeFiles/Vettori.dir/common/function.cpp.o	b1084532dd3a5ee5
+0	175	1739983656399321631	CMakeFiles/Vettori.dir/common/function.cpp.o	b1084532dd3a5ee5
+1	217	1739983656400321665	CMakeFiles/Vettori.dir/main.cpp.o	28dce14ce6d5f3c
+1	216	1739983680185139158	CMakeFiles/Vettori.dir/main.cpp.o	28dce14ce6d5f3c
+216	256	1739983680401146534	Vettori	31c7fdeda01a7697
