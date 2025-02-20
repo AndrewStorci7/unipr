@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <cassert>
 
 #include "functions.h"
 
@@ -57,17 +58,42 @@ namespace Lezione2_Vettori {
             v_.pop_back();
         }
 
-        /// @brief Print the vector
+        /// @brief Display more graphically (like a matrix) the vector
         /// @param os {std::ostream&} 
-        void print(std::ostream& os) const {
+        void display(std::ostream& os) const {
             for ( int i = 0; i < v_.size(); ++i )
                 os << "x" << (i + 1) << "\t";
             
             os << std::endl;
             for ( int i = 0; i < v_.size(); ++i )
                 os << v_.at(i) << "\t";
-            
-            os << std::endl;
+        }
+
+        /**
+         * Print a simple vector
+         * @param os {std::ostream&}
+         */
+        void print(std::ostream& os) const {
+            for ( int i = 0; i < v_.size(); ++i ) {
+                if (i == v_.size() - 1)
+                    os << v_.at(i);
+                else os << v_.at(i) << ", ";
+            }
+        }
+
+        /**
+         * Check if the string passed to the function it's
+         * @param str {std::string}
+         */
+        void check(std::string& str) {
+            if (!str.empty()) {
+                auto str_splitted = CF_AEG::split<value_type>(str);
+                // dimension = str_splitted.size();
+                for (auto str : str_splitted)
+                    v_.push_back(value_type(str));
+            } else {
+                throw std::runtime_error("salamaleku scrivi qualcosa!");
+            }
         }
 
         /**
@@ -75,33 +101,34 @@ namespace Lezione2_Vettori {
          * @param is {std::istream&}
          */
         void scan(std::istream& is) {
-            std::string vector_string;
             try {
+                // clearing the buffer for secure reason
+                CF_AEG::clear_cin_buffer();
+                std::cout << "Inserisci il vettore \n[n, n, n, ...]: ";
+                std::string vector_string;
                 std::getline(is, vector_string);
                 if (std::cin.fail())
-                    throw;
-                if (!vector_string.empty()) {
-                    auto str_splitted = CF_AEG::split<value_type>(vector_string);
-                    // dimension = str_splitted.size();
-                    for (auto str : str_splitted)
-                        v_.push_back(value_type(str));
-                } else {
-                    throw;
-                }
-            } catch (...) {
-                std::cerr << "Error occurred while getting the vector from keyboard" << std::endl;
+                    throw std::runtime_error("salamaleku scrivi bene!");
+
+                assert(!std::cin.fail());
+
+                check(vector_string);
+            } catch (const std::exception& e) {
+                throw;
             }
         }
 
-        Vettore&& operator+(const Vettore& other) {
+        Vettore operator+(const Vettore& other) {
             if (v_.size() != other.v_.size())
-                throw std::invalid_argument("vector's dimension are different");
+                throw std::runtime_error("vector's dimension are different");
 
             Vettore ret;
+            ret.v_.resize(v_.size());
+
             for ( int i = 0; i < v_.size(); ++i )
                 ret.v_.at(i) = v_.at(i) + other.v_.at(i);
 
-            return std::move(ret);
+            return ret;
         }
 
         Vettore& operator=(const Vettore& other) {
@@ -109,13 +136,17 @@ namespace Lezione2_Vettori {
             return *this;
         }
 
-        void operator-(const Vettore& other) {
+        Vettore operator-(const Vettore& other) {
             if (v_.size() != other.v_.size())
                 throw std::invalid_argument("vector's dimension are different");
 
-            auto backup = this->v_;
+            Vettore ret;
+            ret.v_.resize(v_.size());
+
             for ( int i = 0; i < v_.size(); ++i )
-                v_.at(i) = backup.at(i) - other.v_.at(i);
+                ret.v_.at(i) = v_.at(i) - other.v_.at(i);
+
+            return ret;
         }
 
         // static size_t dimension() {

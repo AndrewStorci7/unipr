@@ -12,4 +12,7 @@ add_executable(Vettori
         vettore/vettore.h
         main.cpp
         common/start/start.h
-        common/start/start.cpp)
+        common/start/start.cpp
+        common/console/console.h
+        common/console/console.cpp
+)

@@ -1,7 +1,6 @@
 #ifndef VETTORE_AEG_FUNCTIONS_H
 #define VETTORE_AEG_FUNCTIONS_H
 
-#include <iostream>
 #include <string>
 #include <vector>
 
@@ -108,6 +107,19 @@ namespace CF_AEG {
      * Clear the console terminal
      */
     void clear_console();
+
+    /**
+     * Clear the std::cin buffer to avoid undefined behavior
+     */
+    void clear_cin_buffer();
+
+    /**
+     * Check if a string is similar to another avoiding case sensitiveness
+     * @param str1 {const std::string&}
+     * @param str2 {const std::string&}
+     * @return
+     */
+    bool caseInsensitiveCompare(const std::string& str1, const std::string& str2);
 
 }
 

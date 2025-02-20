@@ -1,4 +1,5 @@
 #include "start.h"
+#include "console/console.h"
 
 namespace START_AEG {
 
@@ -9,14 +10,21 @@ namespace START_AEG {
 
         // visual menu
         do {
-            CF_AEG::clear_console();
+            CF_AEG::clear_console(); // clear console for security reasons
+
+            CCC::print_colorized(); // set color for terminal
             std::cout << "1. Aggiungi un nuovo vettore [dimensione attuale: " << vet.size() << "]." << std::endl;
             std::cout << "2. Rimuovi un vettore." << std::endl;
             std::cout << "3. Somma tra due vettori." << std::endl;
             std::cout << "4. Sottrazione tra due vettori." << std::endl;
-            std::cout << "5. prodotto scalare tra due vettori." << std::endl;
+            std::cout << "5. Prodotto scalare tra due vettori." << std::endl;
             std::cout << "6. Prodotto vettoriale tra due vettori." << std::endl;
-            std::cout << "Quale operazione vuoi eseguire ? ";
+            std::cout << "7. Stampa tutti i vettori esistenti." << std::endl;
+            CCC::reset_terminal_color(); // reset color
+
+            CCC::print_colorized("green"); // set color for terminal
+            CCC::italic_font("Quale operazione vuoi eseguire ? ");
+            CCC::reset_terminal_color(); // reset color
 
             std::getline(std::cin, str);
 
@@ -60,40 +68,42 @@ namespace START_AEG {
                 // vectorial product of 2 vectors
                 break;
             }
+            case 7: {
+                // TODO:
+                // print very vector inside `vet`
+                menu_print(vet);
+                break;
+            }
             default:
                 break;
         }
     }
 
     void menu_add(map_v& vet) {
-
         // temporary variable that store the name of the index
         std::string index_vector;
-        while (index_vector.empty()) {
-            std::cout << "Inserisci il nome del vettore: ";
-            // std::getline(std::cin, index_vector);
-            std::cin >> index_vector;
-            if (std::cin.fail())
-                index_vector = "";
-        }
-
-        // validando il fatto che `index_vector`
-        assert(!index_vector.empty());
-
         try {
-            Vettore<int> v;
-            std::cin >> v;
-
-            // Check if input failed
-            if (std::cin.fail()) {
-                std::cin.clear();  // Clear error flags
-                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // Discard invalid input
-                throw std::runtime_error("Errore di input: impossibile leggere il vettore.");
+            while (index_vector.empty()) {
+                std::cout << "Inserisci il nome del vettore: ";
+                std::cin >> index_vector;
+                if (std::cin.fail()) {
+                    CF_AEG::clear_cin_buffer();
+                    index_vector = "";
+                }
             }
 
+            // validando il fatto che `index_vector` non sia vuoto
+            assert(!index_vector.empty());
+
+            Vettore<int> v;
+            std::cin >> v;
             vet[index_vector] = v;
+        } catch (const std::exception& e) {
+            std::cerr << "\nError occured on Lezione2_Vettori::scan()" << e.what() << std::endl;
+            vet.erase(index_vector);
         } catch (...) {
-            std::cerr << "Error occurred during adding a new vector inside `vet`";
+            std::cerr << "\nError occurred while getting the vector from keyboard" << std::endl;
+            vet.erase(index_vector);
         }
     }
 
@@ -106,9 +116,14 @@ namespace START_AEG {
         std::getline(std::cin, tmp);
         auto splitted = CF_AEG::split<std::string>(tmp);
 
-        Vettore<int> ret_addition = vet[splitted.at(0)] + vet[splitted.at(1)];
+        const Vettore<int> ret_addition = vet[splitted.at(0)] + vet[splitted.at(1)];
 
         std::cout << "Risultato ottenuto: " << ret_addition << std::endl;
+    }
+
+    void menu_print(const map_v& vet) {
+        for ( auto it = vet.begin(); it != vet.end(); ++it )
+            std::cout << it->first << " = { " << it->second << " };" << std::endl;
     }
 
 } // START_AEG

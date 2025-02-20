@@ -3,8 +3,6 @@
 
 #include <string>
 #include <map>
-#include <limits>
-#include <cassert>
 
 #include "vettore.h"
 
@@ -28,15 +26,21 @@ namespace START_AEG {
 
     /**
      *
-     * @param vet {}
+     * @param vet {map_v& vet}
      */
     void menu_sum(map_v& vet);
 
     /**
      *
-     * @param vet {}
+     * @param vet {map_v& vet}
      */
     void menu_add(map_v& vet);
+
+    /**
+     * Print a map composed by every vector added during the program
+     * @param vet {const map_v& vet}
+     */
+    void menu_print(const map_v& vet);
 
 } // START_AEG
 
