@@ -55,7 +55,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/home/andrew/Scrivania/unipr/unipr/Algebra e Geometria/Lezione2-190225/Vettori/cmake-build-debug"
+			"value" : "/home/andrew/Scrivania/unipr/unipr/Algebra e Geometria/Vettori/cmake-build-debug"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -543,7 +543,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/home/andrew/Scrivania/unipr/unipr/Algebra e Geometria/Lezione2-190225/Vettori/cmake-build-debug/CMakeFiles/pkgRedirects"
+			"value" : "/home/andrew/Scrivania/unipr/unipr/Algebra e Geometria/Vettori/cmake-build-debug/CMakeFiles/pkgRedirects"
 		},
 		{
 			"name" : "CMAKE_GENERATOR",
@@ -603,7 +603,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/home/andrew/Scrivania/unipr/unipr/Algebra e Geometria/Lezione2-190225/Vettori"
+			"value" : "/home/andrew/Scrivania/unipr/unipr/Algebra e Geometria/Vettori"
 		},
 		{
 			"name" : "CMAKE_INSTALL_PREFIX",
@@ -1151,7 +1151,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/home/andrew/Scrivania/unipr/unipr/Algebra e Geometria/Lezione2-190225/Vettori/cmake-build-debug"
+			"value" : "/home/andrew/Scrivania/unipr/unipr/Algebra e Geometria/Vettori/cmake-build-debug"
 		},
 		{
 			"name" : "Vettori_IS_TOP_LEVEL",
@@ -1175,7 +1175,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/home/andrew/Scrivania/unipr/unipr/Algebra e Geometria/Lezione2-190225/Vettori"
+			"value" : "/home/andrew/Scrivania/unipr/unipr/Algebra e Geometria/Vettori"
 		},
 		{
 			"name" : "_CMAKE_LINKER_PUSHPOP_STATE_SUPPORTED",

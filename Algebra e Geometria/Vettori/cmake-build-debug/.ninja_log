@@ -1,0 +1,23 @@
+# ninja log v6
+1	15	1740161780313298568	build.ninja	7ead241ca4202ba2
+2	365	1740176702633872252	CMakeFiles/Vettori.dir/common/console/console.cpp.o	9549f89422cebcef
+1	356	1740176702632872221	CMakeFiles/Vettori.dir/main.cpp.o	4feed5d8fa65ef50
+1	1385	1740176702632872221	CMakeFiles/Vettori.dir/common/function.cpp.o	ba44bc56b489adee
+2	532	1740176702633872252	CMakeFiles/Vettori.dir/common/start/start.cpp.o	fafb3fde1901bbda
+1385	1450	1740176704016915235	Vettori	1389b7b431dd5cef
+1	1165	1740176976516298466	CMakeFiles/Vettori.dir/common/function.cpp.o	ba44bc56b489adee
+1165	1225	1740176977680333971	Vettori	1389b7b431dd5cef
+2	349	1740177139329245766	CMakeFiles/Vettori.dir/main.cpp.o	4feed5d8fa65ef50
+2	371	1740177139329245766	CMakeFiles/Vettori.dir/common/console/console.cpp.o	9549f89422cebcef
+2	540	1740177139329245766	CMakeFiles/Vettori.dir/common/start/start.cpp.o	fafb3fde1901bbda
+1	1187	1740177139329245766	CMakeFiles/Vettori.dir/common/function.cpp.o	ba44bc56b489adee
+1187	1249	1740177140514281650	Vettori	1389b7b431dd5cef
+2	1186	1740177299349077977	CMakeFiles/Vettori.dir/common/function.cpp.o	ba44bc56b489adee
+1186	1248	1740177300533113642	Vettori	1389b7b431dd5cef
+2	1209	1740177395496970498	CMakeFiles/Vettori.dir/common/function.cpp.o	ba44bc56b489adee
+1209	1270	1740177396704006767	Vettori	1389b7b431dd5cef
+1	377	1740177754489721244	CMakeFiles/Vettori.dir/main.cpp.o	4feed5d8fa65ef50
+2	413	1740177754490721273	CMakeFiles/Vettori.dir/common/console/console.cpp.o	9549f89422cebcef
+1	587	1740177754489721244	CMakeFiles/Vettori.dir/common/start/start.cpp.o	fafb3fde1901bbda
+1	1257	1740177754489721244	CMakeFiles/Vettori.dir/common/function.cpp.o	ba44bc56b489adee
+1257	1319	1740177755745758757	Vettori	1389b7b431dd5cef

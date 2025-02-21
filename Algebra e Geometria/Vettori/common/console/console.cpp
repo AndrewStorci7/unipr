@@ -12,25 +12,25 @@ namespace CCC {
      * @param rand  if set to <code>true</code> it will pick a random color
      */
     void print_colorized(std::string&& color, const bool rand) {
-        using CF_AEG::caseInsensitiveCompare;
+        using CF_AEG::ci_compare;
 
         // if rand is set to true it will set a random color
         if (rand)
             color = colors_string.at(std::rand() % colors_string.size());
 
-        if (caseInsensitiveCompare(color, "cyan"))
+        if (ci_compare(color, "cyan"))
             std::cout << CYAN;
-        else if (caseInsensitiveCompare(color, "red"))
+        else if (ci_compare(color, "red"))
             std::cout << RED;
-        else if (caseInsensitiveCompare(color, "green"))
+        else if (ci_compare(color, "green"))
             std::cout << GREEN;
-        else if (caseInsensitiveCompare(color, "blue"))
+        else if (ci_compare(color, "blue"))
             std::cout << BLUE;
-        else if (caseInsensitiveCompare(color, "yellow"))
+        else if (ci_compare(color, "yellow"))
             std::cout << YELLOW;
-        else if (caseInsensitiveCompare(color, "magenta"))
+        else if (ci_compare(color, "magenta"))
             std::cout << MAGENTA;
-        else if (caseInsensitiveCompare(color, "white"))
+        else if (ci_compare(color, "white"))
             std::cout << WHITE;
         else
             std::cout << CYAN;
@@ -43,25 +43,25 @@ namespace CCC {
      * @param rand  if set to <code>true</code> it will pick a random color
      */
     void mk_colorized(std::string&& str, std::string&& color, const bool rand) {
-        using CF_AEG::caseInsensitiveCompare;
+        using CF_AEG::ci_compare;
 
         // if rand is set to true it will set a random color
         if (rand)
             color = colors_string.at(std::rand() % colors_string.size());
 
-        if (caseInsensitiveCompare(color, "cyan"))
+        if (ci_compare(color, "cyan"))
             str = CYAN + str + RESET;
-        else if (caseInsensitiveCompare(color, "red"))
+        else if (ci_compare(color, "red"))
             str = RED + str + RESET;
-        else if (caseInsensitiveCompare(color, "green"))
+        else if (ci_compare(color, "green"))
             str = GREEN + str + RESET;
-        else if (caseInsensitiveCompare(color, "blue"))
+        else if (ci_compare(color, "blue"))
             str = BLUE + str + RESET;
-        else if (caseInsensitiveCompare(color, "yellow"))
+        else if (ci_compare(color, "yellow"))
             str = YELLOW + str + RESET;
-        else if (caseInsensitiveCompare(color, "magenta"))
+        else if (ci_compare(color, "magenta"))
             str = MAGENTA + str + RESET;
-        else if (caseInsensitiveCompare(color, "white"))
+        else if (ci_compare(color, "white"))
             str = WHITE + str + RESET;
         else
             str = CYAN + str + RESET;
@@ -75,25 +75,25 @@ namespace CCC {
      * @return same string passed as parameter, but colorized
      */
     std::string& mk_colorized(std::string& str, std::string&& color, const bool rand) {
-        using CF_AEG::caseInsensitiveCompare;
+        using CF_AEG::ci_compare;
 
         // if rand is set to true it will set a random color
         if (rand)
             color = colors_string.at(std::rand() % colors_string.size());
 
-        if (caseInsensitiveCompare(color, "cyan"))
+        if (ci_compare(color, "cyan"))
             str = CYAN + str + RESET;
-        else if (caseInsensitiveCompare(color, "red"))
+        else if (ci_compare(color, "red"))
             str = RED + str + RESET;
-        else if (caseInsensitiveCompare(color, "green"))
+        else if (ci_compare(color, "green"))
             str = GREEN + str + RESET;
-        else if (caseInsensitiveCompare(color, "blue"))
+        else if (ci_compare(color, "blue"))
             str = BLUE + str + RESET;
-        else if (caseInsensitiveCompare(color, "yellow"))
+        else if (ci_compare(color, "yellow"))
             str = YELLOW + str + RESET;
-        else if (caseInsensitiveCompare(color, "magenta"))
+        else if (ci_compare(color, "magenta"))
             str = MAGENTA + str + RESET;
-        else if (caseInsensitiveCompare(color, "white"))
+        else if (ci_compare(color, "white"))
             str = WHITE + str + RESET;
         else
             str = CYAN + str + RESET;

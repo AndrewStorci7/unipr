@@ -18,6 +18,7 @@ namespace Lezione2_Vettori {
         // using cref = const reference;
 
         Vettore() = default;
+        Vettore(const std::vector<value_type>& vector) : v_(vector) {}
         Vettore(const Vettore& vet) : v_(vet.v_) {}
         Vettore(Vettore&& other) noexcept : v_(other.v_) {}
 
@@ -25,7 +26,7 @@ namespace Lezione2_Vettori {
          * Print the dimension of the vector
          * @return the size (or dimension) of the vector
          */
-        size_t size() const {
+        std::size_t size() const {
             return v_.size();
         }
 
@@ -34,30 +35,31 @@ namespace Lezione2_Vettori {
          * @param index
          * @return
          */
-        reference get(const int& index) {
+        value_type get(const int& index) const {
+            value_type ret;
             try {
-                reference ret = v_.at(index);
-                return ret;
+                ret = v_.at(index);
             } catch (...) {
-                std::cerr << "Error occured while accessing position " << index << " on the vector" << std::endl;
-                return 0;
+                ret = 0;
+                throw std::invalid_argument("Error occured while accessing position '" + std::to_string(index) + "' on the vector");
             }
+            return ret;
         }
 
-        /**
-         *
-         * @param index
-         * @return
-         */
-        const reference get(const int& index) const {
-            try {
-                const reference ret = v_.at(index);
-                return ret;
-            } catch (...) {
-                std::cerr << "Error occured while accessing position " << index << " on the vector" << std::endl;
-                return 0;
-            }
-        }
+        // /**
+        //  *
+        //  * @param index
+        //  * @return
+        //  */
+        // const reference get(const int& index) const {
+        //     try {
+        //         const reference ret = v_.at(index);
+        //         return ret;
+        //     } catch (...) {
+        //         std::cerr << "Error occured while accessing position " << index << " on the vector" << std::endl;
+        //         return 0;
+        //     }
+        // }
         
         /// @brief Add a new element in the vector
         /// @param val {value_type} 
@@ -191,16 +193,24 @@ namespace Lezione2_Vettori {
      */
     template <typename Number>
     Number scalar_product(const Vettore<Number>& left, const Vettore<Number>& right) {
-        Number ret;
-        if (left.size() != right.size())
-            throw std::runtime_error("vector's dimension are different");
 
+        Number ret;
         try {
+            if (left.size() != right.size())
+                throw std::runtime_error("vector's dimension are different");
+
+            // std::cout << "dimensione left.size(): " << left.size() << " e " << right.size() << std::endl;
+            assert(left.size() != 0 and right.size() != 0);
+
             for (int i = 0; i < left.size(); ++i)
                 ret += left.get(i) * right.get(i);
-        } catch (...) {
+        } catch (const std::invalid_argument& e) {
             ret = 0;
+            throw;
         }
+
+        std::string nothing;
+        std::cin >> nothing;
 
         return ret;
     }

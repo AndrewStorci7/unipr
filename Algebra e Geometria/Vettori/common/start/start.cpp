@@ -49,44 +49,49 @@ namespace START_AEG {
     }
 
     void menu(const std::string& choise, map_v& vet, std::string&& last_output) {
-        switch (std::stoi(choise)) {
-            case 1: {
-                /// Aggiunge un nuovo vettore all'interno di vet {map<std::string, Vettore<int>>}
-                menu_add(vet, std::move(last_output));
-                break;
+        try {
+            const int choise_int = std::stoi(choise);
+            switch (choise_int) {
+                case 1: {
+                    /// Aggiunge un nuovo vettore all'interno di vet {map<std::string, Vettore<int>>}
+                    menu_add(vet, std::move(last_output));
+                    break;
+                }
+                case 2: {
+                    // TODO:
+                    // remove vector
+                    break;
+                }
+                case 3: {
+                    /// Somma due vettori
+                    menu_sum(vet, std::move(last_output));
+                    break;
+                }
+                case 4: {
+                    // TODO:
+                    // substract 2 vectors
+                    break;
+                }
+                case 5: {
+                    /// Prodotto scalare di due vettori
+                    menu_pscalar(vet, std::move(last_output));
+                    break;
+                }
+                case 6: {
+                    // TODO:
+                    // vectorial product of 2 vectors
+                    break;
+                }
+                case 7: {
+                    /// Stampa tutti i vettori inseriti
+                    menu_print(vet, std::move(last_output));
+                    break;
+                }
+                default:
+                    break;
             }
-            case 2: {
-                // TODO:
-                // remove vector
-                break;
-            }
-            case 3: {
-                /// Somma due vettori
-                menu_sum(vet, std::move(last_output));
-                break;
-            }
-            case 4: {
-                // TODO:
-                // substract 2 vectors
-                break;
-            }
-            case 5: {
-                /// Prodotto scalare di due vettori
-                menu_pscalar(vet, std::move(last_output));
-                break;
-            }
-            case 6: {
-                // TODO:
-                // vectorial product of 2 vectors
-                break;
-            }
-            case 7: {
-                /// Stampa tutti i vettori inseriti
-                menu_print(vet, std::move(last_output));
-                break;
-            }
-            default:
-                break;
+        } catch (const std::invalid_argument& e) {
+            std::cerr << "Errore: " << e.what() << std::endl;
         }
     }
 
@@ -155,24 +160,36 @@ namespace START_AEG {
         last_output = "Prodotto scalare calcolato: ";
         std::string str;
         std::cout << "Scegli due vettori \n";
-        std::cout << print_keyvalues_only(vet) << "\n>> ";
+        std::cout << print_keyvalues_only(vet) << std::endl;
         while (str.empty()) {
-            std::cout << "Inserisci il nome dei vettori: ";
+            std::cout << ">> ";
             std::getline(std::cin, str);
             if (std::cin.fail())
                 CF_AEG::clear_cin_buffer();
         }
 
+        // auto san_str = CF_AEG::sstring_r(str);
         auto keys = CF_AEG::split<std::string>(str);
+
+        // std::cout << "sanitized string: " << san_str << std::endl;
+        // std::cout << "Keys: " << keys[0] << " - " << keys[1] << std::endl;
+        /// convalidate the type of `vet[keys[0]]`
+        std::cout << vet[keys[0]] << " - " << vet[keys[1]] << std::endl;
+        assert(typeid(vet[keys[0]]).name() != "N16Lezione2_Vettori7VettoreIiEE");
+
         // prendo solamente i primi due vettori (non credo nemmeno esisti il prodotto scalare di piu' di due vettori)
         try {
-            auto result = CCC::mkf_bold(std::to_string(Lezione2_Vettori::scalar_product(
+
+            assert(vet[keys[0]].size() != 0 and vet[keys[1]].size() != 0);
+
+            auto result = scalar_product(
                 vet[keys[0]],
                 vet[keys[1]]
-            )));
-            last_output += CCC::mk_colorized(result);
+            );
+            auto result_str = CCC::mkf_bold(std::to_string(result));
+            last_output += CCC::mk_colorized(result_str);
         } catch (const std::runtime_error& e) {
-            std::cerr << std::endl << e.what() << std::endl;
+            std::cerr << std::endl << "Error: " << e.what() << std::endl;
         } catch (...) {
             std::cerr << std::endl << "Unknown error caught during product scalar" << std::endl;
         }

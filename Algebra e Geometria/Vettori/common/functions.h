@@ -1,10 +1,22 @@
 #ifndef VETTORE_AEG_FUNCTIONS_H
 #define VETTORE_AEG_FUNCTIONS_H
 
+#include <iostream>
 #include <string>
 #include <vector>
+#include <regex>
 
 namespace CF_AEG {
+
+    extern std::regex regx; // list of character that are not allowed, used for sanitize strings
+
+    /**
+     * Sanitize a string from special characters, by default they will be erased.
+     * @param str string to sanitize
+     * @param replaceWith replace special characters with era <code>replaceWith</code>
+     */
+    void sstring(std::string& str, char replaceWith = ' ');
+    std::string sstring_r(std::string str, char replaceWith = ' ');
 
     /**
      * Function that split into an array of Ts the string `str` using `delimiter`
@@ -23,7 +35,9 @@ namespace CF_AEG {
         size_t start = 0, end = 0;
 
         while (( end = str.find(delimiter, start)) != std::string::npos) {
-            str_splitted.push_back(str.substr(start, end - start));
+            const std::string substring = str.substr(start, end - start);
+            // auto san_str = sanitizeString(substring); // to fix
+            str_splitted.push_back(substring);
             start = end + delimiter.size();
         }
         str_splitted.push_back(str.substr(start));
@@ -47,7 +61,11 @@ namespace CF_AEG {
         size_t start = 0, end = 0;
 
         while (( end = str.find(delimiter, start)) != std::string::npos) {
-            str_splitted.push_back(str.substr(start, end - start));
+            std::cout << "String to split: \"" << str << "\" ===> ";
+            auto substring = str.substr(start, end - start);
+            std::cout << "\"" << substring << "\"";
+            auto san_str = sstring_r(substring);
+            str_splitted.push_back(san_str);
             start = end + delimiter.size();
         }
         str_splitted.push_back(str.substr(start));
@@ -114,7 +132,7 @@ namespace CF_AEG {
      * @param str2 {const std::string&}
      * @return
      */
-    bool caseInsensitiveCompare(const std::string& str1, const std::string& str2);
+    bool ci_compare(const std::string& str1, const std::string& str2);
 
 }
 
