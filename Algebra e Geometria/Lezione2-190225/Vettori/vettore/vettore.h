@@ -14,16 +14,29 @@ namespace Lezione2_Vettori {
     class Vettore {
     public:
         using value_type = T;
-        using ref = value_type&;
-        using cref = const ref;
+        using reference = value_type&;
+        // using cref = const reference;
 
         Vettore() = default;
         Vettore(const Vettore& vet) : v_(vet.v_) {}
         Vettore(Vettore&& other) noexcept : v_(other.v_) {}
 
-        ref get(const int& index) {
+        /**
+         * Print the dimension of the vector
+         * @return the size (or dimension) of the vector
+         */
+        size_t size() const {
+            return v_.size();
+        }
+
+        /**
+         *
+         * @param index
+         * @return
+         */
+        reference get(const int& index) {
             try {
-                ref ret = v_.at(index);  
+                reference ret = v_.at(index);
                 return ret;
             } catch (...) {
                 std::cerr << "Error occured while accessing position " << index << " on the vector" << std::endl;
@@ -31,9 +44,14 @@ namespace Lezione2_Vettori {
             }
         }
 
-        cref get(const int& index) const {
+        /**
+         *
+         * @param index
+         * @return
+         */
+        const reference get(const int& index) const {
             try {
-                cref ret = v_.at(index);
+                const reference ret = v_.at(index);
                 return ret;
             } catch (...) {
                 std::cerr << "Error occured while accessing position " << index << " on the vector" << std::endl;
@@ -48,8 +66,8 @@ namespace Lezione2_Vettori {
         }
 
         /// @brief Add a new element in the vector 
-        /// @param val {ref}
-        void push(ref val) {
+        /// @param val {reference}
+        void push(reference val) {
             v_.push_back(val);
         }
 
@@ -79,6 +97,16 @@ namespace Lezione2_Vettori {
                     os << v_.at(i);
                 else os << v_.at(i) << ", ";
             }
+        }
+
+        std::string to_string() const {
+            std::string ret;
+            for ( int i = 0; i < v_.size(); ++i ) {
+                if (i == v_.size() - 1)
+                    ret += std::to_string(v_.at(i));
+                else ret += std::to_string(v_.at(i)) + ", ";
+            }
+            return ret;
         }
 
         /**
@@ -149,14 +177,47 @@ namespace Lezione2_Vettori {
             return ret;
         }
 
-        // static size_t dimension() {
-        //     return v_.size();
-        // }
-
     private:
         std::vector<value_type> v_;
         // static size_t dimension;
     };
+
+    /**
+     * Prodotto scalare
+     * @tparam Number
+     * @param left
+     * @param right
+     * @return
+     */
+    template <typename Number>
+    Number scalar_product(const Vettore<Number>& left, const Vettore<Number>& right) {
+        Number ret;
+        if (left.size() != right.size())
+            throw std::runtime_error("vector's dimension are different");
+
+        try {
+            for (int i = 0; i < left.size(); ++i)
+                ret += left.get(i) * right.get(i);
+        } catch (...) {
+            ret = 0;
+        }
+
+        return ret;
+    }
+
+    /**
+     * Prodotto vettoriale
+     * @tparam Number
+     * @param left
+     * @param right
+     * @return
+     */
+    template <typename Number>
+    Number vectorial_product(const Vettore<Number>& left, const Vettore<Number>& right) {
+        // TODO
+        Number t;
+        return t;
+    }
 
     template <typename T>
     void operator+=(Vettore<T>& left, const Vettore<T>& right) {

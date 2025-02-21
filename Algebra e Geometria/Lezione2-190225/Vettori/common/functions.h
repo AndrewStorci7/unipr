@@ -16,7 +16,7 @@ namespace CF_AEG {
     std::vector<T>
     split (
         const std::string &str,
-        const std::string &delimiter = ", "
+        const std::string &delimiter = ","
     ) {
 
         std::vector<T> str_splitted;
@@ -102,11 +102,6 @@ namespace CF_AEG {
 
         return str_splitted;
     }
-
-    /**
-     * Clear the console terminal
-     */
-    void clear_console();
 
     /**
      * Clear the std::cin buffer to avoid undefined behavior

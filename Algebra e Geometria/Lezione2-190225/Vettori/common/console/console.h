@@ -16,7 +16,7 @@
 #define ITALIC  "\033[3m"
 #define BOLD    "\033[1m"
 
-/// Console Colorized Coconut
+/// Coconut Colorized Console
 namespace CCC {
 
     extern std::vector<std::string> colors_string;
@@ -30,6 +30,16 @@ namespace CCC {
     // static void print_colorized(const char* color);
 
     /**
+     * Similar to `print_colorized` but it returns a string colorized
+     * @param str
+     * @param color
+     * @param rand
+     * @return
+     */
+    void mk_colorized(std::string&& str, std::string&& color = "cyan", bool rand = false);
+    std::string& mk_colorized(std::string& str, std::string&& color = "cyan", bool rand = false);
+
+    /**
      * Reset the color setted in the terminal
      */
     void reset_terminal_color();
@@ -37,8 +47,26 @@ namespace CCC {
     /**
      * Make the font italic
      * @param str
+     * @param reset if setted to true it will reset the color
      */
-    void italic_font(const std::string& str);
+    // std::string mkf_italic(const std::string& str);
+    std::string mkf_italic(std::string& str, bool reset = false);
+    std::string mkf_italic(std::string&& str, bool reset = false);
+    // std::string mkf_italic(const char* str, bool reset = false);
+
+    /**
+     * Make the font bold
+     * @param str
+     */
+    // std::string mkf_bold(const std::string& str);
+    std::string mkf_bold(std::string& str, bool reset = false);
+    std::string mkf_bold(std::string&& str, bool reset = false);
+    // std::string mkf_bold(const char* str, bool reset = false);
+
+    /**
+     * Clear the console terminal
+     */
+    void clear_console();
 
 } // namespace CCC
 

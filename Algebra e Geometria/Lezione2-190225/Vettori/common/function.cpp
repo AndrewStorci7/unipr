@@ -5,22 +5,6 @@
 namespace CF_AEG {
 
     /**
-     * NOT WORKING!!!
-     * Clear the console terminal
-     */
-    void clear_console() {
-#if defined _WIN32
-        system("cls");
-        //clrscr(); // including header file : conio.h
-#elif defined (__LINUX__) || defined(__gnu_linux__) || defined(__linux__)
-        system("clear");
-        std::cout<< u8"\033[2J\033[1;1H"; //Using ANSI Escape Sequences
-#elif defined (__APPLE__)
-        system("clear");
-#endif
-    }
-
-    /**
      * Clear the std::cin buffer to avoid undefined behavior
      */
     void clear_cin_buffer() {
@@ -28,6 +12,12 @@ namespace CF_AEG {
         std::cin.ignore ( std::numeric_limits<std::streamsize>::max() , '\n' );    // Get rid of any garbage that user might have entered
     }
 
+    /**
+     * Check if a string is similar to another avoiding case sensitiveness
+     * @param str1 {const std::string&}
+     * @param str2 {const std::string&}
+     * @return bool
+     */
     bool caseInsensitiveCompare(const std::string& str1, const std::string& str2) {
         if (str1.length() != str2.length()) return false;
 
