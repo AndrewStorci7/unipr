@@ -8,7 +8,7 @@ include_directories(vettore)
 
 add_executable(Vettori
         common/function.cpp
-        common/functions.h
+        common/function.h
         vettore/vettore.h
         main.cpp
         common/start/start.h

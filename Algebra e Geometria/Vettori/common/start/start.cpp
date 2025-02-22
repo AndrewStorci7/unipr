@@ -9,11 +9,27 @@ namespace START_AEG {
     std::string choise;        // contains the choise of the user based on choises from menu
     bool exit = false;         // default value: false
 
-    void start(map_v&& vet) {
+    /**
+         * Scan from keyboard
+         * @param str
+         * @param map
+         */
+    void scan(std::string& str, const map_v& map) {
+        std::cout << "Scegli due vettori \n";
+        std::cout << print_keyvalues_only(map) << std::endl;
+        while (str.empty()) {
+            std::cout << ">> ";
+            std::getline(std::cin, str);
+            if (std::cin.fail())
+                CF_AEG::clear_cin_buffer();
+        }
+    }
+
+    void start(map_v&& map) {
         // visual menu
         do {
             // update the actual_dimension variable
-            actual_size = CCC::mkf_bold("[dimensione attuale: " + std::to_string(vet.size()) + "].");
+            actual_size = CCC::mkf_bold("[dimensione attuale: " + std::to_string(map.size()) + "].");
             CCC::mk_colorized(std::move(h_last_output), "magenta");
 
             CCC::clear_console(); // clear console for security reasons
@@ -30,8 +46,9 @@ namespace START_AEG {
             std::cout << "3. Somma tra due vettori." << std::endl;
             std::cout << "4. Sottrazione tra due vettori." << std::endl;
             std::cout << "5. Prodotto scalare tra due vettori." << std::endl;
-            std::cout << "6. Prodotto vettoriale tra due vettori." << std::endl;
-            std::cout << "7. Stampa tutti i vettori esistenti." << std::endl;
+            std::cout << "6. Norma di un vettore." << std::endl;
+            std::cout << "7. Prodotto vettoriale tra due vettori." << std::endl;
+            std::cout << "8. Stampa tutti i vettori esistenti." << std::endl;
             CCC::reset_terminal_color(); // reset color
 
             CCC::print_colorized("green"); // set color for terminal
@@ -41,20 +58,20 @@ namespace START_AEG {
             std::getline(std::cin, choise);
 
             if (choise == "salamaleku") exit = !exit;
-            else menu(choise, vet, std::move(last_output));
+            else menu(choise, map, std::move(last_output));
 
         } while (!exit);
 
         std::cout << "Bye Bye, Salamaleku!" << std::endl;
     }
 
-    void menu(const std::string& choise, map_v& vet, std::string&& last_output) {
+    void menu(const std::string& choise, map_v& map, std::string&& last_output) {
         try {
             const int choise_int = std::stoi(choise);
             switch (choise_int) {
                 case 1: {
-                    /// Aggiunge un nuovo vettore all'interno di vet {map<std::string, Vettore<int>>}
-                    menu_add(vet, std::move(last_output));
+                    /// Aggiunge un nuovo vettore all'interno di map {map<std::string, Vettore<int>>}
+                    menu_add(map, std::move(last_output));
                     break;
                 }
                 case 2: {
@@ -64,7 +81,7 @@ namespace START_AEG {
                 }
                 case 3: {
                     /// Somma due vettori
-                    menu_sum(vet, std::move(last_output));
+                    menu_sum(map, std::move(last_output));
                     break;
                 }
                 case 4: {
@@ -74,17 +91,23 @@ namespace START_AEG {
                 }
                 case 5: {
                     /// Prodotto scalare di due vettori
-                    menu_pscalar(vet, std::move(last_output));
+                    menu_pscalar(map, std::move(last_output));
                     break;
                 }
                 case 6: {
-                    // TODO:
-                    // vectorial product of 2 vectors
+                    /// Norma di un vettore
+                    menu_norma(map, std::move(last_output));
                     break;
                 }
                 case 7: {
+                    // TODO:
+                    // vectorial product of 2 vectors
+                    menu_pvectorial(map, std::move(last_output));
+                    break;
+                }
+                case 8: {
                     /// Stampa tutti i vettori inseriti
-                    menu_print(vet, std::move(last_output));
+                    menu_print(map, std::move(last_output));
                     break;
                 }
                 default:
@@ -97,10 +120,10 @@ namespace START_AEG {
 
     /**
      *
-     * @param vet
+     * @param map
      * @param last_output
      */
-    void menu_sum(map_v& vet, std::string&& last_output) {
+    void menu_sum(map_v& map, std::string&& last_output) {
         std::string tmp, output;
         std::cout << "Inserisci i nomi dei vettori che vuoi utilizzare;" <<
             CCC::mkf_bold(CCC::mkf_italic("\n!Attenzione! per questione salamalekuniane verrano presi in considerazione solamente i primi due indici inseriti")) <<
@@ -109,7 +132,7 @@ namespace START_AEG {
         std::getline(std::cin, tmp);
         auto splitted = CF_AEG::split<std::string>(tmp);
 
-        const Vettore<int> ret_addition = vet[splitted.at(0)] + vet[splitted.at(1)];
+        const Vettore<int> ret_addition = map[splitted.at(0)] + map[splitted.at(1)];
 
         output = "Risultato ottenuto: " + ret_addition.to_string();
         last_output = output;
@@ -119,10 +142,10 @@ namespace START_AEG {
 
     /**
      *
-     * @param vet
+     * @param map
      * @param last_output
      */
-    void menu_add(map_v& vet, std::string&& last_output) {
+    void menu_add(map_v& map, std::string&& last_output) {
         // temporary variable that store the name of the index
         std::string index_vector;
         try {
@@ -140,81 +163,148 @@ namespace START_AEG {
 
             Vettore<int> v;
             std::cin >> v;
-            vet[index_vector] = v;
+            map[index_vector] = v;
         } catch (const std::exception& e) {
             std::cerr << "\nError occured on Lezione2_Vettori::scan()" << e.what() << std::endl;
-            vet.erase(index_vector);
+            map.erase(index_vector);
         } catch (...) {
             std::cerr << "\nError occurred while getting the vector from keyboard" << std::endl;
-            vet.erase(index_vector);
+            map.erase(index_vector);
         }
     }
 
     /**
      *
-     * @param vet
+     * @param map
      * @param last_output
      */
-    void menu_pscalar(map_v& vet, std::string&& last_output) {
-
+    void menu_pscalar(map_v& map, std::string&& last_output) {
         last_output = "Prodotto scalare calcolato: ";
         std::string str;
-        std::cout << "Scegli due vettori \n";
-        std::cout << print_keyvalues_only(vet) << std::endl;
-        while (str.empty()) {
-            std::cout << ">> ";
-            std::getline(std::cin, str);
-            if (std::cin.fail())
-                CF_AEG::clear_cin_buffer();
-        }
+        scan(str, map);
 
-        // auto san_str = CF_AEG::sstring_r(str);
         auto keys = CF_AEG::split<std::string>(str);
-
-        // std::cout << "sanitized string: " << san_str << std::endl;
-        // std::cout << "Keys: " << keys[0] << " - " << keys[1] << std::endl;
-        /// convalidate the type of `vet[keys[0]]`
-        std::cout << vet[keys[0]] << " - " << vet[keys[1]] << std::endl;
-        assert(typeid(vet[keys[0]]).name() != "N16Lezione2_Vettori7VettoreIiEE");
 
         // prendo solamente i primi due vettori (non credo nemmeno esisti il prodotto scalare di piu' di due vettori)
         try {
+            // check if teh vector selected exists
+            if (!CF_AEG::check_if_exists(map, keys)) {
+                last_output = "I vettori selezionati non esistono";
+                return;
+            }
 
-            assert(vet[keys[0]].size() != 0 and vet[keys[1]].size() != 0);
+            assert(typeid(map[keys[0]]).name() != "N16Lezione2_Vettori7VettoreIiEE");
 
             auto result = scalar_product(
-                vet[keys[0]],
-                vet[keys[1]]
+                map[keys[0]],
+                map[keys[1]]
             );
             auto result_str = CCC::mkf_bold(std::to_string(result));
             last_output += CCC::mk_colorized(result_str);
+
+            // check if they
+            assert(map[keys[0]].size() != 0 and map[keys[1]].size() != 0);
         } catch (const std::runtime_error& e) {
-            std::cerr << std::endl << "Error: " << e.what() << std::endl;
+            std::string tmp_error = "Error: " + std::string(e.what());
+            last_output = CCC::mk_colorized(tmp_error, "red");
         } catch (...) {
-            std::cerr << std::endl << "Unknown error caught during product scalar" << std::endl;
+            std::string tmp_error = "Unknown error caught during product scalar";
+            last_output = CCC::mk_colorized(tmp_error, "red");
+        }
+    }
+
+    /**
+     * Handle norma
+     * @param map
+     * @param last_output
+     */
+    void menu_norma(map_v& map, std::string&& last_output) {
+        std::string str;
+        scan(str, map);
+
+        last_output = "Norma calcolata: ";
+        auto keys = CF_AEG::split<std::string>(str);
+
+        try {
+            // check if teh vector selected exists
+            if (!CF_AEG::check_if_exists(map, keys)) {
+                last_output = "I vettori selezionati non esistono";
+                return;
+            }
+
+            // For the norma I will take only the first key
+            auto result = norma(map[keys[0]]);
+
+            if (result == -1)
+                last_output += "operazione eseguita su un vettore nullo (" + CCC::mkf_bold(std::to_string(static_cast<int>(result))) + ")";
+            else {
+                std::string string_bold = CCC::mkf_bold(std::to_string(result));
+                last_output += CCC::mk_colorized(string_bold);
+            }
+        } catch (const std::runtime_error& e) {
+            std::string tmp_error = "Error: " + std::string(e.what());
+            last_output = CCC::mk_colorized(tmp_error, "red");
+        } catch (...) {
+            std::string tmp_error = "Unknown error caught during product scalar";
+            last_output = CCC::mk_colorized(tmp_error, "red");
+        }
+    }
+
+    /**
+     * Handle vectorial product
+     * @param vet
+     * @param last_output
+     */
+    void menu_pvectorial(map_v& map, std::string&& last_output) {
+        std::string str;
+        scan(str, map);
+
+        last_output = "Prodotto vettoriale calcolato: ";
+        auto keys = CF_AEG::split<std::string>(str);
+
+        try {
+            // check if teh vector selected exists
+            if (!CF_AEG::check_if_exists(map, keys)) {
+                last_output = "I vettori selezionati non esistono";
+                return;
+            }
+
+            auto result = vectorial_product(
+                map[keys[0]],
+                map[keys[1]]
+            );
+
+            std::string string_bold = CCC::mkf_bold(result.to_string());
+            last_output += CCC::mk_colorized(string_bold);
+        } catch (const std::runtime_error& e) {
+            std::string tmp_error = "Error: " + std::string(e.what());
+            last_output = CCC::mk_colorized(tmp_error, "red");
+        } catch (...) {
+            std::string tmp_error = "Unknown error caught during product scalar";
+            last_output = CCC::mk_colorized(tmp_error, "red");
         }
     }
 
     /**
      * Print a map composed by every vector added during the program
-     * @param vet
+     * @param map
      * @param last_output
      */
-    void menu_print(const map_v& vet, std::string&& last_output) {
+    void menu_print(const map_v& map, std::string&& last_output) {
         last_output.clear(); // clearing last_output
-        for ( auto it = vet.begin(); it != vet.end(); ++it )
-            last_output += it->first + " = { " + it->second.to_string() + " };\n";
+        for ( const auto &it : map )
+            last_output += it.first + " = { " + it.second.to_string() + " };\n";
     }
 
     /**
      *
-     * @param vet
+     * @param map
      */
-    std::string print_keyvalues_only(const map_v& vet) {
+    std::string print_keyvalues_only(const map_v& map) {
         std::string ret = "[ ";
-        for ( auto it = vet.begin(); it != vet.end(); ++it ) {
+        for ( auto it = map.begin(); it != map.end(); ++it ) {
             ret += it->first;
-            if (std::next(it) != vet.end())
+            if (std::next(it) != map.end())
                 ret += ", ";
         }
         ret += " ]";

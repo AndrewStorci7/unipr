@@ -3,7 +3,6 @@
 
 #include <string>
 #include <map>
-
 #include "vettore.h"
 
 namespace START_AEG {
@@ -19,52 +18,73 @@ namespace START_AEG {
     extern bool exit;                 // if set to true: exit, otherwise stay
 
     /**
-     * Display the initial menu
-     * @param vet
+     * Scan from keyboard
+     * @param str
+     * @param map
      */
-    void start(map_v&& vet);
+    void scan(std::string& str, const map_v& map);
+
+    /**
+     * Display the initial menu
+     * @param map
+     */
+    void start(map_v&& map);
 
     /**
      * Menu of the program
      * @param choise
-     * @param vet
+     * @param map
      * @param last_output
      */
-    void menu(const std::string& choise, map_v& vet, std::string&& last_output);
+    void menu(const std::string& choise, map_v& map, std::string&& last_output);
 
     /**
      *
-     * @param vet
+     * @param map
      * @param last_output
      */
-    void menu_sum(map_v& vet, std::string&& last_output);
+    void menu_sum(map_v& map, std::string&& last_output);
 
     /**
      *
-     * @param vet
+     * @param map
      * @param last_output
      */
-    void menu_add(map_v& vet, std::string&& last_output);
+    void menu_add(map_v& map, std::string&& last_output);
 
     /**
      *
-     * @param vet
+     * @param map
      * @param last_output
      */
-    void menu_pscalar(map_v& vet, std::string&& last_output);
+    void menu_pscalar(map_v& map, std::string&& last_output);
+
+    /**
+     *
+     * @param map
+     * @param last_output
+     */
+    void menu_norma(map_v& map, std::string&& last_output);
+
+    /**
+     * Handle vectorial product
+     * @param map 
+     * @param last_output 
+     */
+    void menu_pvectorial(map_v& map, std::string&& last_output);
 
     /**
      * Print a map composed by every vector added during the program
-     * @param vet
+     * @param map
      * @param last_output
      */
-    void menu_print(const map_v& vet, std::string&& last_output);
+    void menu_print(const map_v& map, std::string&& last_output);
 
     /**
      * Print only the key values of a map
-     * @param vet
+     * @param map
      */
-    std::string print_keyvalues_only(const map_v& vet);
+    std::string print_keyvalues_only(const map_v& map);
 
 } // START_AEG
 

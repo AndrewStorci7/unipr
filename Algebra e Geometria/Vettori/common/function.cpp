@@ -1,4 +1,4 @@
-#include "functions.h"
+#include "function.h"
 #include <iostream>
 #include <limits>
 
@@ -42,13 +42,10 @@ namespace CF_AEG {
         // TODO: da testare
         // if (std::regex_search(std::to_string(replaceWith), regx) == 0)
         //     replaceWith = '';
-        std::cout << "Initial string: " << str << " => ";
 
-        str.erase(std::remove_if(str.begin(), str.end(), [](char c) {
+        str.erase(std::remove_if(str.begin(), str.end(), [](const char c) {
             return !std::isalnum(c); // Remove if NOT a letter or digit
         }), str.end());
-
-        std::cout << "\"" << str << "\"" << std::endl;
     }
 
     /**
@@ -66,5 +63,19 @@ namespace CF_AEG {
         sstring(str, replaceWith);
         return str;
     }
+
+    // /**
+    //  *
+    //  * @tparam T
+    //  * @param map
+    //  * @param vet
+    //  * @return
+    //  */
+    // template <typename T>
+    // bool check_if_exists(const START_AEG::map_v& map, const std::vector<std::string>& vet) {
+    //     return !vet.empty() and std::all_of(vet.begin(), vet.end(), [&](const std::string& it) {
+    //         return map.count(it) > 0;
+    //     });
+    // }
 
 } // namespace CF_AEG

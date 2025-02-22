@@ -1,6 +1,7 @@
 #ifndef VETTORE_AEG_FUNCTIONS_H
 #define VETTORE_AEG_FUNCTIONS_H
 
+#include <assert.h>
 #include <iostream>
 #include <string>
 #include <vector>
@@ -61,14 +62,17 @@ namespace CF_AEG {
         size_t start = 0, end = 0;
 
         while (( end = str.find(delimiter, start)) != std::string::npos) {
-            std::cout << "String to split: \"" << str << "\" ===> ";
             auto substring = str.substr(start, end - start);
-            std::cout << "\"" << substring << "\"";
             auto san_str = sstring_r(substring);
             str_splitted.push_back(san_str);
             start = end + delimiter.size();
+
+            assert(san_str.find(' ') == std::string::npos);
         }
-        str_splitted.push_back(str.substr(start));
+        auto san_str = sstring_r(str.substr(start));
+        str_splitted.push_back(san_str);
+
+        assert(san_str.find(' ') == std::string::npos);
 
         return str_splitted;
     }
@@ -133,6 +137,20 @@ namespace CF_AEG {
      * @return
      */
     bool ci_compare(const std::string& str1, const std::string& str2);
+
+    /**
+     *
+     * @tparam T
+     * @param map
+     * @param vet
+     * @return
+     */
+    template <typename Iter>
+    bool check_if_exists(Iter map, const std::vector<std::string>& vet) {
+        return !vet.empty() and std::all_of(vet.begin(), vet.end(), [&](const std::string& it) {
+            return map.count(it) > 0;
+        });
+    }
 
 }
 

@@ -5,8 +5,9 @@
 #include <string>
 #include <vector>
 #include <cassert>
+#include <cmath>
 
-#include "functions.h"
+#include "function.h"
 
 namespace Lezione2_Vettori {
 
@@ -17,9 +18,36 @@ namespace Lezione2_Vettori {
         using reference = value_type&;
         // using cref = const reference;
 
+        /**
+         * Default constructor
+         */
         Vettore() = default;
-        Vettore(const std::vector<value_type>& vector) : v_(vector) {}
+
+        /**
+         * Copy constructor with vector as a param
+         * @param vector
+         */
+        Vettore(std::vector<value_type>& vector) : v_(vector) {}
+
+        /**
+         * Copy constructor with static array as a param
+         * @param vector
+         */
+        Vettore(value_type& vector) {
+            for ( auto e : vector )
+                v_.push_back(e);
+        }
+
+        /**
+         * Copy constructor
+         * @param vet
+         */
         Vettore(const Vettore& vet) : v_(vet.v_) {}
+
+        /**
+         * Move constructor
+         * @param other
+         */
         Vettore(Vettore&& other) noexcept : v_(other.v_) {}
 
         /**
@@ -179,6 +207,16 @@ namespace Lezione2_Vettori {
             return ret;
         }
 
+        /**
+         * Check if Vettore is null
+         * @return true if is a vector null <code>{ 0, 0, 0 }</code>
+         */
+        bool isvectornull() const {
+            return std::all_of(v_.begin(), v_.end(), [&](const value_type& val) {
+                return val == 0;
+            });
+        }
+
     private:
         std::vector<value_type> v_;
         // static size_t dimension;
@@ -194,12 +232,11 @@ namespace Lezione2_Vettori {
     template <typename Number>
     Number scalar_product(const Vettore<Number>& left, const Vettore<Number>& right) {
 
-        Number ret;
+        Number ret = 0;
         try {
             if (left.size() != right.size())
                 throw std::runtime_error("vector's dimension are different");
 
-            // std::cout << "dimensione left.size(): " << left.size() << " e " << right.size() << std::endl;
             assert(left.size() != 0 and right.size() != 0);
 
             for (int i = 0; i < left.size(); ++i)
@@ -209,24 +246,48 @@ namespace Lezione2_Vettori {
             throw;
         }
 
-        std::string nothing;
-        std::cin >> nothing;
-
         return ret;
     }
 
     /**
-     * Prodotto vettoriale
+     * Calculate the norma of a vector
+     * @tparam Number
+     * @param vector
+     * @return a new vector <code>Vettore</code>, if teh vector passed as parameter is null, it will return <code>vector</code>
+     */
+    template <typename Number>
+    double norma(const Vettore<Number>& vector) {
+
+        if (vector.isvectornull())
+            return -1;
+
+        return std::sqrt(scalar_product(vector, vector));
+    }
+
+    /**
+     * Prodotto vettoriale, funziona solo su dominio <code>R^3</code>
      * @tparam Number
      * @param left
      * @param right
      * @return
      */
     template <typename Number>
-    Number vectorial_product(const Vettore<Number>& left, const Vettore<Number>& right) {
-        // TODO
-        Number t;
-        return t;
+    Vettore<Number> vectorial_product(const Vettore<Number>& left, const Vettore<Number>& right) {
+
+        std::vector<Number> vector = { 0, 0, 0 };
+        Vettore<Number> ret = vector;
+        if (left.size() > 3 or right.size() > 3)
+            return ret;
+
+        vector = {
+            (left.get(1) * right.get(2)) - (left.get(2) * right.get(1)),
+            (left.get(2) * right.get(0)) - (left.get(0) * right.get(2)),
+            (left.get(0) * right.get(1)) - (left.get(1) * right.get(0))
+        };
+        ret = vector;
+        // Vettore<Number> ret;
+
+        return ret;
     }
 
     template <typename T>

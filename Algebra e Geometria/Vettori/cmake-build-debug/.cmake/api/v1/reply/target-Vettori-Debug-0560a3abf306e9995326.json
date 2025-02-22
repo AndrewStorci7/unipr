@@ -136,7 +136,7 @@
 		},
 		{
 			"backtrace" : 1,
-			"path" : "common/functions.h",
+			"path" : "common/function.h",
 			"sourceGroupIndex" : 1
 		},
 		{

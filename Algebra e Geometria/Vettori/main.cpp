@@ -34,6 +34,10 @@ int main() {
     // vettore.push(1); vettore.push(2); vettore.push(3);
     //
     // std::cout << vettore.size() << std::endl;
+    // std::vector<int> vettore = { 0, 0, 0 };
+    // Lezione2_Vettori::Vettore<int> nullo = vettore;
+    // // Lezione2_Vettori::Vettore<int> nullo2 = { 0, 0, 0 };
+    // std::cout << nullo;
 
     return 0; // end of the program, bye bye, salamaleku
 }

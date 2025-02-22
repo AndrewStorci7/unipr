@@ -1,5 +1,5 @@
 #include "console.h"
-#include "functions.h"
+#include "function.h"
 
 namespace CCC {
 
