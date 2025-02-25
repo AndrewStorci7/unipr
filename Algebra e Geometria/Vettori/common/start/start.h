@@ -21,8 +21,17 @@ namespace START_AEG {
      * Scan from keyboard
      * @param str
      * @param map
+     * @param option
      */
-    void scan(std::string& str, const map_v& map);
+    void scan(std::string& str, const map_v& map, const std::string& option = "");
+
+    /**
+     * Scan from keyboard
+     * @param value
+     * @param map
+     * @param option
+     */
+    void scan(int& value, const map_v& map, const std::string& option = "");
 
     /**
      * Display the initial menu
@@ -79,6 +88,13 @@ namespace START_AEG {
      * @param last_output
      */
     void menu_print(const map_v& map, std::string&& last_output);
+
+    /**
+     * Handle multiplication with an integer
+     * @param map
+     * @param last_output
+     */
+    void menu_multiply(map_v& map, std::string&& last_output);
 
     /**
      * Print only the key values of a map

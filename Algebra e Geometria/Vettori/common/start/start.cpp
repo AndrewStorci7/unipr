@@ -10,16 +10,33 @@ namespace START_AEG {
     bool exit = false;         // default value: false
 
     /**
-         * Scan from keyboard
-         * @param str
-         * @param map
-         */
-    void scan(std::string& str, const map_v& map) {
-        std::cout << "Scegli due vettori \n";
+     * Scan from keyboard
+     * @param str
+     * @param map
+     */
+    void scan(std::string& str, const map_v& map, const std::string& option) {
+        std::cout << ((option == "mult") ? "Scegli un vettore \n" : "Scegli due vettori \n");
         std::cout << print_keyvalues_only(map) << std::endl;
         while (str.empty()) {
             std::cout << ">> ";
             std::getline(std::cin, str);
+            if (std::cin.fail())
+                CF_AEG::clear_cin_buffer();
+        }
+    }
+
+    /**
+     * Scan from keyboard
+     * @param value
+     * @param map
+     * @param option
+     */
+    void scan(int& value, const map_v& map, const std::string& option) {
+        std::cout << ((option == "mult") ? "Moltiplicatore \n" : "Salamaleku \n");
+        std::cout << print_keyvalues_only(map) << std::endl;
+        while (value == 0) {
+            std::cout << ">> ";
+            std::cin >> value;
             if (std::cin.fail())
                 CF_AEG::clear_cin_buffer();
         }
@@ -48,7 +65,8 @@ namespace START_AEG {
             std::cout << "5. Prodotto scalare tra due vettori." << std::endl;
             std::cout << "6. Norma di un vettore." << std::endl;
             std::cout << "7. Prodotto vettoriale tra due vettori." << std::endl;
-            std::cout << "8. Stampa tutti i vettori esistenti." << std::endl;
+            std::cout << "8. Moltiplica un vettore per una costante." << std::endl;
+            std::cout << "9. Stampa tutti i vettori esistenti." << std::endl;
             CCC::reset_terminal_color(); // reset color
 
             CCC::print_colorized("green"); // set color for terminal
@@ -106,6 +124,11 @@ namespace START_AEG {
                     break;
                 }
                 case 8: {
+                    /// Moltiplica un vettore per un numero
+                    menu_multiply(map, std::move(last_output));
+                    break;
+                }
+                case 9: {
                     /// Stampa tutti i vettori inseriti
                     menu_print(map, std::move(last_output));
                     break;
@@ -294,6 +317,21 @@ namespace START_AEG {
         last_output.clear(); // clearing last_output
         for ( const auto &it : map )
             last_output += it.first + " = { " + it.second.to_string() + " };\n";
+    }
+
+    /**
+     * Handle multiplication with an integer
+     * @param map
+     * @param last_output
+     */
+    void menu_multiply(map_v& map, std::string&& last_output) {
+        // last_output.clear();
+        // std::string str;
+        int value = 0;
+        scan(value, map, "mult");
+
+        last_output =
+
     }
 
     /**

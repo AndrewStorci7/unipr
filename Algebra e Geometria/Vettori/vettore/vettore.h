@@ -207,6 +207,36 @@ namespace Lezione2_Vettori {
             return ret;
         }
 
+        Vettore& operator*(const int& i) {
+            for ( auto e : v_ )
+                e *= i;
+
+            return *this;
+        }
+
+        Vettore& operator*(const double& i) {
+            for ( auto e : v_ )
+                e *= i;
+
+            return *this;
+        }
+
+        Vettore& operator*(const float& i) {
+            for ( auto e : v_ )
+                e *= i;
+
+            return *this;
+        }
+
+//        Vettore operator*(int& i) {
+//            for ( auto e : v_ )
+//                e *= i;
+//
+//            return *this;
+//        }
+
+
+
         /**
          * Check if Vettore is null
          * @return true if is a vector null <code>{ 0, 0, 0 }</code>
