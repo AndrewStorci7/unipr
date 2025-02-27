@@ -15,4 +15,6 @@ add_executable(Vettori
         common/start/start.cpp
         common/console/console.h
         common/console/console.cpp
+        matrici/matrice.h
+        matrici/matrice.cpp
 )
