@@ -1,7 +1,18 @@
 # ninja log v5
-0	25	1740500942571716052	build.ninja	ac917fe0e9c745e4
+0	25	1740569032466874431	build.ninja	ac917fe0e9c745e4
 592	657	1740256918013649885	Vettori	1389b7b431dd5cef
 2	368	1740247665734089594	CMakeFiles/Vettori.dir/common/console/console.cpp.o	9549f89422cebcef
 1	592	1740256917422629046	CMakeFiles/Vettori.dir/common/start/start.cpp.o	fafb3fde1901bbda
 1	357	1740256917422629046	CMakeFiles/Vettori.dir/main.cpp.o	4feed5d8fa65ef50
 1	1201	1740247665733089563	CMakeFiles/Vettori.dir/common/function.cpp.o	ba44bc56b489adee
+3	839	1740660169955060042	CMakeFiles/Vettori.dir/common/console/console.cpp.o	14ecff22817fb3b6
+4	870	1740660169987059985	CMakeFiles/Vettori.dir/matrici/matrice.cpp.o	e10237beecefcbb0
+3	1001	1740660170116059755	CMakeFiles/Vettori.dir/main.cpp.o	da34ac25ab8ca848
+2	2074	1740660171185057855	CMakeFiles/Vettori.dir/common/function.cpp.o	2f9abbcb439d1957
+1	828	1740660181387039723	CMakeFiles/Vettori.dir/common/start/start.cpp.o	e3c82884b2f03ee8
+828	967	1740660181526039476	Vettori	115583a5c0df3528
+1	569	1740660233630946965	CMakeFiles/Vettori.dir/main.cpp.o	da34ac25ab8ca848
+569	709	1740660233768946720	Vettori	115583a5c0df3528
+1	455	1740660403713128037	CMakeFiles/Vettori.dir/matrici/matrice.cpp.o	e10237beecefcbb0
+1	654	1740660403912127890	CMakeFiles/Vettori.dir/main.cpp.o	da34ac25ab8ca848
+654	869	1740660404124127726	Vettori	115583a5c0df3528

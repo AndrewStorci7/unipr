@@ -330,7 +330,7 @@ namespace START_AEG {
         int value = 0;
         scan(value, map, "mult");
 
-        last_output =
+        // last_output =
 
     }
 
