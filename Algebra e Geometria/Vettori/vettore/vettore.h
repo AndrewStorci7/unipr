@@ -130,10 +130,10 @@ namespace Lezione2_Vettori {
         }
 
         std::string to_string() const {
-            std::string ret;
+            std::string ret = "{ ";
             for ( int i = 0; i < v_.size(); ++i ) {
                 if (i == v_.size() - 1)
-                    ret += std::to_string(v_.at(i));
+                    ret += std::to_string(v_.at(i)) + " }";
                 else ret += std::to_string(v_.at(i)) + ", ";
             }
             return ret;
@@ -228,14 +228,29 @@ namespace Lezione2_Vettori {
             return *this;
         }
 
-//        Vettore operator*(int& i) {
-//            for ( auto e : v_ )
-//                e *= i;
-//
-//            return *this;
-//        }
+        Vettore operator*(int& val) {
+            Vettore ret = v_;
+            for ( int i = 0; i < v_.size(); ++i )
+                ret.v_[i] = v_[i] * val;
 
+            return ret;
+        }
 
+        Vettore operator*(double& val) {
+            Vettore ret = v_;
+            for ( int i = 0; i < v_.size(); ++i )
+                ret.v_[i] = v_[i] * val;
+
+            return ret;
+        }
+
+        Vettore operator*(float& val) {
+            Vettore ret = v_;
+            for ( int i = 0; i < v_.size(); ++i )
+                ret.v_[i] = v_[i] * val;
+
+            return ret;
+        }
 
         /**
          * Check if Vettore is null

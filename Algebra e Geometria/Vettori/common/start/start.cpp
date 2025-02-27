@@ -33,7 +33,6 @@ namespace START_AEG {
      */
     void scan(int& value, const map_v& map, const std::string& option) {
         std::cout << ((option == "mult") ? "Moltiplicatore \n" : "Salamaleku \n");
-        std::cout << print_keyvalues_only(map) << std::endl;
         while (value == 0) {
             std::cout << ">> ";
             std::cin >> value;
@@ -283,9 +282,9 @@ namespace START_AEG {
         scan(str, map);
 
         last_output = "Prodotto vettoriale calcolato: ";
-        auto keys = CF_AEG::split<std::string>(str);
 
         try {
+            auto keys = CF_AEG::split<std::string>(str);
             // check if teh vector selected exists
             if (!CF_AEG::check_if_exists(map, keys)) {
                 last_output = "I vettori selezionati non esistono";
@@ -295,7 +294,7 @@ namespace START_AEG {
             auto result = vectorial_product(
                 map[keys[0]],
                 map[keys[1]]
-            );
+            ); // Vettore<T>
 
             std::string string_bold = CCC::mkf_bold(result.to_string());
             last_output += CCC::mk_colorized(string_bold);
@@ -315,8 +314,8 @@ namespace START_AEG {
      */
     void menu_print(const map_v& map, std::string&& last_output) {
         last_output.clear(); // clearing last_output
-        for ( const auto &it : map )
-            last_output += it.first + " = { " + it.second.to_string() + " };\n";
+        for ( const auto &it : map ) // const pair<const string, Vettore<T>>&
+            last_output += it.first + " = " + it.second.to_string() + ";\n";
     }
 
     /**
@@ -325,13 +324,33 @@ namespace START_AEG {
      * @param last_output
      */
     void menu_multiply(map_v& map, std::string&& last_output) {
-        // last_output.clear();
-        // std::string str;
+        std::string str;
         int value = 0;
+        scan(str, map, "mult");
         scan(value, map, "mult");
+        last_output = "Vettore ottenuto: ";
 
-        last_output =
+        try {
+            auto keys = CF_AEG::split<std::string>(str); // Vettore<string>
+            // check if teh vector selected exists
+            if (!CF_AEG::check_if_exists(map, keys)) {
+                last_output = "I vettori selezionati non esistono";
+                return;
+            }
 
+            auto result = map[keys[0]] * value; // Vettore<T>
+            std::string newKey = keys[0] + std::to_string(1); // creating a new key to store the result
+            map[newKey] = result;
+
+            std::string string_bold = CCC::mkf_bold(result.to_string());
+            last_output += CCC::mk_colorized(string_bold);
+        } catch (const std::runtime_error& e) {
+            std::string tmp_error = "Error: " + std::string(e.what());
+            last_output = CCC::mk_colorized(tmp_error, "red");
+        } catch (...) {
+            std::string tmp_error = "Unknown error caught during product scalar";
+            last_output = CCC::mk_colorized(tmp_error, "red");
+        }
     }
 
     /**
