@@ -12,18 +12,21 @@ int main() {
 
     // START_AEG::start(std::move(v_vettori));
 
-    std::vector<int> v1 = { 1, 2, 3, 4, 5 };
+    std::vector<int> v1 = { 1, 0, 1, 4, 4 };
     Lezione2_Vettori::Vettore<int> vet1 = v1;
-    std::vector<int> v2 = { 1, 2, 3, 4, 5 };
+    std::vector<int> v2 = { 0, 2, 0, 3, 3 };
     Lezione2_Vettori::Vettore<int> vet2 = v2;
-    std::vector<int> v3 = { 1, 2, 3, 4, 5 };
+    std::vector<int> v3 = { 0, 2, 0, 0, 2 };
     Lezione2_Vettori::Vettore<int> vet3 = v3;
-    std::vector<int> v4 = { 1, 2, 3, 4, 5 };
+    std::vector<int> v4 = { 1, 0, 1, 1, 1 };
     Lezione2_Vettori::Vettore<int> vet4 = v4;
     std::vector<Lezione2_Vettori::Vettore<int>> vect = { vet1, vet2, vet3, vet4 };
     Matrice<int> matrice = vect;
 
-    auto prova = Lezione3_Matrici::gauss(matrice);
+    std::cout << "Matrice iniziale" << std::endl;
+    std::cout << matrice << std::endl;
+
+    auto prova = gauss(matrice);
 
     /// Used for Vettori_test
     // Lezione2_Vettori::Vettore<int> prova;

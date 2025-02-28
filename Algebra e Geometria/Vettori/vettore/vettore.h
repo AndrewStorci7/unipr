@@ -207,27 +207,6 @@ namespace Lezione2_Vettori {
             return ret;
         }
 
-        Vettore& operator*(const int& i) {
-            for ( auto e : v_ )
-                e *= i;
-
-            return *this;
-        }
-
-        Vettore& operator*(const double& i) {
-            for ( auto e : v_ )
-                e *= i;
-
-            return *this;
-        }
-
-        Vettore& operator*(const float& i) {
-            for ( auto e : v_ )
-                e *= i;
-
-            return *this;
-        }
-
         Vettore operator*(int& val) {
             Vettore ret = v_;
             for ( int i = 0; i < v_.size(); ++i )
@@ -250,6 +229,15 @@ namespace Lezione2_Vettori {
                 ret.v_[i] = v_[i] * val;
 
             return ret;
+        }
+
+        /**
+         * Returns the value in the index specified
+         * @param index
+         * @return
+         */
+        value_type operator[](const int& index) {
+            return v_[index];
         }
 
         /**
