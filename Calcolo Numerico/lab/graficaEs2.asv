@@ -1,0 +1,29 @@
+clear
+clc
+close all
+
+for m = 1:6
+    x1 = linspace(-m, 0, 101);
+    x2 = linspace(0, m, 101);
+
+    f = @(x) (m - (x.^2)/m).^m;
+    f2 = @(x) ((x.^2)/m + m).^m;
+
+    hold on
+    % figure
+    % plot(x1, f(x1), 'r', x2, f2(x2), 'g')
+    plot([x1, x2], [f(x1), f(x2)])
+end
+
+for m = 1:6
+    x1 = linspace(-m, 0, 101);
+    x2 = linspace(0, m, 101);
+
+    f = @(x) (m - (x.^2)/m).^m;
+    f2 = @(x) ((x.^2)/m + m).^m;
+
+    hold on
+    % figure
+    plot(x1, f(x1), 'r', x2, f2(x2), 'g')
+    plot([x1, x2], [f(x1), f(x2)])
+end

@@ -1,0 +1,46 @@
+% Esercizio 3 scheda 1
+
+clc
+clear
+close all
+format long
+
+tolleranza = 10^-10;
+f1 = @(x) (2*x.^2 - 4*x - 1);
+f2 = @(x) ((x.^4) + (2*x.^2) - 3);
+
+x = linspace(-10, 10);
+
+plot(x, f1(x));
+grid on
+axis 'auto x'
+
+figure
+plot(x, f2(x));
+grid on
+axis 'auto x'
+
+function [x0, it, err] = bisezione(f, a, b, t, it2)
+    if (f(a)*f(b) > 0)
+        error("La funzione non può essere risolta con il metodo di bisezione");
+    end
+
+    it = it2 + 1;
+    x0 = (a + b) / 2;
+    err = (b-a)/2^it;
+    err <= t
+
+    if (f(x0) == 0 || abs(f(x0)) < t)
+        return
+    elseif (f(a)*f(x0) < 0)
+        [x0, it, err] = bisezione(f, a, x0, t, it);
+    else
+        [x0, it, err] = bisezione(f, x0, b, t, it);
+    end
+end
+
+[sol1, it1, err1] = bisezione(f1, 0, 4, tolleranza, 0)
+[sol2, it2, err2] = bisezione(f2, 0, 4, tolleranza, 0)
+
+fzero1 = fzero(f1, 3)
+fzero2 = fzero(f2, 3)

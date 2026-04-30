@@ -1,0 +1,50 @@
+%% Lezione 26/03/26
+
+clear
+clc
+close all
+
+% siccome la funzione polyval prende come primo parametro un vettore di coefficienti
+% essi devono essere inseriti in ordine di grandezza dell'esponente, nel
+% nel caso non ci sia un valore intermedio va inserito ugualmente con un 0.
+% Nel caso del seguente polinomio:
+% p(x) = x^3 - 6*x^2 + 11
+p_coeff = [1 -6 11 -6];
+
+% x = linspace(-6, 6, 1000);
+x = linspace(0, 4, 1000);
+y1 = polyval(p_coeff, x);
+% pt_tilde 
+
+figure
+subplot(2, 1, 1);
+
+xlabel("Polinomio: p(x)");
+ylabel("Valori");
+
+plot(x, y1, "LineWidth", 1.5);
+grid on;
+axis square
+
+% Visualizza le radici trovate sul grafico del polinomio
+roots_p = roots(p_coeff)
+
+% Stesso scopo di roots per trovare le radici in una funzione
+% ma fato in maniera iterativa
+f1 = @(x) polyval(p_coeff, x);
+root_r1 = fzero(f1, [0.5]); % prima radice
+
+f2 = @(x) f1(x)./(x-root_r1);
+root_r2 = fzero(f2, [0.5]); % seconda radica
+
+f3 = @(x) f2(x)./(x-root_r2);
+root_r3 = fzero(f3, [0.5]); % terza radice
+
+f4 = @(x) (x-1)^2
+
+f4_coeff = [1 -2 1];
+roots_f4 = roots(f4_coeff)
+
+f4_r1 = fzero(f4, [1])
+f4_2 = @(x) f4(x)./(x-f4_r1)
+f4_r2 = fzero(f4_2, [1])
