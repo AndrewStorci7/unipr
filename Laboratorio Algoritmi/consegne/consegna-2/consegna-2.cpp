@@ -4,7 +4,7 @@
 #include <iostream>
 #include <fstream>
 #include <cstring>
-#include <assert.h>
+#include <cassert>
 
 #define PATH_TO_STORE_DOTFILE "albero.dot"
 
@@ -49,23 +49,28 @@ void flipTreeAux(node_t* node);
 /// @brief dati due valori presenti nell'albero, restituisce il valore del nodo piu' basso che
 /// contiene entrambi nel suo sottoalbero
 /// @return il piu' piccolo nodo che gli contiene
-node_t* lowestCommonAncestor(tree_t* tree, node_t* );
-node_t* lowestCommonAncestorAux();
+node_t* lowestCommonAncestor(tree_t* tree, int data1, int data2);
+node_t* lowestCommonAncestorAux(node_t* node1, node_t* node2);
 
 struct node {
     int data;
+    node* father = nullptr;
     node* right = nullptr;
     node* left = nullptr;
     int count = 0; // numero di occorrenze
     int height = 0; // altezza del nodo rispetto ad un albero
     int level = 0; // livello del nodo rispetto ad un albero
 
-    node() : data(), right(nullptr), left(nullptr), count(0) {};
-    node(int data) : data(data), right(nullptr), left(nullptr), count(1) {};
-    node(int data, node* l, node* r) : data(data), right(r), left(l), count(1) {};
+    node() : data(), father(nullptr), right(nullptr), left(nullptr), count(0) {};
+    node(int data) : data(data), father(nullptr), right(nullptr), left(nullptr), count(1) {};
+    node(int data, node* f, node* l, node* r) : data(data), father(f), right(r), left(l), count(1) {};
 
     bool isLeaf() {
         return this->right == nullptr && this->left == nullptr;
+    }
+
+    bool hasFather() {
+        return this->father != nullptr;
     }
 
     bool hasRight() {
@@ -86,34 +91,40 @@ private:
     node_t* root;
     int size;
 
-    void addAux(node_t* &current, int data, int level) {
+    void addAux(node_t* father, node_t* &current, int data, int level) {
         if (current == nullptr) {
-            current = new node_t(data, nullptr, nullptr);
+            current = new node_t(data, father, nullptr, nullptr);
             current->level = level;
             return;
         }
 
         assert(current != nullptr);
         if (data < current->data)
-            addAux(current->left, data, level + 1);
+            addAux(current, current->left, data, level + 1);
         else
-            addAux(current->right, data, level + 1);
+            addAux(current, current->right, data, level + 1);
     }
 
     void writeDotRecursive(node_t* node, std::ofstream& out) {
         if (node == nullptr)
             return;
 
-        out << "    \"" << node << "\" [label=\"" << node->data << " (lvl: " << node->level << ")" << "\"];\n";
+        out << "    \"" << node << "\" [style=filled fillcolor=red label=\"" << node->data << " (lvl: " << node->level << ")" << "\"];\n";
 
         if (node->left != nullptr) {
+            // out << "    \"" << node << "\" [style=filled fillcolor=green label=\"" << node->data << " (lvl: " << node->level << ")" << "\"];\n";
             out << "    \"" << node << "\" -> \"" << node->left << "\";\n";
             writeDotRecursive(node->left, out);
         }
 
         if (node->right != nullptr) {
+            // out << "    \"" << node << "\" [style=filled fillcolor=red label=\"" << node->data << " (lvl: " << node->level << ")" << "\"];\n";
             out << "    \"" << node << "\" -> \"" << node->right << "\";\n";
             writeDotRecursive(node->right, out);
+        }
+
+        if (node->father != nullptr) {
+            out << "    \"" << node << "\" -> \"" << node->father << "\";\n";
         }
     }
 
@@ -154,7 +165,7 @@ public:
     ///     - i dati gia' presenti nell'albero vengono contati al'interno di ogni nodo
     /// @param data Nuovo dato da aggiugnere all'albero
     void add(int data) {
-        auto new_node = new node_t(data, nullptr, nullptr);
+        auto new_node = new node_t(data, nullptr, nullptr, nullptr);
 
         if (this->root == nullptr) {
             this->root = new_node;
@@ -173,7 +184,7 @@ public:
         assert(this->root != nullptr);
 
         // aggiungo in maniera ricorsiva
-        this->addAux(this->root, data, 0);
+        this->addAux(nullptr, this->root, data, 0);
 
         ++this->size;
     }
@@ -334,6 +345,10 @@ int main(int argc, char* argv[]) {
     assert((pc == T_RND || pc == R_A_G) ? cnt_complexity < 31 : true);
     // assert((pc == T_CMPLTE || pc == C_A_G) ? cnt_complexity < 16 : true);
 
+    /// 4) Lowest Common Ancestor TEST
+    std::cout << "Lowest Common Ancestor di ()" << lowestCommonAncestor(tree, 18, 2) << std::endl;
+    assert((pc == T_RND || pc == R_A_G) ? lowestCommonAncestor(tree, 18, 2)->data == 5 : true);
+
     flipTree(tree);
     if (pc == GRAPH || pc == C_A_G || pc == R_A_G)
         tree->do_graph("albero-flipped.dot");
@@ -427,4 +442,30 @@ void flipTreeAux(node_t* node) {
         flipTreeAux(node->left);
     if (node->hasRight())
         flipTreeAux(node->right);
+}
+
+node_t* lowestCommonAncestor(tree_t* tree, int data1, int data2) {
+    if (tree->getSize() <= 1)
+        return nullptr;
+
+    auto node1 = binarySearch(tree, data1);
+    auto node2 = binarySearch(tree, data2);
+
+    if (node1 == nullptr || node2 == nullptr)
+        return nullptr;
+
+    return lowestCommonAncestorAux(node1, node2);
+}
+
+/// TODO: da sistemare, non corretto
+node_t* lowestCommonAncestorAux(node_t* node1, node_t* node2) {
+
+    if (node1->hasFather() && node2->hasFather())
+        lowestCommonAncestorAux(node1->father, node2->father);
+    else if (node1->hasFather())
+        lowestCommonAncestorAux(node1->father, node2);
+    else if (node2->hasFather())
+        lowestCommonAncestorAux(node1, node2->father);
+    else
+        return node1 == node2 ? node1 : nullptr;
 }
