@@ -15,7 +15,7 @@
  *  Ho utilizzato la struttura degli alberi binari sfruttando le proprietà degli alberi binari di ricerca (BST).
  *  La motivazione è semplicemente per comodità, in quanto l'aggiunta di un nuovo nodo si può fare tranquilamente
  *  con un array e un semplice ciclo for.
- *  Inoltre un BST risulta molto più efficiente e veloce per il calcolo del Lowest Common Ancestor, siccome sfrutto
+ *  Inoltre un BST risulta molto più efficiente e veloce per il calcolo del Lowest Common Ancestor (LCA), siccome sfrutto
  *  la sua proprietà più forte che è quella di avere per tutti i sottoalberi i nodi a sinistra più piccoli del nodo padre
  *  e a destra quelli più grandi; questo mi permette di sapere con anticipo se il LCA si trova nel sottoalbero sinstro o
  *  in quello destro.
@@ -34,15 +34,18 @@
  * Attenzione: -random e -complete sono mutuamente esclusivi
  */
 
-int cnt_complexity = 0; // variabile utilizzata per verificare che la funzione isBalanced sia O(n)
+int cnt_it = 0; // variabile utilizzata per verificare che la funzione isBalanced sia O(n)
+int cnt_read = 0;
 
 enum PARSE_CODES {
     NOTHING = 0,
     T_RND = 1,
     GRAPH = 2,
-    T_CMPLTE = 4,
+    T_COMPLETE = 4,
+    T_BALANCED = 10,
     R_A_G = T_RND + GRAPH,
-    C_A_G = T_CMPLTE + GRAPH
+    C_A_G = T_COMPLETE + GRAPH,
+    B_A_G = T_BALANCED + GRAPH,
 };
 
 class binary_t;
@@ -62,7 +65,7 @@ bool isCompleteAux(node_t* node, int height);
 /// @param tree Albero binario
 /// @return true se l'albero e' bilanciato, false altrimenti
 bool isBalanced(btree_t* tree);
-int isBalancedAux(node_t* node);
+bool isBalancedAux(btree_t* tree, node_t* node);
 
 /// @brief funzione ricorsiva per il binary-search
 /// @return ritorna il puntatore all'oggetto trovato con quel dato, nullptr altrimenti
@@ -158,6 +161,8 @@ private:
     }
 
     int calcHeightAux(node_t* node) {
+        cnt_read++;
+        cnt_read++;
         if (node == nullptr)
             return -1;
 
@@ -288,14 +293,16 @@ int parseArguments(int argc, char* argv[]) {
         if (argv[i] == nullptr)
             continue;
 
-        if (strcmp(argv[i], "-random") == 0 || strcmp(argv[i], "-complete") == 0) {
+        if (strcmp(argv[i], "-random") == 0 || strcmp(argv[i], "-complete") == 0 || strcmp(argv[i], "-balanced") == 0) {
             if (typeAlreadySet)
                 std::cerr << "Errore: Non puoi utilizzare '-random' e '-complete' insieme!" << std::endl;
             else {
                 if (strcmp(argv[i], "-random") == 0)
                     code += T_RND;
+                else if (strcmp(argv[i], "-balanced") == 0)
+                    code += T_BALANCED;
                 else
-                    code += T_CMPLTE;
+                    code += T_COMPLETE;
 
                 typeAlreadySet = true;
             }
@@ -322,24 +329,28 @@ int parseArguments(int argc, char* argv[]) {
 
 int main(int argc, char* argv[]) {
 
+    int MAX_VALUES = 30;
     int pc = parseArguments(argc, argv);
 
-    // node_t* root = new node_t(5);
     auto tree = new btree_t();
 
     if (pc == T_RND || pc == R_A_G) { // albero random
         std::random_device rd;
         std::mt19937 gen(rd());
         std::uniform_int_distribution<> distrib(1, 100);
-        int n = 30;
-        for (int i = 0; i < n; ++i)
+        for (int i = 0; i < MAX_VALUES; ++i)
             tree->add(distrib(gen));
-    } else if (pc == T_CMPLTE || pc == C_A_G) { // albero completo
+    } else if (pc == T_COMPLETE || pc == C_A_G) { // albero completo
+        MAX_VALUES = 15;
         int values[] = {8, 4, 12, 2, 6, 10, 14, 1, 3, 5, 7, 9, 11, 13, 15};
-        for (int i = 0; i < 15; ++i)
+        for (int i = 0; i < MAX_VALUES; ++i)
+            tree->add(values[i]);
+    } else if (pc == T_BALANCED || pc == B_A_G) { // albero bilanciato ma non completo
+        MAX_VALUES = 13;
+        int values[] = {8, 4, 12, 2, 6, 10, 14, 1, 3, 5, 7, 9, 11};
+        for (int i = 0; i < MAX_VALUES; ++i)
             tree->add(values[i]);
     } else { // albero custom
-        int MAX_VALUES = 30;
         int values[MAX_VALUES];
         int count = 0;
 
@@ -361,7 +372,7 @@ int main(int argc, char* argv[]) {
             tree->add(values[i]);
     }
 
-    if (pc == GRAPH || pc == C_A_G || pc == R_A_G)
+    if (pc == GRAPH || pc == C_A_G || pc == R_A_G || pc == B_A_G)
         tree->do_graph();
 
     /// 1) calcolo altezza e profondita'
@@ -381,13 +392,14 @@ int main(int argc, char* argv[]) {
 
     /// 2) vedere se un albero e' compelto
     std::cout << "L'albero e' completo ? " << (isComplete(tree) ? "Si" : "No") << std::endl;
-    assert((pc == T_CMPLTE || pc == C_A_G) ? isComplete(tree) : true);
+    assert((pc == T_COMPLETE || pc == C_A_G) ? isComplete(tree) : true);
 
     /// 3) vedere se un albero e' bilanciato
     std::cout << "L'albero e' bilanciato ? " << (isBalanced(tree) ? "Si" : "No") << std::endl;
-    assert((pc == T_CMPLTE || pc == C_A_G) ? isBalanced(tree) : true);
-    assert((pc == T_RND || pc == R_A_G) ? cnt_complexity < 31 : true);
-    // assert((pc == T_CMPLTE || pc == C_A_G) ? cnt_complexity < 16 : true);
+    std::cout << "Conteggio iterazioni: " << cnt_it << ", n=" << MAX_VALUES << std::endl;
+    assert((pc == T_COMPLETE || pc == C_A_G) ? isBalanced(tree) : true);
+    assert((pc == T_RND || pc == R_A_G) ? cnt_it < 31 : true);
+    // assert((pc == T_COMPLETE || pc == C_A_G) ? cnt_it < 16 : true);
 
     /// 4) Lowest Common Ancestor TEST
     // auto lca = lowestCommonAncestor(tree, 23, 29);
@@ -396,7 +408,7 @@ int main(int argc, char* argv[]) {
     std::cout << "Lowest Common Ancestor di (" << val1 << ") e (" << val2 << "): " << (lca != nullptr ? lca->data : -1) << std::endl;
 
     flipTree(tree);
-    if (pc == GRAPH || pc == C_A_G || pc == R_A_G)
+    if (pc == GRAPH || pc == C_A_G || pc == R_A_G || pc == B_A_G)
         tree->do_graph("albero-flipped.dot");
 
     return 0;
@@ -425,26 +437,31 @@ bool isCompleteAux(node_t* node, int h) {
 }
 
 bool isBalanced(btree_t* tree) {
+    cnt_it = 0;
+    cnt_read = 0;
+
     if (tree->getSize() <= 0)
         return true;
 
-    return isBalancedAux(tree->getRoot()) <= 1;
+    return isBalancedAux(tree, tree->getRoot());
 }
 
-int isBalancedAux(node_t* node) {
-    ++cnt_complexity;
+bool isBalancedAux(btree_t* tree, node_t* node) {
+    ++cnt_it;
+    if (node == nullptr)
+        return true;
 
-    if (node->isLeaf())
-        return node->level;
+    int hLeft = 0, hRight = 0;
 
-    int isBalancedLeft = 0;
-    int isBalancedRight = 4;
-    if (node->hasRight())
-        isBalancedLeft = isBalancedAux(node->right);
     if (node->hasLeft())
-        isBalancedRight = isBalancedAux(node->left);
+        hLeft = tree->calcHeight(node->left->data);
+    if (node->hasRight())
+        hRight = tree->calcHeight(node->right->data);
 
-    return abs(isBalancedLeft - isBalancedRight);
+    if (std::abs(hLeft - hRight) > 1)
+        return false;
+
+    return isBalancedAux(tree, node->left) && isBalancedAux(tree, node->right);
 }
 
 node_t* binarySearch(btree_t* tree, int data) {
@@ -455,6 +472,8 @@ node_t* binarySearch(btree_t* tree, int data) {
 }
 
 node_t* binarySearchAux(node_t* node, int data) {
+    cnt_read++;
+    cnt_read++;
     if (node->data == data)
         return node;
 
@@ -507,7 +526,6 @@ node_t* lowestCommonAncestor(btree_t* tree, int data1, int data2) {
     return lowestCommonAncestorAux(tree->getRoot(), firstNode, secondNode);
 }
 
-/// TODO: da sistemare, non corretto
 /// Idea: ogni volta controllo se data1 e data2 sono minori del nodo corrente
 /// se sono tutti e due più piccoli significa che si trovano all'interno del sottoalbero
 /// (lo do per socntato perché prima di entrare nella funzione ricorsiva controlo che i due dati
