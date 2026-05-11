@@ -5,6 +5,7 @@
 #include <random>
 
 #define PATH_TO_STORE_DOTFILE "albero.dot"
+#define MAX_IT 100
 
 /**
  * @author: Andrea Storci
@@ -12,15 +13,8 @@
  *
  * @brief   Documentazione Consegna 2
  *
- *  Ho utilizzato la struttura degli alberi binari sfruttando le proprietà degli alberi binari di ricerca (BST).
- *  La motivazione è semplicemente per comodità, in quanto l'aggiunta di un nuovo nodo si può fare tranquilamente
- *  con un array e un semplice ciclo for.
- *  Inoltre un BST risulta molto più efficiente e veloce per il calcolo del Lowest Common Ancestor (LCA), siccome sfrutto
- *  la sua proprietà più forte che è quella di avere per tutti i sottoalberi i nodi a sinistra più piccoli del nodo padre
- *  e a destra quelli più grandi; questo mi permette di sapere con anticipo se il LCA si trova nel sottoalbero sinstro o
- *  in quello destro.
- *  Un altro vantaggio che mi porta il BST è quello della ricerca binaria, tantè che nel seguente codice
- *  viene sfruttato per controllare che un certo dato sia presente nell'albero in una complessità temporale ragionevole.
+ * v2:
+ *  Fino ad'ora e' stato utilizzato un albero binario
  *
  * @usage
  * Utilizzo: ./consegna-2 [option]
@@ -48,11 +42,17 @@ enum PARSE_CODES {
     B_A_G = T_BALANCED + GRAPH,
 };
 
-class binary_t;
-typedef class binary_t btree_t;
+class binary_tree;
+typedef class binary_tree btree_t;
 
 struct node;
 typedef struct node node_t;
+
+struct queue;
+typedef struct queue queue_t;
+
+struct queue_node;
+typedef struct queue_node qnode_t;
 
 /// @brief funzione che determina se un l'albero passato comke parametro e' completo o meno
 /// @return true se e' l'albero e' compelto, false altrimenti
@@ -67,15 +67,26 @@ bool isCompleteAux(node_t* node, int height);
 bool isBalanced(btree_t* tree);
 bool isBalancedAux(btree_t* tree, node_t* node);
 
-/// @brief funzione ricorsiva per il binary-search
-/// @return ritorna il puntatore all'oggetto trovato con quel dato, nullptr altrimenti
-node_t* binarySearch(btree_t* tree, int data);
-node_t* binarySearchAux(node_t* node, int data);
+/// @brief Algoritmo BFS per la ricerca di un nodo
+/// @return true se il dato e'xpresente, false altrimenti
+bool bfs(btree_t* tree, int data);
 
 /// @brief funzione ricorsiva per flippare un albero
 /// @return niente, siccome flippo l'albero sul posto
 void flipTree(btree_t* tree);
 void flipTreeAux(node_t* node);
+
+/// @brief Calcola la profondita' di un nodo passato come parametro
+/// @param data Nodo dal quale calcolare la profondita'
+/// @return la profondita' di un certo nodo
+int calcDepth(btree_t* tree, int data);
+int calcDepthAux(node_t* node, int data);
+
+/// @brief Calcola l'altezza del sottoalbero di un ndod passato come parametro
+/// @param data Nodo dal quale calcolare l'altezza
+/// @return l'altezza del sotoalbero del nodo
+int calcHeight(btree_t* tree, node_t* data);
+int calcHeightAux(node_t* node);
 
 /// @brief dati due valori presenti nell'albero, restituisce il valore del nodo piu' basso che
 /// contiene entrambi nel suo sottoalbero
@@ -85,24 +96,27 @@ node_t* lowestCommonAncestorAux(node_t* node, int data1, int data2);
 
 struct node {
     int data;
-    node_t* father = nullptr;
+    // node_t* father = nullptr;
     node_t* right = nullptr;
     node_t* left = nullptr;
-    int count = 0; // numero di occorrenze
-    int height = 0; // altezza del nodo rispetto ad un albero
+//    int count = 0; // numero di occorrenze
+    // int height = 0; // altezza del nodo rispetto ad un albero
     int level = 0; // livello del nodo rispetto ad un albero
 
-    node() : data(), father(nullptr), right(nullptr), left(nullptr), count(0) {};
-    node(int data) : data(data), father(nullptr), right(nullptr), left(nullptr), count(1) {};
-    node(int data, node_t* f, node_t* l, node_t* r) : data(data), father(f), right(r), left(l), count(1) {};
+//    node() : data(), father(nullptr), right(nullptr), left(nullptr), count(0) {};
+//    node(int data) : data(data), father(nullptr), right(nullptr), left(nullptr), count(1) {};
+//    node(int data, node_t* f, node_t* l, node_t* r) : data(data), father(f), right(r), left(l), count(1) {};
+    node() : data(), level(0), right(nullptr), left(nullptr) {};
+    node(int data, int level) : data(data), level(level), right(nullptr), left(nullptr) {};
+    node(int data, node_t* l, node_t* r) : data(data), right(r), left(l) {};
 
     bool isLeaf() {
         return this->right == nullptr && this->left == nullptr;
     }
 
-    bool hasFather() {
-        return this->father != nullptr;
-    }
+//    bool hasFather() {
+//        return this->father != nullptr;
+//    }
 
     bool hasRight() {
         return this->right != nullptr;
@@ -117,69 +131,113 @@ struct node {
     }
 };
 
-class binary_t {
-private:
-    node_t* root;
-    int size;
+struct queue_node {
+    node_t* data;
+    qnode_t* next = nullptr;
 
-    void addAux(node_t* father, node_t* &current, int data, int level) {
-        if (current == nullptr) {
-            current = new node_t(data, father, nullptr, nullptr);
-            current->level = level;
-            return;
+    queue_node(): data(), next(nullptr) {}
+    queue_node(node_t* data): data(data), next(nullptr) {}
+
+    bool hasNext() {
+        return this->next != nullptr;
+    }
+};
+
+struct queue {
+    qnode_t* head = nullptr;
+    qnode_t* tail = nullptr;
+    size_t size = 0;
+
+    queue(): head(nullptr) {}
+
+    void push(node_t* data) {
+        auto new_node = new qnode_t(data);
+
+        if (this->head == nullptr) {
+            this->head = this->tail = new_node;
+        } else {
+            this->tail->next = new_node;
+            this->tail = new_node;
+        }
+        ++size;
+    }
+
+    node_t* pop() {
+        if (this->head == nullptr)
+            return nullptr;
+
+        auto temp = this->head;
+        node_t* ret = temp->data;
+
+        this->head = this->head->next;
+
+        if (this->head == nullptr) {
+            this->tail = nullptr;
         }
 
-        assert(current != nullptr);
-        if (data < current->data)
-            addAux(current, current->left, data, level + 1);
-        else
-            addAux(current, current->right, data, level + 1);
+        delete temp;
+        --size;
+        return ret;
     }
+
+    void print() {
+        auto current = head;
+
+        while (current->hasNext()) {
+            node_t* n = current->data;
+            std::cout << n->data << ", ";
+            current = current->next;
+        }
+        std::cout << current->data->data << std::endl;
+    }
+
+//    bool find(node_t* node) {
+//        auto current = head;
+//
+//        while (current != nullptr) {
+//            if (current->data == node)
+//                return true;
+//            current = current->next;
+//        }
+//
+//        return false;
+//    }
+
+    bool isEmpty() {
+        return this->size == 0;
+    }
+};
+
+class binary_tree {
+private:
+    node_t* root;
+    size_t size;
 
     void writeDotRecursive(node_t* node, std::ofstream& out) {
         if (node == nullptr)
             return;
 
-        // out << "    \"" << node << "\" [style=filled fillcolor=red label=\"" << node->data << " (lvl: " << node->level << ")" << "\"];\n";
         out << "    \"" << node << "\" [label=\"" << node->data << " (lvl: " << node->level << ")" << "\"];\n";
 
         if (node->left != nullptr) {
-            // out << "    \"" << node << "\" [style=filled fillcolor=green label=\"" << node->data << " (lvl: " << node->level << ")" << "\"];\n";
             out << "    \"" << node << "\" -> \"" << node->left << "\";\n";
             writeDotRecursive(node->left, out);
         }
 
         if (node->right != nullptr) {
-            // out << "    \"" << node << "\" [style=filled fillcolor=red label=\"" << node->data << " (lvl: " << node->level << ")" << "\"];\n";
             out << "    \"" << node << "\" -> \"" << node->right << "\";\n";
             writeDotRecursive(node->right, out);
         }
-
-        if (node->father != nullptr) {
-            out << "    \"" << node << "\" -> \"" << node->father << "\";\n";
-        }
-    }
-
-    int calcHeightAux(node_t* node) {
-        cnt_read++;
-        cnt_read++;
-        if (node == nullptr)
-            return -1;
-
-        int hLeft = calcHeightAux(node->left);
-        int hRight = calcHeightAux(node->right);
-
-        return 1 + std::max(hLeft, hRight);
     }
 
 public:
 
-    binary_t() {
+    binary_tree() {
         this->root = nullptr;
         this->size = 0;
     }
 
-    binary_t(node_t* root) {
+    binary_tree(node_t* root) {
         this->root = root;
         this->size = 1;
     }
@@ -188,38 +246,31 @@ public:
         return this->root;
     }
 
-    int getSize() const {
+    size_t getSize() const {
         return this->size;
     }
 
-    /// @brief Funzione ricosriva di aggiunta di un nuovo dato,
-    /// Regole di aggiunta:
-    ///     - filgio Sinistro: dato < del dato Padre
-    ///     - figlio Destro: dato > del dato Padre
-    ///     - i dati gia' presenti nell'albero vengono contati al'interno di ogni nodo
+    /// @brief Funzione ricosriva di aggiunta di un nuovo dato a destra
     /// @param data Nuovo dato da aggiugnere all'albero
-    void add(int data) {
-        auto new_node = new node_t(data, nullptr, nullptr, nullptr);
+    void addRight(node_t* node, int data) {
+        if (node->hasRight())
+            throw std::invalid_argument("il nodo ha gia' un figlio destro");
 
-        if (this->root == nullptr) {
-            this->root = new_node;
-            ++this->size;
-            return;
-        }
+        auto new_node = new node_t(data, node->level + 1);
 
-        // controllo se e' gia' presente il dato,
-        // che nel caso incremento il suo contatore interno
-        node_t* check = binarySearch(this, data);
-        if (check != nullptr) {
-            ++check->count;
-            return;
-        }
+        node->right = new_node;
+        ++this->size;
+    }
 
-        assert(this->root != nullptr);
+    /// @brief Funzione ricosriva di aggiunta di un nuovo dato a destra
+    /// @param data Nuovo dato da aggiugnere all'albero
+    void addLeft(node_t* node, int data) {
+        if (node->hasLeft())
+            throw std::invalid_argument("il nodo ha gia' un figlio sinistro");
 
-        // aggiungo in maniera ricorsiva
-        this->addAux(nullptr, this->root, data, 0);
+        auto new_node = new node_t(data, node->level + 1);
 
+        node->left = new_node;
         ++this->size;
     }
 
@@ -245,36 +296,6 @@ public:
         out.close();
 
         std::cout << "File '" << filename << "' generato con successo!" << std::endl;
-    }
-
-    /// @brief Calcola l'altezza del sottoalbero di un ndod passato come parametro
-    /// @param data Nodo dal quale calcolare l'altezza
-    /// @return l'altezza del sotoalbero del nodo
-    int calcHeight(int data) {
-        if (this->size == 0)
-            return -2;
-
-        // controllo che il nodo passato come parametro esista nell'albero
-        node_t* node = binarySearch(this, data);
-        if (node == nullptr)
-            return -1;
-
-        return calcHeightAux(node);
-    }
-
-    /// @brief Calcola la profondita' di un nodo passato come parametro
-    /// @param data Nodo dal quale calcolare la profondita'
-    /// @return la profondita' di un certo nodo
-    int calcDepth(int data) {
-        if (this->size == 0)
-            return 0;
-
-        // controllo che il nodo passato come parametro esista nell'albero
-        node_t* node = binarySearch(this, data);
-        if (node == nullptr)
-            return -1;
-
-        return node->level;
     }
 };
 
@@ -327,88 +348,85 @@ int parseArguments(int argc, char* argv[]) {
     return code;
 }
 
-int main(int argc, char* argv[]) {
+int size = 0;
 
-    int MAX_VALUES = 30;
-    int pc = parseArguments(argc, argv);
+void insert_random_rec(btree_t* tree, node_t *n, const int max_it = MAX_IT) {
 
-    auto tree = new btree_t();
+    if (size >= max_it)
+        return;
 
-    if (pc == T_RND || pc == R_A_G) { // albero random
-        std::random_device rd;
-        std::mt19937 gen(rd());
-        std::uniform_int_distribution<> distrib(1, 100);
-        for (int i = 0; i < MAX_VALUES; ++i)
-            tree->add(distrib(gen));
-    } else if (pc == T_COMPLETE || pc == C_A_G) { // albero completo
-        MAX_VALUES = 15;
-        int values[] = {8, 4, 12, 2, 6, 10, 14, 1, 3, 5, 7, 9, 11, 13, 15};
-        for (int i = 0; i < MAX_VALUES; ++i)
-            tree->add(values[i]);
-    } else if (pc == T_BALANCED || pc == B_A_G) { // albero bilanciato ma non completo
-        MAX_VALUES = 13;
-        int values[] = {8, 4, 12, 2, 6, 10, 14, 1, 3, 5, 7, 9, 11};
-        for (int i = 0; i < MAX_VALUES; ++i)
-            tree->add(values[i]);
-    } else { // albero custom
-        int values[MAX_VALUES];
-        int count = 0;
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<> distrib(1, 100);
 
-        std::cout << "Inserisci i numeri separati da una virgola (es. 1,2,3): ";
-        while (count < MAX_VALUES) {
-            if (!(std::cin >> values[count]))
-                break;
+    float probabilita = 0.6; /// tra 0 e 1
 
-            ++count;
-
-            if (std::cin.peek() == ',' || std::cin.peek() == ' ')
-                std::cin.ignore();
-
-            if (std::cin.peek() == '\n')
-                break;
-        }
-
-        for (int i = 0; i < MAX_VALUES; ++i)
-            tree->add(values[i]);
+    if (float(distrib(gen)) < probabilita * 100) { // se numero random e' minore della probabilita' -> aggiungo nodo R con valore a caso
+        ++size;
+        tree->addRight(n, distrib(gen));
+    }
+    if (float(distrib(gen)) < probabilita * 100) { // se numero random e' minore della probabilita' -> aggiungo nodo L con valore a caso
+        ++size;
+        tree->addLeft(n, distrib(gen));
     }
 
-    if (pc == GRAPH || pc == C_A_G || pc == R_A_G || pc == B_A_G)
+    if (n->hasLeft())
+        insert_random_rec(tree, n->left, max_it);
+    if (n->hasRight())
+        insert_random_rec(tree, n->right, max_it);
+}
+
+int main(int argc, char* argv[]) {
+
+
+    const int MAX_VALUES = 30;
+    int pc = parseArguments(argc, argv);
+
+    auto* root = new node_t(80, 0);
+    auto* tree = new btree_t(root);
+
+    insert_random_rec(tree, tree->getRoot(), MAX_VALUES);
+
+    std::cout << "Dimensione albero: " << tree->getSize() << std::endl;
+
+    std::cout << bfs(tree, 23) << std::endl;
+
+    if (pc == GRAPH)
         tree->do_graph();
 
     /// 1) calcolo altezza e profondita'
-    if (pc == GRAPH || pc == C_A_G) {
-        std::cout << "Altezza albero partendo dal nodo radice: " << tree->calcHeight(tree->getRoot()->data) << std::endl;
-        assert(tree->calcHeight(tree->getRoot()->data) == 3);
-        std::cout << "Altezza albero partendo dal nodo (12): " << tree->calcHeight(12) << std::endl;
-        assert(tree->calcHeight(12) == 2);
+    std::cout << "Altezza albero partendo dal nodo radice: " << calcHeight(tree, tree->getRoot()) << std::endl;
+//    assert(tree->calcHeight(tree->getRoot()->data) == 3);
+    std::cout << "Altezza albero partendo dal nodo (12): " << calcHeight(tree, new node) << std::endl;
+//    assert(tree->calcHeight(12) == 2);
 
-        std::cout << "------" << std::endl;
+    std::cout << "------" << std::endl;
 
-        std::cout << "Profondita' albero partendo dal nodo radice: " << tree->calcDepth(tree->getRoot()->data) << std::endl;
-        assert(tree->calcDepth(tree->getRoot()->data) == 0);
-        std::cout << "Profondita' albero partendo dal nodo (12): " << tree->calcDepth(12) << std::endl;
-        assert(tree->calcDepth(12) == 1);
-    }
+    std::cout << "Profondita' albero partendo dal nodo radice: " << calcDepth(tree, tree->getRoot()->data) << std::endl;
+//    assert(tree->calcDepth(tree->getRoot()->data) == 0);
+    std::cout << "Profondita' albero partendo dal nodo (12): " << calcDepth(tree, 12) << std::endl;
+//    assert(tree->calcDepth(12) == 1);
 
     /// 2) vedere se un albero e' compelto
     std::cout << "L'albero e' completo ? " << (isComplete(tree) ? "Si" : "No") << std::endl;
-    assert((pc == T_COMPLETE || pc == C_A_G) ? isComplete(tree) : true);
+//    assert((pc == T_COMPLETE || pc == C_A_G) ? isComplete(tree) : true);
 
     /// 3) vedere se un albero e' bilanciato
     std::cout << "L'albero e' bilanciato ? " << (isBalanced(tree) ? "Si" : "No") << std::endl;
-    std::cout << "Conteggio iterazioni: " << cnt_it << ", n=" << MAX_VALUES << std::endl;
-    assert((pc == T_COMPLETE || pc == C_A_G) ? isBalanced(tree) : true);
-    assert((pc == T_RND || pc == R_A_G) ? cnt_it < 31 : true);
+//    std::cout << "Conteggio iterazioni: " << cnt_it << ", n=" << MAX_VALUES << std::endl;
+//    assert((pc == T_COMPLETE || pc == C_A_G) ? isBalanced(tree) : true);
+//    assert((pc == T_RND || pc == R_A_G) ? cnt_it < 31 : true);
     // assert((pc == T_COMPLETE || pc == C_A_G) ? cnt_it < 16 : true);
 
     /// 4) Lowest Common Ancestor TEST
     // auto lca = lowestCommonAncestor(tree, 23, 29);
     int val1 = 86, val2 = 71;
     auto lca = lowestCommonAncestor(tree, val1, val2);
-    std::cout << "Lowest Common Ancestor di (" << val1 << ") e (" << val2 << "): " << (lca != nullptr ? lca->data : -1) << std::endl;
+    std::cout << "Lowest Common Ancestor di (" << val1 << ") e (" << val2 << "): "
+        << (lca != nullptr ? lca->data : -1) << std::endl;
 
     flipTree(tree);
-    if (pc == GRAPH || pc == C_A_G || pc == R_A_G || pc == B_A_G)
+    if (pc == GRAPH)
         tree->do_graph("albero-flipped.dot");
 
     return 0;
@@ -418,7 +436,7 @@ bool isComplete(btree_t* t) {
     if (t->getSize() <= 1)
         return true;
 
-    int height = t->calcHeight(t->getRoot()->data);
+    int height = calcHeight(t, t->getRoot());
 
     return isCompleteAux(t->getRoot(), height);
 }
@@ -454,9 +472,9 @@ bool isBalancedAux(btree_t* tree, node_t* node) {
     int hLeft = 0, hRight = 0;
 
     if (node->hasLeft())
-        hLeft = tree->calcHeight(node->left->data);
+        hLeft = calcHeight(tree, node->left);
     if (node->hasRight())
-        hRight = tree->calcHeight(node->right->data);
+        hRight = calcHeight(tree, node->right);
 
     if (std::abs(hLeft - hRight) > 1)
         return false;
@@ -464,28 +482,28 @@ bool isBalancedAux(btree_t* tree, node_t* node) {
     return isBalancedAux(tree, node->left) && isBalancedAux(tree, node->right);
 }
 
-node_t* binarySearch(btree_t* tree, int data) {
+bool bfs(btree_t* tree, int data) {
     if (tree->getSize() == 0)
-        return nullptr;
+        return false;
 
-    return binarySearchAux(tree->getRoot(), data);
-}
+    auto q = new queue_t();
+    auto node = tree->getRoot();
+    q->push(node);
 
-node_t* binarySearchAux(node_t* node, int data) {
-    cnt_read++;
-    cnt_read++;
-    if (node->data == data)
-        return node;
+    while (!q->isEmpty()) {
+        auto v = q->pop();
+        if (v->data == data)
+            return true;
+        if (v->hasLeft())
+            q->push(v->left);
+        if (v->hasRight())
+            q->push(v->right);
+        ++cnt_it;
+    }
 
-    if (node->isLeaf())
-        return nullptr;
+    delete q;
 
-    if (node->hasRight() && data > node->data)
-        return binarySearchAux(node->right, data);
-    else if (node->hasLeft() && data < node->data)
-        return binarySearchAux(node->left, data);
-    else
-        return nullptr;
+    return false;
 }
 
 void flipTree(btree_t* tree) {
@@ -509,6 +527,43 @@ void flipTreeAux(node_t* node) {
         flipTreeAux(node->right);
 }
 
+int calcHeight(btree_t* tree, node_t* data) {
+    if (tree->getSize() == 0)
+        return -2;
+
+    return calcHeightAux(data);
+}
+
+int calcHeightAux(node_t* node) {
+    if (node == nullptr)
+        return -1;
+
+    int left = calcHeightAux(node->left);
+    int right = calcHeightAux(node->right);
+
+    return 1 + std::max(left, right);
+}
+
+int calcDepth(btree_t* tree, int data) {
+    if (tree->getSize() == 0)
+        return -1;
+
+    return calcDepthAux(tree->getRoot(), data);
+}
+
+int calcDepthAux(node_t* node, int data) {
+    if (node == nullptr)
+        return -1;
+
+    if (node->data == data)
+        return node->level;
+
+    if (node->hasLeft())
+        return calcDepthAux(node->left, data);
+    if (node->hasRight())
+        return calcDepthAux(node->right, data);
+}
+
 node_t* lowestCommonAncestor(btree_t* tree, int data1, int data2) {
     if (tree->getSize() <= 1)
         return nullptr;
@@ -516,9 +571,9 @@ node_t* lowestCommonAncestor(btree_t* tree, int data1, int data2) {
     // di default: siccome utilizzo gli alberi binari di ricerca
     // vado ad impostare sempre il primo elemento della chiamata ricorsiva
     // l'elemento più piccolo
-    if (binarySearch(tree, data1) == nullptr ||
-        binarySearch(tree, data2) == nullptr)
-        return nullptr;
+//    if (binarySearch(tree, data1) == nullptr ||
+//        binarySearch(tree, data2) == nullptr)
+//        return nullptr;
 
     auto firstNode = data1 > data2 ? data2 : data1;
     auto secondNode = data1 > data2 ? data1 : data2;

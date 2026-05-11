@@ -1,69 +1,101 @@
-/// TODO: fino ad'ora ho utilizzato un albero binario per semplicita'
-/// TODO: chiedere al professore o ai compagni se bisogna utilizzare un albero binario generico
-
 #include <iostream>
 #include <fstream>
 #include <cstring>
 #include <cassert>
+#include <random>
 
 #define PATH_TO_STORE_DOTFILE "albero.dot"
 
-int cnt_complexity = 0; // variabile utilizzata poer verificare che la funzione isBalanced sia O(n)
+/**
+ * @author: Andrea Storci
+ * @date:   2026/04/06
+ *
+ * @brief   Documentazione Consegna 2
+ *
+ * v1:
+ *  Ho utilizzato la struttura degli alberi binari sfruttando le proprietà degli alberi binari di ricerca (BST).
+ *  La motivazione è semplicemente per comodità, in quanto l'aggiunta di un nuovo nodo si può fare tranquilamente
+ *  con un array e un semplice ciclo for.
+ *  Inoltre un BST risulta molto più efficiente e veloce per il calcolo del Lowest Common Ancestor (LCA), siccome sfrutto
+ *  la sua proprietà più forte che è quella di avere per tutti i sottoalberi i nodi a sinistra più piccoli del nodo padre
+ *  e a destra quelli più grandi; questo mi permette di sapere con anticipo se il LCA si trova nel sottoalbero sinstro o
+ *  in quello destro.
+ *  Un altro vantaggio che mi porta il BST è quello della ricerca binaria, tantè che nel seguente codice
+ *  viene sfruttato per controllare che un certo dato sia presente nell'albero in una complessità temporale ragionevole.
+ *
+ * @usage
+ * Utilizzo: ./consegna-2 [option]
+ *
+ * Opzioni:
+ *  -g: stampa il file .dot dell'albero
+ *  -random/-complete:
+ *      -random: crea un albero con valori causali
+ *      -complete: crea un albero con dei valori di default (da 1 a 15) che formano un albero completo
+ *
+ * Attenzione: -random e -complete sono mutuamente esclusivi
+ */
+
+int cnt_it = 0; // variabile utilizzata per verificare che la funzione isBalanced sia O(n)
+int cnt_read = 0;
 
 enum PARSE_CODES {
     NOTHING = 0,
     T_RND = 1,
     GRAPH = 2,
-    T_CMPLTE = 4,
+    T_COMPLETE = 4,
+    T_BALANCED = 10,
     R_A_G = T_RND + GRAPH,
-    C_A_G = T_CMPLTE + GRAPH
+    C_A_G = T_COMPLETE + GRAPH,
+    B_A_G = T_BALANCED + GRAPH,
 };
 
-class Albero;
-typedef class Albero tree_t;
+class binary_t;
+typedef class binary_t btree_t;
 
 struct node;
 typedef struct node node_t;
 
 /// @brief funzione che determina se un l'albero passato comke parametro e' completo o meno
 /// @return true se e' l'albero e' compelto, false altrimenti
-bool isComplete(tree_t* tree);
+bool isComplete(btree_t* tree);
 bool isCompleteAux(node_t* node, int height);
 
 /// @brief Calcola se l'albero passato come parametro e' bilanciato o meno
-/// @param tree
+/// la funzione ricorsiva invece ritorna il valore della differenza tra il livello dei due figli trovati,
+/// se la differenza è minore o uguale a 1 allora l'albero è bilanciato, altrimento no.
+/// @param tree Albero binario
 /// @return true se l'albero e' bilanciato, false altrimenti
-bool isBalanced(tree_t* tree);
-int isBalancedAux(node_t* node);
+bool isBalanced(btree_t* tree);
+bool isBalancedAux(btree_t* tree, node_t* node);
 
 /// @brief funzione ricorsiva per il binary-search
 /// @return ritorna il puntatore all'oggetto trovato con quel dato, nullptr altrimenti
-node_t* binarySearch(tree_t* tree, int data);
+node_t* binarySearch(btree_t* tree, int data);
 node_t* binarySearchAux(node_t* node, int data);
 
 /// @brief funzione ricorsiva per flippare un albero
 /// @return niente, siccome flippo l'albero sul posto
-void flipTree(tree_t* tree);
+void flipTree(btree_t* tree);
 void flipTreeAux(node_t* node);
 
 /// @brief dati due valori presenti nell'albero, restituisce il valore del nodo piu' basso che
 /// contiene entrambi nel suo sottoalbero
 /// @return il piu' piccolo nodo che gli contiene
-node_t* lowestCommonAncestor(tree_t* tree, int data1, int data2);
-node_t* lowestCommonAncestorAux(tree_t* tree, node_t* node, int data1, int data2);
+node_t* lowestCommonAncestor(btree_t* tree, int data1, int data2);
+node_t* lowestCommonAncestorAux(node_t* node, int data1, int data2);
 
 struct node {
     int data;
-    node* father = nullptr;
-    node* right = nullptr;
-    node* left = nullptr;
+    node_t* father = nullptr;
+    node_t* right = nullptr;
+    node_t* left = nullptr;
     int count = 0; // numero di occorrenze
     int height = 0; // altezza del nodo rispetto ad un albero
     int level = 0; // livello del nodo rispetto ad un albero
 
     node() : data(), father(nullptr), right(nullptr), left(nullptr), count(0) {};
     node(int data) : data(data), father(nullptr), right(nullptr), left(nullptr), count(1) {};
-    node(int data, node* f, node* l, node* r) : data(data), father(f), right(r), left(l), count(1) {};
+    node(int data, node_t* f, node_t* l, node_t* r) : data(data), father(f), right(r), left(l), count(1) {};
 
     bool isLeaf() {
         return this->right == nullptr && this->left == nullptr;
@@ -86,7 +118,7 @@ struct node {
     }
 };
 
-class Albero {
+class binary_t {
 private:
     node_t* root;
     int size;
@@ -130,6 +162,8 @@ private:
     }
 
     int calcHeightAux(node_t* node) {
+        cnt_read++;
+        cnt_read++;
         if (node == nullptr)
             return -1;
 
@@ -141,12 +175,12 @@ private:
 
 public:
 
-    Albero() {
+    binary_t() {
         this->root = nullptr;
         this->size = 0;
     }
 
-    Albero(node_t* root) {
+    binary_t(node_t* root) {
         this->root = root;
         this->size = 1;
     }
@@ -260,19 +294,33 @@ int parseArguments(int argc, char* argv[]) {
         if (argv[i] == nullptr)
             continue;
 
-        if (strcmp(argv[i], "-random") == 0 || strcmp(argv[i], "-complete") == 0) {
+        if (strcmp(argv[i], "-random") == 0 || strcmp(argv[i], "-complete") == 0 || strcmp(argv[i], "-balanced") == 0) {
             if (typeAlreadySet)
                 std::cerr << "Errore: Non puoi utilizzare '-random' e '-complete' insieme!" << std::endl;
             else {
                 if (strcmp(argv[i], "-random") == 0)
                     code += T_RND;
+                else if (strcmp(argv[i], "-balanced") == 0)
+                    code += T_BALANCED;
                 else
-                    code += T_CMPLTE;
+                    code += T_COMPLETE;
 
                 typeAlreadySet = true;
             }
-        } else if (strcmp(argv[i], "-g") == 0)
+        } else if (strcmp(argv[i], "-g") == 0) {
             code += GRAPH;
+        } else if (strcmp(argv[i], "-h") == 0) {
+            std::cout << "Utilizzo: ./consegna-2 [option]\n"
+                         "\n"
+                         "Opzioni:\n"
+                         "\t-g: stampa il file .dot dell'albero\n"
+                         "\t-random/-complete:\n"
+                         "\t\t-random: crea un albero con valori causali\n"
+                         "\t\t-complete: crea un albero con dei valori di default (da 1 a 15) che formano un albero completo\n"
+                         "\n"
+                         "Attenzione: -random e -complete sono mutuamente esclusivi" << std::endl;
+            exit(0);
+        }
         else
             std::cerr << "Argomento sconosciuto: " << argv[i] << std::endl;
     }
@@ -282,21 +330,28 @@ int parseArguments(int argc, char* argv[]) {
 
 int main(int argc, char* argv[]) {
 
+    int MAX_VALUES = 30;
     int pc = parseArguments(argc, argv);
 
-    // node_t* root = new node_t(5);
-    auto tree = new tree_t();
+    auto tree = new btree_t();
 
     if (pc == T_RND || pc == R_A_G) { // albero random
-        int n = 30;
-        for (int i = 0; i < n; ++i)
-            tree->add(rand() % 100);
-    } else if (pc == T_CMPLTE || pc == C_A_G) { // albero completo
+        std::random_device rd;
+        std::mt19937 gen(rd());
+        std::uniform_int_distribution<> distrib(1, 100);
+        for (int i = 0; i < MAX_VALUES; ++i)
+            tree->add(distrib(gen));
+    } else if (pc == T_COMPLETE || pc == C_A_G) { // albero completo
+        MAX_VALUES = 15;
         int values[] = {8, 4, 12, 2, 6, 10, 14, 1, 3, 5, 7, 9, 11, 13, 15};
-        for (int i = 0; i < 15; ++i)
+        for (int i = 0; i < MAX_VALUES; ++i)
+            tree->add(values[i]);
+    } else if (pc == T_BALANCED || pc == B_A_G) { // albero bilanciato ma non completo
+        MAX_VALUES = 13;
+        int values[] = {8, 4, 12, 2, 6, 10, 14, 1, 3, 5, 7, 9, 11};
+        for (int i = 0; i < MAX_VALUES; ++i)
             tree->add(values[i]);
     } else { // albero custom
-        int MAX_VALUES = 30;
         int values[MAX_VALUES];
         int count = 0;
 
@@ -318,7 +373,7 @@ int main(int argc, char* argv[]) {
             tree->add(values[i]);
     }
 
-    if (pc == GRAPH || pc == C_A_G || pc == R_A_G)
+    if (pc == GRAPH || pc == C_A_G || pc == R_A_G || pc == B_A_G)
         tree->do_graph();
 
     /// 1) calcolo altezza e profondita'
@@ -338,27 +393,29 @@ int main(int argc, char* argv[]) {
 
     /// 2) vedere se un albero e' compelto
     std::cout << "L'albero e' completo ? " << (isComplete(tree) ? "Si" : "No") << std::endl;
-    assert((pc == T_CMPLTE || pc == C_A_G) ? isComplete(tree) : true);
+    assert((pc == T_COMPLETE || pc == C_A_G) ? isComplete(tree) : true);
 
     /// 3) vedere se un albero e' bilanciato
     std::cout << "L'albero e' bilanciato ? " << (isBalanced(tree) ? "Si" : "No") << std::endl;
-    assert((pc == T_CMPLTE || pc == C_A_G) ? isBalanced(tree) : true);
-    assert((pc == T_RND || pc == R_A_G) ? cnt_complexity < 31 : true);
-    // assert((pc == T_CMPLTE || pc == C_A_G) ? cnt_complexity < 16 : true);
+    std::cout << "Conteggio iterazioni: " << cnt_it << ", n=" << MAX_VALUES << std::endl;
+    assert((pc == T_COMPLETE || pc == C_A_G) ? isBalanced(tree) : true);
+    assert((pc == T_RND || pc == R_A_G) ? cnt_it < 31 : true);
+    // assert((pc == T_COMPLETE || pc == C_A_G) ? cnt_it < 16 : true);
 
     /// 4) Lowest Common Ancestor TEST
-    auto lca = lowestCommonAncestor(tree, 23, 29);
-    std::cout << "Lowest Common Ancestor di (23) e (29): " << (lca != nullptr ? lca->data : -1) << std::endl;
-    // assert((pc == T_RND || pc == R_A_G) ? lca->data == 5 : true);
+    // auto lca = lowestCommonAncestor(tree, 23, 29);
+    int val1 = 86, val2 = 71;
+    auto lca = lowestCommonAncestor(tree, val1, val2);
+    std::cout << "Lowest Common Ancestor di (" << val1 << ") e (" << val2 << "): " << (lca != nullptr ? lca->data : -1) << std::endl;
 
     flipTree(tree);
-    if (pc == GRAPH || pc == C_A_G || pc == R_A_G)
+    if (pc == GRAPH || pc == C_A_G || pc == R_A_G || pc == B_A_G)
         tree->do_graph("albero-flipped.dot");
 
     return 0;
 }
 
-bool isComplete(tree_t* t) {
+bool isComplete(btree_t* t) {
     if (t->getSize() <= 1)
         return true;
 
@@ -380,30 +437,35 @@ bool isCompleteAux(node_t* node, int h) {
     return isCompleteLeft && isCompleteRight;
 }
 
-bool isBalanced(tree_t* tree) {
+bool isBalanced(btree_t* tree) {
+    cnt_it = 0;
+    cnt_read = 0;
+
     if (tree->getSize() <= 0)
         return true;
 
-    return isBalancedAux(tree->getRoot()) <= 1;
+    return isBalancedAux(tree, tree->getRoot());
 }
 
-int isBalancedAux(node_t* node) {
-    ++cnt_complexity;
+bool isBalancedAux(btree_t* tree, node_t* node) {
+    ++cnt_it;
+    if (node == nullptr)
+        return true;
 
-    if (node->isLeaf())
-        return node->level;
+    int hLeft = 0, hRight = 0;
 
-    int isBalancedLeft = 0;
-    int isBalancedRight = 4;
-    if (node->hasRight())
-        isBalancedLeft = isBalancedAux(node->right);
     if (node->hasLeft())
-        isBalancedRight = isBalancedAux(node->left);
+        hLeft = tree->calcHeight(node->left->data);
+    if (node->hasRight())
+        hRight = tree->calcHeight(node->right->data);
 
-    return abs(isBalancedLeft - isBalancedRight);
+    if (std::abs(hLeft - hRight) > 1)
+        return false;
+
+    return isBalancedAux(tree, node->left) && isBalancedAux(tree, node->right);
 }
 
-node_t* binarySearch(tree_t* tree, int data) {
+node_t* binarySearch(btree_t* tree, int data) {
     if (tree->getSize() == 0)
         return nullptr;
 
@@ -411,6 +473,8 @@ node_t* binarySearch(tree_t* tree, int data) {
 }
 
 node_t* binarySearchAux(node_t* node, int data) {
+    cnt_read++;
+    cnt_read++;
     if (node->data == data)
         return node;
 
@@ -425,7 +489,7 @@ node_t* binarySearchAux(node_t* node, int data) {
         return nullptr;
 }
 
-void flipTree(tree_t* tree) {
+void flipTree(btree_t* tree) {
     if (tree->getSize() <= 1)
         return;
 
@@ -446,32 +510,38 @@ void flipTreeAux(node_t* node) {
         flipTreeAux(node->right);
 }
 
-node_t* lowestCommonAncestor(tree_t* tree, int data1, int data2) {
+node_t* lowestCommonAncestor(btree_t* tree, int data1, int data2) {
     if (tree->getSize() <= 1)
         return nullptr;
-
-//    auto node1 = binarySearch(tree, data1);
-//    auto node2 = binarySearch(tree, data2);
-//
-//    if (node1 == nullptr || node2 == nullptr)
-//        return nullptr;
 
     // di default: siccome utilizzo gli alberi binari di ricerca
     // vado ad impostare sempre il primo elemento della chiamata ricorsiva
     // l'elemento più piccolo
+    if (binarySearch(tree, data1) == nullptr ||
+        binarySearch(tree, data2) == nullptr)
+        return nullptr;
 
     auto firstNode = data1 > data2 ? data2 : data1;
     auto secondNode = data1 > data2 ? data1 : data2;
 
-    return lowestCommonAncestorAux(tree, tree->getRoot(), firstNode, secondNode);
+    return lowestCommonAncestorAux(tree->getRoot(), firstNode, secondNode);
 }
 
-/// TODO: da sistemare, non corretto
 /// Idea: ogni volta controllo se data1 e data2 sono minori del nodo corrente
 /// se sono tutti e due più piccoli significa che si trovano all'interno del sottoalbero
 /// (lo do per socntato perché prima di entrare nella funzione ricorsiva controlo che i due dati
 /// passati come parametro esistano all'interno dell'albero); se invece anche solo uno dei due dati
 /// è più grande allora significa che non sono più nel sottoalbero che gli contiene
-node_t* lowestCommonAncestorAux(tree_t* tree, node_t* node, int data1, int data2) {
-    return nullptr;
+node_t* lowestCommonAncestorAux(node_t* node, int data1, int data2) {
+
+    if (node->isLeaf() && (data1 != node->data || data2 != node->data))
+        return nullptr;
+
+    if (data1 < node->data && data2 > node->data)
+        return node;
+
+    if (data1 < node->data && data2 < node->data)
+        return lowestCommonAncestorAux(node->left, data1, data2);
+    else if (data1 > node->data && data2 > node->data)
+        return lowestCommonAncestorAux(node->right, data1, data2);
 }
