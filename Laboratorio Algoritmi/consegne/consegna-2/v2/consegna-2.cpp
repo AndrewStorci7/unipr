@@ -91,21 +91,15 @@ int calcHeightAux(node_t* node);
 /// @brief dati due valori presenti nell'albero, restituisce il valore del nodo piu' basso che
 /// contiene entrambi nel suo sottoalbero
 /// @return il piu' piccolo nodo che gli contiene
-node_t* lowestCommonAncestor(btree_t* tree, int data1, int data2);
+int lowestCommonAncestor(btree_t* tree, int data1, int data2);
 node_t* lowestCommonAncestorAux(node_t* node, int data1, int data2);
 
 struct node {
     int data;
-    // node_t* father = nullptr;
     node_t* right = nullptr;
     node_t* left = nullptr;
-//    int count = 0; // numero di occorrenze
-    // int height = 0; // altezza del nodo rispetto ad un albero
     int level = 0; // livello del nodo rispetto ad un albero
 
-//    node() : data(), father(nullptr), right(nullptr), left(nullptr), count(0) {};
-//    node(int data) : data(data), father(nullptr), right(nullptr), left(nullptr), count(1) {};
-//    node(int data, node_t* f, node_t* l, node_t* r) : data(data), father(f), right(r), left(l), count(1) {};
     node() : data(), level(0), right(nullptr), left(nullptr) {};
     node(int data, int level) : data(data), level(level), right(nullptr), left(nullptr) {};
     node(int data, node_t* l, node_t* r) : data(data), right(r), left(l) {};
@@ -113,10 +107,6 @@ struct node {
     bool isLeaf() {
         return this->right == nullptr && this->left == nullptr;
     }
-
-//    bool hasFather() {
-//        return this->father != nullptr;
-//    }
 
     bool hasRight() {
         return this->right != nullptr;
@@ -151,7 +141,7 @@ struct queue {
     queue(): head(nullptr) {}
 
     void push(node_t* data) {
-        auto new_node = new qnode_t(data);
+        auto new_node = new queue_node(data);
 
         if (this->head == nullptr) {
             this->head = this->tail = new_node;
@@ -179,29 +169,6 @@ struct queue {
         --size;
         return ret;
     }
-
-    void print() {
-        auto current = head;
-
-        while (current->hasNext()) {
-            node_t* n = current->data;
-            std::cout << n->data << ", ";
-            current = current->next;
-        }
-        std::cout << current->data->data << std::endl;
-    }
-
-//    bool find(node_t* node) {
-//        auto current = head;
-//
-//        while (current != nullptr) {
-//            if (current->data == node)
-//                return true;
-//            current = current->next;
-//        }
-//
-//        return false;
-//    }
 
     bool isEmpty() {
         return this->size == 0;
@@ -252,7 +219,7 @@ public:
 
     /// @brief Funzione ricosriva di aggiunta di un nuovo dato a destra
     /// @param data Nuovo dato da aggiugnere all'albero
-    void addRight(node_t* node, int data) {
+    node_t* addRight(node_t* node, int data) {
         if (node->hasRight())
             throw std::invalid_argument("il nodo ha gia' un figlio destro");
 
@@ -260,11 +227,13 @@ public:
 
         node->right = new_node;
         ++this->size;
+
+        return new_node;
     }
 
     /// @brief Funzione ricosriva di aggiunta di un nuovo dato a destra
     /// @param data Nuovo dato da aggiugnere all'albero
-    void addLeft(node_t* node, int data) {
+    node_t* addLeft(node_t* node, int data) {
         if (node->hasLeft())
             throw std::invalid_argument("il nodo ha gia' un figlio sinistro");
 
@@ -272,6 +241,8 @@ public:
 
         node->left = new_node;
         ++this->size;
+
+        return new_node;
     }
 
     /// @brief Crea il grafico visivo dell'albero e lo stampa in un file .dot
@@ -378,58 +349,136 @@ void insert_random_rec(btree_t* tree, node_t *n, const int max_it = MAX_IT) {
 
 int main(int argc, char* argv[]) {
 
+    { /// Albero completo e bilanciato
+        auto root = new node_t(14, 0);
+        auto tree = new btree_t(root);
+        auto r1 = tree->addRight(root, 45);
+        auto l1 = tree->addLeft(root, 12);
 
-    const int MAX_VALUES = 30;
-    int pc = parseArguments(argc, argv);
+        // aggiunta L e R al primo nodo destro
+        auto r2 = tree->addRight(r1, 45);
+        auto l2 = tree->addLeft(r1, 12);
 
-    auto* root = new node_t(80, 0);
-    auto* tree = new btree_t(root);
+        // aggiunta L e R al primo nodo sinistro
+        auto r3 = tree->addRight(l1, 67);
+        auto l3 = tree->addLeft(l1, 98);
 
-    insert_random_rec(tree, tree->getRoot(), MAX_VALUES);
+        // aggiunta L e R al primo nodo destro
+        auto r4 = tree->addRight(r2, 6);
+        auto l4 = tree->addLeft(r2, 44);
 
-    std::cout << "Dimensione albero: " << tree->getSize() << std::endl;
+        // aggiunta L e R al primo nodo sinistro
+        auto r5 = tree->addRight(l2, 13);
+        auto l5 = tree->addLeft(l2, 52);
 
-    std::cout << bfs(tree, 23) << std::endl;
+        // aggiunta L e R al primo nodo destro
+        tree->addRight(r3, 38);
+        tree->addLeft(r3, 33);
 
-    if (pc == GRAPH)
-        tree->do_graph();
+        // aggiunta L e R al primo nodo sinistro
+        tree->addRight(l3, 23);
+        tree->addLeft(l3, 32);
 
-    /// 1) calcolo altezza e profondita'
-    std::cout << "Altezza albero partendo dal nodo radice: " << calcHeight(tree, tree->getRoot()) << std::endl;
-//    assert(tree->calcHeight(tree->getRoot()->data) == 3);
-    std::cout << "Altezza albero partendo dal nodo (12): " << calcHeight(tree, new node) << std::endl;
-//    assert(tree->calcHeight(12) == 2);
+        /// TEST calcolo LCA
+        auto lca = lowestCommonAncestor(tree, 23, 33);
+        assert(lca == 12);
+        auto lca2 = lowestCommonAncestor(tree, 32, 100);
+        assert(lca2 == 32);
 
-    std::cout << "------" << std::endl;
+        /// TEST calcolo isCompelte
+        auto complete = isComplete(tree);
+        assert(complete == true);
 
-    std::cout << "Profondita' albero partendo dal nodo radice: " << calcDepth(tree, tree->getRoot()->data) << std::endl;
-//    assert(tree->calcDepth(tree->getRoot()->data) == 0);
-    std::cout << "Profondita' albero partendo dal nodo (12): " << calcDepth(tree, 12) << std::endl;
-//    assert(tree->calcDepth(12) == 1);
+        /// TEST calcolo isBalanced
+        auto balanced = isBalanced(tree);
+        assert(balanced == true);
 
-    /// 2) vedere se un albero e' compelto
-    std::cout << "L'albero e' completo ? " << (isComplete(tree) ? "Si" : "No") << std::endl;
-//    assert((pc == T_COMPLETE || pc == C_A_G) ? isComplete(tree) : true);
+        /// TEST calcolo profondita'
+        auto depth32 = calcDepth(tree, 32);
+        assert(depth32 == 3);
+        auto depth67 = calcDepth(tree, 67);
+        assert(depth67 == 2);
+        auto depthNIL = calcDepth(tree, 0);
+        assert(depthNIL == -1);
 
-    /// 3) vedere se un albero e' bilanciato
-    std::cout << "L'albero e' bilanciato ? " << (isBalanced(tree) ? "Si" : "No") << std::endl;
-//    std::cout << "Conteggio iterazioni: " << cnt_it << ", n=" << MAX_VALUES << std::endl;
-//    assert((pc == T_COMPLETE || pc == C_A_G) ? isBalanced(tree) : true);
-//    assert((pc == T_RND || pc == R_A_G) ? cnt_it < 31 : true);
-    // assert((pc == T_COMPLETE || pc == C_A_G) ? cnt_it < 16 : true);
+        /// TEST calcolo altezza
+        auto heightL3 = calcHeight(tree, l3);
+        assert(heightL3 == 1);
+        auto heightR1 = calcHeight(tree, r1);
+        assert(heightR1 == 2);
+        auto heightNIL = calcHeight(tree, nullptr);
+        assert(heightNIL == -1);
 
-    /// 4) Lowest Common Ancestor TEST
-    // auto lca = lowestCommonAncestor(tree, 23, 29);
-    int val1 = 86, val2 = 71;
-    auto lca = lowestCommonAncestor(tree, val1, val2);
-    std::cout << "Lowest Common Ancestor di (" << val1 << ") e (" << val2 << "): "
-        << (lca != nullptr ? lca->data : -1) << std::endl;
+        tree->do_graph("albero-bilanciato-completo.dot");
 
-    flipTree(tree);
-    if (pc == GRAPH)
-        tree->do_graph("albero-flipped.dot");
+        flipTree(tree);
+        tree->do_graph("albero-bilanciato-completo-flipped.dot");
+    }
 
-    return 0;
+    { /// Albero bilanciato
+        auto root = new node_t(14, 0);
+        auto tree = new btree_t(root);
+        auto r1 = tree->addRight(root, 45);
+        auto l1 = tree->addLeft(root, 12);
+
+        // aggiunta L e R al primo nodo destro
+        auto r2 = tree->addRight(r1, 45);
+        auto l2 = tree->addLeft(r1, 12);
+
+        // aggiunta L e R al primo nodo sinistro
+        auto r3 = tree->addRight(l1, 67);
+        auto l3 = tree->addLeft(l1, 98);
+
+        // aggiunta L e R al primo nodo destro
+        auto r4 = tree->addRight(r2, 6);
+        auto l4 = tree->addLeft(r2, 44);
+
+        // aggiunta L e R al primo nodo destro
+        tree->addRight(r3, 38);
+        tree->addLeft(r3, 33);
+
+        // aggiunta L e R al primo nodo sinistro
+        tree->addRight(l3, 23);
+        tree->addLeft(l3, 32);
+
+        auto lca = lowestCommonAncestor(tree, 23, 33);
+        assert(lca == 12);
+
+        auto lca2 = lowestCommonAncestor(tree, 32, 100);
+        assert(lca2 == 32);
+
+        auto complete = isComplete(tree);
+        assert(complete == false);
+
+        auto balanced = isBalanced(tree);
+        assert(balanced == true);
+
+        tree->do_graph("albero-bilanciato.dot");
+
+        flipTree(tree);
+        tree->do_graph("albero-bilanciato-flipped.dot");
+    }
+
+    { /// Albero random
+        const int MAX_VALUES = 30;
+        // int pc = parseArguments(argc, argv);
+
+        auto* root = new node_t(80, 0);
+        auto* tree = new btree_t(root);
+
+        insert_random_rec(tree, tree->getRoot(), MAX_VALUES);
+
+        tree->do_graph("albero-random.dot");
+
+        auto complete = isComplete(tree);
+        // assert(complete == false);
+
+        auto balanced = isBalanced(tree);
+        // assert(balanced == false);
+
+    }
+
+    exit(0);
 }
 
 bool isComplete(btree_t* t) {
@@ -558,44 +607,37 @@ int calcDepthAux(node_t* node, int data) {
     if (node->data == data)
         return node->level;
 
-    if (node->hasLeft())
-        return calcDepthAux(node->left, data);
-    if (node->hasRight())
-        return calcDepthAux(node->right, data);
+    int leftDepth = calcDepthAux(node->left, data);
+    if (leftDepth != -1)
+        return leftDepth;
+
+    return calcDepthAux(node->right, data);
 }
 
-node_t* lowestCommonAncestor(btree_t* tree, int data1, int data2) {
+int lowestCommonAncestor(btree_t* tree, int data1, int data2) {
     if (tree->getSize() <= 1)
-        return nullptr;
+        return -1;
 
-    // di default: siccome utilizzo gli alberi binari di ricerca
-    // vado ad impostare sempre il primo elemento della chiamata ricorsiva
-    // l'elemento più piccolo
-//    if (binarySearch(tree, data1) == nullptr ||
-//        binarySearch(tree, data2) == nullptr)
-//        return nullptr;
+    node_t* ancestorFound = lowestCommonAncestorAux(tree->getRoot(), data1, data2);
 
-    auto firstNode = data1 > data2 ? data2 : data1;
-    auto secondNode = data1 > data2 ? data1 : data2;
+    if (ancestorFound != nullptr)
+        return ancestorFound->data;
 
-    return lowestCommonAncestorAux(tree->getRoot(), firstNode, secondNode);
+    return -1;
 }
 
-/// Idea: ogni volta controllo se data1 e data2 sono minori del nodo corrente
-/// se sono tutti e due più piccoli significa che si trovano all'interno del sottoalbero
-/// (lo do per socntato perché prima di entrare nella funzione ricorsiva controlo che i due dati
-/// passati come parametro esistano all'interno dell'albero); se invece anche solo uno dei due dati
-/// è più grande allora significa che non sono più nel sottoalbero che gli contiene
 node_t* lowestCommonAncestorAux(node_t* node, int data1, int data2) {
-
-    if (node->isLeaf() && (data1 != node->data || data2 != node->data))
+    if (node == nullptr)
         return nullptr;
 
-    if (data1 < node->data && data2 > node->data)
+    if (node->data == data1 || node->data == data2)
         return node;
 
-    if (data1 < node->data && data2 < node->data)
-        return lowestCommonAncestorAux(node->left, data1, data2);
-    else if (data1 > node->data && data2 > node->data)
-        return lowestCommonAncestorAux(node->right, data1, data2);
+    node_t* left = lowestCommonAncestorAux(node->left, data1, data2);
+    node_t* right = lowestCommonAncestorAux(node->right, data1, data2);
+
+    if (left != nullptr && right != nullptr)
+        return node;
+
+    return (left != nullptr) ? left : right;
 }
