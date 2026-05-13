@@ -9,38 +9,22 @@
 
 /**
  * @author: Andrea Storci
- * @date:   2026/04/06
- *
- * @brief   Documentazione Consegna 2
- *
- * v2:
- *  Fino ad'ora e' stato utilizzato un albero binario
- *
- * @usage
- * Utilizzo: ./consegna-2 [option]
- *
- * Opzioni:
- *  -g: stampa il file .dot dell'albero
- *  -random/-complete:
- *      -random: crea un albero con valori causali
- *      -complete: crea un albero con dei valori di default (da 1 a 15) che formano un albero completo
- *
- * Attenzione: -random e -complete sono mutuamente esclusivi
+ * @date:   2026/05/06
  */
 
 int cnt_it = 0; // variabile utilizzata per verificare che la funzione isBalanced sia O(n)
-int cnt_read = 0;
+//int cnt_read = 0;
 
-enum PARSE_CODES {
-    NOTHING = 0,
-    T_RND = 1,
-    GRAPH = 2,
-    T_COMPLETE = 4,
-    T_BALANCED = 10,
-    R_A_G = T_RND + GRAPH,
-    C_A_G = T_COMPLETE + GRAPH,
-    B_A_G = T_BALANCED + GRAPH,
-};
+//enum PARSE_CODES {
+//    NOTHING = 0,
+//    T_RND = 1,
+//    GRAPH = 2,
+//    T_COMPLETE = 4,
+//    T_BALANCED = 10,
+//    R_A_G = T_RND + GRAPH,
+//    C_A_G = T_COMPLETE + GRAPH,
+//    B_A_G = T_BALANCED + GRAPH,
+//};
 
 class binary_tree;
 typedef class binary_tree btree_t;
@@ -270,55 +254,6 @@ public:
     }
 };
 
-///
-/// @param argc
-/// @param argv
-/// @return uno dei codici di PARSE_CODES
-int parseArguments(int argc, char* argv[]) {
-    if (argc < 1)
-        return NOTHING;
-
-    int code = NOTHING;
-    bool typeAlreadySet = false;
-
-    for (int i = 1; i < argc; ++i) {
-        if (argv[i] == nullptr)
-            continue;
-
-        if (strcmp(argv[i], "-random") == 0 || strcmp(argv[i], "-complete") == 0 || strcmp(argv[i], "-balanced") == 0) {
-            if (typeAlreadySet)
-                std::cerr << "Errore: Non puoi utilizzare '-random' e '-complete' insieme!" << std::endl;
-            else {
-                if (strcmp(argv[i], "-random") == 0)
-                    code += T_RND;
-                else if (strcmp(argv[i], "-balanced") == 0)
-                    code += T_BALANCED;
-                else
-                    code += T_COMPLETE;
-
-                typeAlreadySet = true;
-            }
-        } else if (strcmp(argv[i], "-g") == 0) {
-            code += GRAPH;
-        } else if (strcmp(argv[i], "-h") == 0) {
-            std::cout << "Utilizzo: ./consegna-2 [option]\n"
-                         "\n"
-                         "Opzioni:\n"
-                         "\t-g: stampa il file .dot dell'albero\n"
-                         "\t-random/-complete:\n"
-                         "\t\t-random: crea un albero con valori causali\n"
-                         "\t\t-complete: crea un albero con dei valori di default (da 1 a 15) che formano un albero completo\n"
-                         "\n"
-                         "Attenzione: -random e -complete sono mutuamente esclusivi" << std::endl;
-            exit(0);
-        }
-        else
-            std::cerr << "Argomento sconosciuto: " << argv[i] << std::endl;
-    }
-
-    return code;
-}
-
 int size = 0;
 
 void insert_random_rec(btree_t* tree, node_t *n, const int max_it = MAX_IT) {
@@ -510,7 +445,7 @@ bool isCompleteAux(node_t* node, int h) {
 
 bool isBalanced(btree_t* tree) {
     cnt_it = 0;
-    cnt_read = 0;
+//    cnt_read = 0;
 
     if (tree->getSize() <= 0)
         return true;
