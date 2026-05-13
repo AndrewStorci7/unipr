@@ -65,7 +65,7 @@ bool isCompleteAux(node_t* node, int height);
 /// @param tree Albero binario
 /// @return true se l'albero e' bilanciato, false altrimenti
 bool isBalanced(btree_t* tree);
-bool isBalancedAux(btree_t* tree, node_t* node);
+int isBalancedAux(btree_t* tree, node_t* node);
 
 /// @brief Algoritmo BFS per la ricerca di un nodo
 /// @return true se il dato e'xpresente, false altrimenti
@@ -392,6 +392,8 @@ int main(int argc, char* argv[]) {
         /// TEST calcolo isBalanced
         auto balanced = isBalanced(tree);
         assert(balanced == true);
+//        std::cout << "Count: " << cnt_it << "; " << tree->getSize() << std::endl;
+        assert(cnt_it <= tree->getSize());
 
         /// TEST calcolo profondita'
         auto depth32 = calcDepth(tree, 32);
@@ -452,6 +454,8 @@ int main(int argc, char* argv[]) {
 
         auto balanced = isBalanced(tree);
         assert(balanced == true);
+//        std::cout << "Count: " << cnt_it << "; " << tree->getSize() << std::endl;
+        assert(cnt_it <= tree->getSize());
 
         tree->do_graph("albero-bilanciato.dot");
 
@@ -474,6 +478,7 @@ int main(int argc, char* argv[]) {
         // assert(complete == false);
 
         auto balanced = isBalanced(tree);
+        assert(cnt_it <= tree->getSize());
         // assert(balanced == false);
 
     }
@@ -510,13 +515,13 @@ bool isBalanced(btree_t* tree) {
     if (tree->getSize() <= 0)
         return true;
 
-    return isBalancedAux(tree, tree->getRoot());
+    return isBalancedAux(tree, tree->getRoot()) != -1;
 }
 
-bool isBalancedAux(btree_t* tree, node_t* node) {
+int isBalancedAux(btree_t* tree, node_t* node) {
     ++cnt_it;
     if (node == nullptr)
-        return true;
+        return 0;
 
     int hLeft = 0, hRight = 0;
 
@@ -525,8 +530,11 @@ bool isBalancedAux(btree_t* tree, node_t* node) {
     if (node->hasRight())
         hRight = calcHeight(tree, node->right);
 
+    if (hLeft == -1 || hRight == -1)
+        return -1;
+
     if (std::abs(hLeft - hRight) > 1)
-        return false;
+        return -1;
 
     return isBalancedAux(tree, node->left) && isBalancedAux(tree, node->right);
 }

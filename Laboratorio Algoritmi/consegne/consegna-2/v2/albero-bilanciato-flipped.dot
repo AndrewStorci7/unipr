@@ -1,0 +1,28 @@
+digraph Albero {
+    node [fontname="Helvetica", shape=circle];
+    "0x63c522aec5a0" [label="14 (lvl: 0)"];
+    "0x63c522aec5a0" -> "0x63c522aecbe0";
+    "0x63c522aecbe0" [label="45 (lvl: 1)"];
+    "0x63c522aecbe0" -> "0x63c522aecc40";
+    "0x63c522aecc40" [label="45 (lvl: 2)"];
+    "0x63c522aecc40" -> "0x63c522aecd00";
+    "0x63c522aecd00" [label="6 (lvl: 3)"];
+    "0x63c522aecc40" -> "0x63c522aecd30";
+    "0x63c522aecd30" [label="44 (lvl: 3)"];
+    "0x63c522aecbe0" -> "0x63c522aecc70";
+    "0x63c522aecc70" [label="12 (lvl: 2)"];
+    "0x63c522aec5a0" -> "0x63c522aecc10";
+    "0x63c522aecc10" [label="12 (lvl: 1)"];
+    "0x63c522aecc10" -> "0x63c522aecca0";
+    "0x63c522aecca0" [label="67 (lvl: 2)"];
+    "0x63c522aecca0" -> "0x63c522aecd60";
+    "0x63c522aecd60" [label="38 (lvl: 3)"];
+    "0x63c522aecca0" -> "0x63c522aecd90";
+    "0x63c522aecd90" [label="33 (lvl: 3)"];
+    "0x63c522aecc10" -> "0x63c522aeccd0";
+    "0x63c522aeccd0" [label="98 (lvl: 2)"];
+    "0x63c522aeccd0" -> "0x63c522aecdc0";
+    "0x63c522aecdc0" [label="23 (lvl: 3)"];
+    "0x63c522aeccd0" -> "0x63c522aecdf0";
+    "0x63c522aecdf0" [label="32 (lvl: 3)"];
+}
