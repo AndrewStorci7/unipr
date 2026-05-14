@@ -16,7 +16,7 @@ typedef struct vertex vertex_t;
 
 /// @brief Struttura del grafo
 class graph;
-typedef struct graph graph_t;
+typedef class graph graph_t;
 
 /// @brief DFS modificato per vedere se un array di interi e' presente con lo stesso
 /// ordine nel grafo
@@ -35,32 +35,39 @@ bool dfsAux(int u, bool visited[], vertex_t* edges[], int* datas, int n, int cou
 struct vertex {
     int val;
     vertex_t* next;
+    size_t nEdgesInbound;   // numero archi entranti
+    size_t nEdgesOutbound;  // numero archi uscenti
 };
 
 class graph {
-    size_t nVertex = 0;
+    size_t maxSize = 0;
+    int nVertexes = 0;
+    int nEdges = 0;
     vertex_t** E = nullptr; // array degli archi
 
 public:
 
     graph(const int V) {
-        nVertex = V;
+        maxSize = V;
         E = new vertex_t*[V];
         for (int i = 0; i < V; ++i)
             E[i] = nullptr;
     }
 
     size_t getSize() {
-        return nVertex;
+        return nVertexes;
     }
 
     vertex_t** getEdges() {
         return E;
     }
 
-    void addVertex(const int src, const int dest) const {
+    void addEdge(const int src, const int dest) {
+        ++E[dest]->nEdgesOutbound;
+        ++E[src]->nEdgesInbound;
         const auto newVertex = new vertex_t{dest, E[src]};
         E[src] = newVertex;
+        nEdges += 1;
     }
 
     void doGraph(const std::string& nomeFile) const {
@@ -74,14 +81,16 @@ public:
         out << "digraph G {" << std::endl;
         out << "    node [shape=circle];" << std::endl;
 
-        for (int i = 0; i < nVertex; ++i) {
+        for (int i = 0; i < nVertexes; ++i) {
             auto temp = E[i];
 
             if (temp == nullptr)
-                out << "    " << i << ";" << std::endl;
+                out << "    " << i << std::endl;
 
             while (temp != nullptr) {
-                out << "    " << i << " -> " << temp->val << ";" << std::endl;
+                out << "    " << i << "[label=\"" << i << "(in:"
+                    << temp->nEdgesInbound << ", out:" << temp->nEdgesOutbound << ")"
+                    << "\", shape=none];" << std::endl;
                 temp = temp->next;
             }
         }
@@ -97,18 +106,18 @@ int main(int argc, char* argv[]) {
 
     { /// Grafo connesso
         graph_t* g = new graph(10);
-        g->addVertex(0, 1);
-        g->addVertex(0, 5);
-        g->addVertex(1, 2);
-        g->addVertex(2, 1);
-        g->addVertex(2, 8);
-        g->addVertex(3, 7);
-        g->addVertex(3, 9);
-        g->addVertex(4, 2);
-        g->addVertex(5, 3);
-        g->addVertex(6, 1);
-        g->addVertex(7, 0);
-        g->addVertex(8, 9);
+        g->addEdge(0, 1);
+        g->addEdge(0, 5);
+        g->addEdge(1, 2);
+        g->addEdge(2, 1);
+        g->addEdge(2, 8);
+        g->addEdge(3, 7);
+        g->addEdge(3, 9);
+        g->addEdge(4, 2);
+        g->addEdge(5, 3);
+        g->addEdge(6, 1);
+        g->addEdge(7, 0);
+        g->addEdge(8, 9);
 
         g->doGraph("grafo-connesso.dot");
 
@@ -117,9 +126,9 @@ int main(int argc, char* argv[]) {
         assert(checkDFS == true);
 //        std::cout << cnt_it << std::endl;
 
-        int dati2[] = { 0, 12, 3, 9 };
+        int dati2[] = { 0, 1, 2, 8 };
         bool checkDFS2 = dfs(g, dati2, 4);
-        assert(checkDFS2 == false);
+        assert(checkDFS2 == true);
 //        std::cout << cnt_it << std::endl;
 
         int dati3[] = { 0, 5, 3, 7 };
@@ -154,7 +163,7 @@ int main(int argc, char* argv[]) {
         for (int i = 0; i < 10; ++i) {
             int r1 = distrib(gen);
             int r2 = distrib(gen);
-            g->addVertex(r1, r2);
+            g->addEdge(r1, r2);
         }
 
         g->doGraph("grafo.dot");
