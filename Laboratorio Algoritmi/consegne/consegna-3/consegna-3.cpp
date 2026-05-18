@@ -3,12 +3,20 @@
 #include <random>
 #include <cassert>
 
+#define DEBUG_MODE true
+
 /**
  * @author: Andrea Storci
  * @date:   2026/05/13
  */
 
 int cnt_it = 0; // contatore delle iterazioni di DFS
+
+struct queue;
+typedef struct queue queue_t;
+
+struct queue_node;
+typedef struct queue_node qnode_t;
 
 /// @brief Struttura del vertice
 struct vertex;
@@ -23,35 +31,53 @@ typedef class graph graph_t;
 /// @param g        Grafo
 /// @param n        Dimensione dell'array di interi `datas`
 /// @param datas    Array di interi
-bool dfs(graph_t* g, int* datas, int n, bool debug = false);
+bool dfs(graph_t* g, int* datas, int n, bool debug = DEBUG_MODE);
 /// @param u        Nodo di partenza
 /// @param visited  Array per tenere traccia delle visite
 /// @param edges    Archi del grafo
 /// @param datas    Array di interi
 /// @param n        Dimensione dell'array di interi `datas`
 /// @param count    Varabile contatore per tenere traccia i dati di `datas` trovati
-bool dfsAux(int u, bool visited[], vertex_t* edges[], int* datas, int n, int count, bool debug = false);
+bool dfsAux(int u, vertex_t* edges[], int* datas, int n, int count, bool debug = DEBUG_MODE);
 
 struct vertex {
-    int val;
-    vertex_t* next;
-    size_t nEdgesInbound;   // numero archi entranti
-    size_t nEdgesOutbound;  // numero archi uscenti
+    int val = 0;
+    vertex_t* next = nullptr;
 };
 
 class graph {
-    size_t maxSize = 0;
     int nVertexes = 0;
     int nEdges = 0;
     vertex_t** E = nullptr; // array degli archi
+    size_t* inDegs = nullptr;
+    size_t* outDegs = nullptr;
 
 public:
 
     graph(const int V) {
-        maxSize = V;
+        nVertexes = V;
         E = new vertex_t*[V];
         for (int i = 0; i < V; ++i)
             E[i] = nullptr;
+
+        inDegs = new size_t[V];
+        outDegs = new size_t[V];
+        for (int i = 0; i < V; ++i) {
+            inDegs[i] = 0;
+            outDegs[i] = 0;
+        }
+    }
+
+    ~graph() {
+        if (E == nullptr)
+            return;
+
+        for (int i = 0; i < nVertexes; ++i)
+            delete E[i];
+
+        delete E;
+        delete inDegs;
+        delete outDegs;
     }
 
     size_t getSize() {
@@ -63,10 +89,13 @@ public:
     }
 
     void addEdge(const int src, const int dest) {
-        ++E[dest]->nEdgesOutbound;
-        ++E[src]->nEdgesInbound;
+
         const auto newVertex = new vertex_t{dest, E[src]};
         E[src] = newVertex;
+
+        ++inDegs[dest];
+        ++outDegs[src];
+
         nEdges += 1;
     }
 
@@ -79,18 +108,16 @@ public:
         }
 
         out << "digraph G {" << std::endl;
-        out << "    node [shape=circle];" << std::endl;
+        out << "    node [shape=circle];" << std::endl; // Forma di default per i nodi
 
         for (int i = 0; i < nVertexes; ++i) {
             auto temp = E[i];
 
-            if (temp == nullptr)
-                out << "    " << i << std::endl;
+            out << "    " << i << " [label=\"" << i << " (in:"
+                << inDegs[i] << ", out:" << outDegs[i] << ")\"];" << std::endl;
 
             while (temp != nullptr) {
-                out << "    " << i << "[label=\"" << i << "(in:"
-                    << temp->nEdgesInbound << ", out:" << temp->nEdgesOutbound << ")"
-                    << "\", shape=none];" << std::endl;
+                out << "    " << i << " -> " << temp->val << ";" << std::endl;
                 temp = temp->next;
             }
         }
@@ -105,7 +132,7 @@ public:
 int main(int argc, char* argv[]) {
 
     { /// Grafo connesso
-        graph_t* g = new graph(10);
+        auto g = new graph(10);
         g->addEdge(0, 1);
         g->addEdge(0, 5);
         g->addEdge(1, 2);
@@ -124,31 +151,43 @@ int main(int argc, char* argv[]) {
         int dati[] = { 0, 5, 3, 9 };
         bool checkDFS = dfs(g, dati, 4);
         assert(checkDFS == true);
-//        std::cout << cnt_it << std::endl;
+        std::cout << cnt_it << std::endl;
 
         int dati2[] = { 0, 1, 2, 8 };
         bool checkDFS2 = dfs(g, dati2, 4);
         assert(checkDFS2 == true);
-//        std::cout << cnt_it << std::endl;
+        std::cout << cnt_it << std::endl;
 
         int dati3[] = { 0, 5, 3, 7 };
         bool checkDFS3 = dfs(g, dati3, 4);
         assert(checkDFS3 == true);
-//        std::cout << cnt_it << std::endl;
+        std::cout << cnt_it << std::endl;
 
         /// ATTENZIONE: qui no funziona siccome 0 risulta gia' visitato
         /// capire se gestirlo
         int dati4[] = { 0, 5, 3, 7, 0 };
         bool checkDFS4 = dfs(g, dati4, 5);
-//        assert(checkDFS4 == true);
+        assert(checkDFS4 == true);
+        std::cout << cnt_it << std::endl;
 
         int dati5[] = { 3, 9 };
         bool checkDFS5 = dfs(g, dati5, 2);
         assert(checkDFS5 == true);
+        std::cout << cnt_it << std::endl;
 
         int dati6[] = { 5, 3, 7, 0 };
         bool checkDFS6 = dfs(g, dati6, 4);
         assert(checkDFS6 == true);
+        std::cout << cnt_it << std::endl;
+
+        int dati7[] = { 0, 5, 3, 7, 0, 1, 2, 1 };
+        bool checkDFS7 = dfs(g, dati7, 8);
+        assert(checkDFS7 == true);
+        std::cout << cnt_it << std::endl;
+
+        int dati8[] = { 0, 5, 3, 7, 0, 1, 2, 0 };
+        bool checkDFS8 = dfs(g, dati8, 8);
+        assert(checkDFS8 == false);
 
         exit(0);
     }
@@ -179,21 +218,17 @@ bool dfs(graph_t* g, int* datas, int n, bool debug) {
     if (g->getSize() == 0)
         return false;
 
-    bool visited[g->getSize()];
-    for (int i = 0; i < g->getSize(); ++i)
-        visited[i] = false;
-
     if (datas == nullptr)
         throw std::invalid_argument("datas non può essere null");
 
-    bool check = dfsAux(datas[0], visited, g->getEdges(), datas, n, 0, debug);
+    bool check = dfsAux(datas[0], g->getEdges(), datas, n, 0, debug);
     if (check)
         return true;
 
     return false;
 }
 
-bool dfsAux(const int u, bool visited[], vertex_t* edges[], int* datas, int n, int count, bool debug) {
+bool dfsAux(const int u, vertex_t* edges[], int* datas, int n, int count, bool debug) {
     ++cnt_it;
     if (count >= n || u != datas[count])
         return false;
@@ -202,18 +237,17 @@ bool dfsAux(const int u, bool visited[], vertex_t* edges[], int* datas, int n, i
         std::cout << "Visitando il nodo: " << u << " (corrisponde a datas[" << count << "])" << std::endl;
     }
 
-    visited[u] = true;
     ++count;
+
+    if (count == n)
+        return true;
 
     vertex_t* curr = edges[u];
     while (curr != nullptr) {
         int v = curr->val;
 
-        if (!visited[v]) {
-            if (v == datas[count]) {
-                return dfsAux(v, visited, edges, datas, n, count, debug);
-            }
-        }
+        if (v == datas[count])
+            return dfsAux(v, edges, datas, n, count, debug);
 
         curr = curr->next;
     }
