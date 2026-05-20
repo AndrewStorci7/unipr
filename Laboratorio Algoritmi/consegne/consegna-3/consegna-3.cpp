@@ -3,7 +3,7 @@
 #include <random>
 #include <cassert>
 
-#define DEBUG_MODE true
+#define DEBUG_MODE false
 
 /**
  * @author: Andrea Storci
@@ -110,11 +110,17 @@ public:
         out << "digraph G {" << std::endl;
         out << "    node [shape=circle];" << std::endl; // Forma di default per i nodi
 
+
         for (int i = 0; i < nVertexes; ++i) {
             auto temp = E[i];
 
-            out << "    " << i << " [label=\"" << i << " (in:"
-                << inDegs[i] << ", out:" << outDegs[i] << ")\"];" << std::endl;
+            bool nodeEmpty = inDegs[i] == 0 && outDegs[i] == 0;
+
+            out << "    " << i << " ["
+                << (nodeEmpty ? "style=\"filled\" fillColor=\"#45FF67\" " : "")
+                << "label=\"" << i << "\"];" << std::endl;
+//                << " (in:"
+//                << inDegs[i] << ", out:" << outDegs[i] << ")\"];" << std::endl;
 
             while (temp != nullptr) {
                 out << "    " << i << " -> " << temp->val << ";" << std::endl;
@@ -189,17 +195,18 @@ int main(int argc, char* argv[]) {
         bool checkDFS8 = dfs(g, dati8, 8);
         assert(checkDFS8 == false);
 
-        exit(0);
+//        exit(0);
     }
 
     { /// Grafo random
-        graph_t *g = new graph_t(10);
+        int MAX_VAL = 10;
+        graph_t *g = new graph_t(MAX_VAL);
 
         std::random_device rd;
         std::mt19937 gen(rd());
-        std::uniform_int_distribution<> distrib(1, 10);
+        std::uniform_int_distribution<> distrib(1, MAX_VAL);
 
-        for (int i = 0; i < 10; ++i) {
+        for (int i = 0; i < MAX_VAL; ++i) {
             int r1 = distrib(gen);
             int r2 = distrib(gen);
             g->addEdge(r1, r2);
@@ -207,7 +214,15 @@ int main(int argc, char* argv[]) {
 
         g->doGraph("grafo.dot");
 
-        // dfs(g, nullptr);
+        int dati[] = { 5, 3, 2, 7 };
+        bool check = dfs(g, dati, 4);
+
+        std::cout << "l'array: ";
+        for (int i = 0; i < 3; ++i)
+            std::cout << dati[i] << ", ";
+        std::cout << dati[3] << " => "
+            << (check ? "E' presente" : "Non e' presente")
+            << std::endl;
     }
 
     exit(0);
