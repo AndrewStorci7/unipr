@@ -1,0 +1,76 @@
+digraph BucketHeaps {
+    node [shape=circle, fontname="Helvetica"];
+    edge [fontname="Helvetica"];
+    rankdir=TB;
+
+    subgraph cluster_0 {
+        label="Bucket 0";
+        style=dashed;
+        color=black;
+        empty_0 [label="Vuoto", shape=plaintext];
+    }
+
+    subgraph cluster_1 {
+        label="Bucket 1";
+        style=dashed;
+        color=black;
+        empty_1 [label="Vuoto", shape=plaintext];
+    }
+
+    subgraph cluster_2 {
+        label="Bucket 2";
+        style=dashed;
+        color=black;
+        empty_2 [label="Vuoto", shape=plaintext];
+    }
+
+    subgraph cluster_3 {
+        label="Bucket 3";
+        style=dashed;
+        color=black;
+        empty_3 [label="Vuoto", shape=plaintext];
+    }
+
+    subgraph cluster_4 {
+        label="Bucket 4";
+        style=dashed;
+        color=black;
+        empty_4 [label="Vuoto", shape=plaintext];
+    }
+
+    subgraph cluster_5 {
+        label="Bucket 5";
+        style=dashed;
+        color=black;
+        empty_5 [label="Vuoto", shape=plaintext];
+    }
+
+    subgraph cluster_6 {
+        label="Bucket 6";
+        style=dashed;
+        color=black;
+        empty_6 [label="Vuoto", shape=plaintext];
+    }
+
+    subgraph cluster_7 {
+        label="Bucket 7";
+        style=dashed;
+        color=black;
+        empty_7 [label="Vuoto", shape=plaintext];
+    }
+
+    subgraph cluster_8 {
+        label="Bucket 8";
+        style=dashed;
+        color=black;
+        empty_8 [label="Vuoto", shape=plaintext];
+    }
+
+    subgraph cluster_9 {
+        label="Bucket 9";
+        style=dashed;
+        color=black;
+        empty_9 [label="Vuoto", shape=plaintext];
+    }
+
+}

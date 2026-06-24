@@ -1,0 +1,12 @@
+digraph Albero {
+    node [fontname="Helvetica", shape=circle];
+    "0x1d9452f6bb0" [label="80 (lvl: 0)"];
+    "0x1d9452f6bb0" -> "0x1d9452f69a0";
+    "0x1d9452f69a0" [label="100 (lvl: 1)"];
+    "0x1d9452f69a0" -> "0x1d9452f6af0";
+    "0x1d9452f6af0" [label="77 (lvl: 2)"];
+    "0x1d9452f6af0" -> "0x1d9452f6850";
+    "0x1d9452f6850" [label="33 (lvl: 3)"];
+    "0x1d9452f6850" -> "0x1d9452f69d0";
+    "0x1d9452f69d0" [label="31 (lvl: 4)"];
+}

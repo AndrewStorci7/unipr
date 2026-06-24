@@ -1,0 +1,10 @@
+digraph Heap {
+    node [shape=circle];
+    0 [label="3:2 -> 3.4"];
+    0 -> 1;
+    0 -> 2;
+    1 [label="8:3 -> 5.5"];
+    1 -> 3;
+    2 [label="7:1 => 7.8"];
+    3 [label="2:4 => 9"];
+}

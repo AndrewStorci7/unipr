@@ -18,6 +18,7 @@ using namespace std;
 // Obiettivo:
 // Creare un algoritmo di sorting che minimizzi la somma del numero di accessi per ogni sorting di ciascuna riga del file
 
+int cnt_it = 0;
 int ct_swap = 0;
 int ct_cmp = 0;
 int ct_read = 0;
@@ -30,10 +31,8 @@ int graph = 0;
 
 int n = 0; /// dimensione dell'array
 
-void print_array(int *A, int dim)
-{
-    for (int j = 0; j < dim; j++)
-    {
+void print_array(int *A, int dim) {
+    for (int j = 0; j < dim; j++) {
         printf("%d ", A[j]);
     }
     printf("\n");
@@ -41,17 +40,16 @@ void print_array(int *A, int dim)
 
 const int RUN = 32;
 
-void binary_insertion_sort(int *arr, int left, int right)
-{
-    for (int i = left + 1; i <= right; i++)
-    {
+void binary_insertion_sort(int *arr, int left, int right) {
+    for (int i = left + 1; i <= right; i++) {
+        ++cnt_it;
         int key = arr[i];
         ++ct_read;
+
         int lo = left;
         int hi = i - 1;
 
-        while (lo <= hi)
-        {
+        while (lo <= hi) {
             int mid = (lo + hi) / 2;
             ++ct_read;
             if (arr[mid] > key)
@@ -60,8 +58,7 @@ void binary_insertion_sort(int *arr, int left, int right)
                 lo = mid + 1;
         }
 
-        for (int j = i - 1; j >= lo; j--)
-        {
+        for (int j = i - 1; j >= lo; j--) {
             arr[j + 1] = arr[j];
             ++ct_read;
         }
@@ -70,84 +67,85 @@ void binary_insertion_sort(int *arr, int left, int right)
     }
 }
 
-void merge(int *arr, int l, int m, int r)
-{
-    int len1 = m - l + 1;
-    int len2 = r - m;
+void merge(int arr[], int left, int mid, int right, int temp[]) {
+    int i = left, j = mid + 1, k = left;
 
-    int *left = new int[len1];
-    int *right = new int[len2];
+    int reg_left = arr[i];
+    ++ct_read;
+    int reg_right = arr[j];
+    ++ct_read;
 
-    for (int i = 0; i < len1; i++)
-    {
-        left[i] = arr[l + i];
-        ++ct_read;
+    while (i <= mid && j <= right) {
+        if (reg_left <= reg_right) {
+            temp[k++] = reg_left;
+            i++;
+            if (i <= mid) {
+                reg_left = arr[i];
+                ++ct_read;
+            }
+        } else {
+            temp[k++] = reg_right;
+            j++;
+            if (j <= right) {
+                reg_right = arr[j];
+                ++ct_read;
+            }
+        }
     }
 
-    for (int i = 0; i < len2; i++)
-    {
-        right[i] = arr[m + 1 + i];
-        ++ct_read;
+    // ... svuotamento delle code (1 lettura per ogni elemento rimanente) ...
+    while (i <= mid) {
+        temp[k++] = reg_left;
+        i++;
+        if (i <= mid) {
+            reg_left = arr[i];
+            ++ct_read;
+        }
     }
 
-    int i = 0;
-    int j = 0;
-    int k = l;
-
-    while (i < len1 && j < len2)
-    {
-        if (left[i] <= right[j])
-            arr[k++] = left[i++];
-        else
-            arr[k++] = right[j++];
-    }
-
-    while (i < len1)
-        arr[k++] = left[i++];
-
-    while (j < len2)
-        arr[k++] = right[j++];
-
-    delete[] left;
-    delete[] right;
-}
-
-void tim_sort(int *arr, int p, int r)
-{
-    int n = r - p;
-
-    for (int i = 0; i < n; i += RUN)
-        binary_insertion_sort(arr, i, min(i + RUN - 1, n - 1));
-
-    for (int size = RUN; size < n; size = 2 * size)
-    {
-        for (int left = 0; left < n; left += 2 * size)
-        {
-            int mid = left + size - 1;
-            int right = min(left + 2 * size - 1, n - 1);
-
-            if (mid < right)
-                merge(arr, left, mid, right);
+    while (j <= right) {
+        temp[k++] = reg_right;
+        j++;
+        if (j <= right) {
+            reg_right = arr[j];
+            ++ct_read;
         }
     }
 }
 
-int parse_cmd(int argc, char **argv)
-{
+void tim_sort(int *arr, int p, int r) {
+    int n = r - p;
+    int temp[n];
+
+    for (int i = 0; i < n; i += RUN)
+        binary_insertion_sort(arr, i, min(i + RUN - 1, n - 1));
+
+    for (int size = RUN; size < n; size = 2 * size) {
+        ++cnt_it;
+        for (int left = 0; left < n; left += 2 * size) {
+            ++cnt_it;
+            int mid = left + size - 1;
+            int right = min(left + 2 * size - 1, n - 1);
+
+            if (mid < right)
+                merge(arr, left, mid, right, temp);
+        }
+    }
+}
+
+int parse_cmd(int argc, char **argv) {
 
     /// parsing argomento
     max_dim = 1000;
 
-    for (int i = 1; i < argc; i++)
-    {
+    for (int i = 1; i < argc; i++) {
         if (argv[i][1] == 'd')
             ndiv = atoi(argv[i] + 3);
         if (argv[i][1] == 't')
             ntests = atoi(argv[i] + 3);
         if (argv[i][1] == 'v')
             details = 1;
-        if (argv[i][1] == 'g')
-        {
+        if (argv[i][1] == 'g') {
             graph = 1;
             ndiv = 1;
             ntests = 1;
@@ -157,8 +155,7 @@ int parse_cmd(int argc, char **argv)
     return 0;
 }
 
-int main(int argc, char **argv)
-{
+int main(int argc, char **argv) {
     int i, test;
     int *A;
     int *B; /// buffer per visualizzazione algoritmo
@@ -196,19 +193,16 @@ int main(int argc, char **argv)
     long read_avg = 0;
 
     //// lancio ntests volte per coprire diversi casi di input random
-    for (test = 0; test < ntests; test++)
-    {
+    for (test = 0; test < ntests; test++) {
 
         /// inizializzazione array: numeri random con range dimensione array
-        for (i = 0; i < n; i++)
-        {
+        for (i = 0; i < n; i++) {
             char comma;
             input_data >> A[i];
             input_data >> comma;
         }
 
-        if (details)
-        {
+        if (details) {
             printf("caricato array di dimensione %d\n", n);
             print_array(A, n);
         }
@@ -219,10 +213,9 @@ int main(int argc, char **argv)
 
         /// algoritmo di sorting
         // quick_sort(A, 0, n - 1);
-        tim_sort(A, 0, 333);
+        tim_sort(A, 0, n);
 
-        if (details)
-        {
+        if (details) {
             printf("Output:\n");
             print_array(A, n);
         }

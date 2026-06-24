@@ -12,12 +12,6 @@
 
 int cnt_it = 0; // contatore delle iterazioni di DFS
 
-struct queue;
-typedef struct queue queue_t;
-
-struct queue_node;
-typedef struct queue_node qnode_t;
-
 /// @brief Struttura del vertice
 struct vertex;
 typedef struct vertex vertex_t;

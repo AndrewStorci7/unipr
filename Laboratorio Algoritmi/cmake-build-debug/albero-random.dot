@@ -1,0 +1,6 @@
+digraph Albero {
+    node [fontname="Helvetica", shape=circle];
+    "0x22a96516c00" [label="80 (lvl: 0)"];
+    "0x22a96516c00" -> "0x22a96516a50";
+    "0x22a96516a50" [label="6 (lvl: 1)"];
+}

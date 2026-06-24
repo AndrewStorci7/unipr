@@ -5,7 +5,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-#include <cstdlib>
 using namespace std;
 
 // compilazione: g++ consegna1-loader.c
@@ -179,6 +178,5 @@ int main(int argc, char **argv) {
 
     delete[] A;
 
-    system("pause");
     return 0;
 }

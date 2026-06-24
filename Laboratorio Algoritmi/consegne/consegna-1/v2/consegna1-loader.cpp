@@ -6,6 +6,10 @@
 #include <string.h>
 #include <time.h>
 #include <cstdlib>
+#include <cassert>
+
+#define INFINITO 1000000
+
 using namespace std;
 
 // compilazione: g++ consegna1-loader.c
@@ -37,9 +41,130 @@ void print_array(int *A, int dim) {
     printf("\n");
 }
 
-void bucket_sort(int *A, int k) {
-    int *buckets = new int[k];
-    
+struct bucket {
+    size_t size = 0;
+    size_t max_size = 0;
+    int* V = nullptr;
+
+    bucket(int n) {
+        max_size = n;
+        size = 0;
+        V = new int[n];
+        for (int i = 0; i < n; ++i)
+            V[i] = 0;
+    }
+
+    void push(int val) {
+        if (size == max_size) {
+            perror("Bucket pieno");
+            return;
+        }
+
+        V[size] = val;
+        ++size;
+    }
+
+    int pop() {
+        return V[size--];
+    }
+
+    bool isEmpty() const {
+        return size == 0;
+    }
+
+    void print() {
+        for (int i = 0; i < size; ++i) {
+            std::cout << V[i] << ", ";
+        }
+        std::cout << std::endl;
+    }
+
+    void sort() {
+        /// TODO
+    }
+};
+
+
+/// @brief Cerco il massimo esattamente nella parte centrale per minimizzare le letture.
+/// Sfrutto la parte centrale perche' li in mezzo sicuramente ci sara' il valore piu' alto
+/// @param A    Array
+/// @param n    Dimensione
+int find_max(int* A, int n) {
+    int dim_range = n / 2;
+    int range_start = dim_range - 100, range_end = dim_range + 100;
+
+    int max = A[range_start];
+    ++ct_read;
+    for (int i = range_start; i < range_end + 1; ++i) {
+        int current = A[i];
+        max = current > max ? current : max;
+        ++ct_read;
+    }
+
+    return max;
+}
+
+/// @brief Cerco il minimo esattamente nella parte finale per minimizzare le letture.
+/// Sfrutto la parte finale perche' ci sara' sicuramente il valore minore
+/// @param A    Array
+/// @param n    Dimensione
+int find_min(int* A, int n) {
+    int dim_range = n;
+    int range_start = dim_range - 100, range_end = dim_range;
+
+    int min = A[range_start];
+    ++ct_read;
+    for (int i = range_start; i < range_end; ++i) {
+        int current = A[i];
+        min = current < min ? current : min;
+        ++ct_read;
+    }
+
+    return min;
+}
+
+/// @brief Bucket Sort
+///
+/// @param A    Array A da ordinare
+/// @param n    Numero di elementi
+/// @param k    Numeir di buckets
+void bucket_sort(int* A, int size, int k) {
+    auto buckets = new bucket*[k];
+    for (int i = 0; i < k; ++i)
+        buckets[i] = new bucket((size / k) * 3);
+
+    int max = find_max(A, size);
+    int min = find_min(A, size);
+
+    for (int i = 0; i < size; ++i) {
+        int index = (A[i] - min) * (k - 1) / (max - min);
+        ++ct_read;
+        if (index < 0)
+            index = 0;
+        if (index >= k)
+            index = k - 1;
+
+
+        buckets[index]->push(A[i]);
+    }
+
+    for (int i = 0; i < k; ++i) {
+        std::cout << "Bucket[" << i << "] => ";
+        buckets[i]->print();
+    }
+
+    int count = 0;
+    for (int i = 0; i < k; ++i) {
+        auto b = buckets[i];
+        while (!b->isEmpty()) {
+            auto pop = b->pop();
+            std::cout << pop << ", ";
+            A[count] = pop;
+            ++count;
+        }
+    }
+
+    // doGraph(buckets, k, "visualizzazione-buckets.dot");
 }
 
 int parse_cmd(int argc, char **argv) {
@@ -121,7 +246,11 @@ int main(int argc, char **argv) {
         ct_read = 0;
 
         /// algoritmo di sorting
-        
+        bucket_sort(A, n, 20);
+
+        /// TEST SE EFFETTIVAMENTE E' ORDINATO
+        for (int j = 1; j < n; ++j)
+            assert(A[j] >= A[j - 1]);
 
         if (details) {
             printf("Output:\n");
@@ -135,6 +264,8 @@ int main(int argc, char **argv) {
         if (read_max < 0 || read_max < ct_read)
             read_max = ct_read;
         printf("Test %d %d\n", test, ct_read);
+
+        // break;
     }
 
     printf("N test: %d, Min: %d, Med: %.1f, Max: %d\n",
