@@ -1,0 +1,349 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="2078pt" height="282pt" viewBox="0.00 0.00 2078.00 282.00">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 278.4)">
+<title>NWTree</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-278.4 2074.48,-278.4 2074.48,4 -4,4"/>
+<!-- node_1890991699424 -->
+<g id="node1" class="node">
+<title>node_1890991699424</title>
+<path fill="none" stroke="black" d="M1048.32,-274.4C1048.32,-274.4 961.39,-274.4 961.39,-274.4 955.39,-274.4 949.39,-268.4 949.39,-262.4 949.39,-262.4 949.39,-244.8 949.39,-244.8 949.39,-238.8 955.39,-232.8 961.39,-232.8 961.39,-232.8 1048.32,-232.8 1048.32,-232.8 1054.32,-232.8 1060.32,-238.8 1060.32,-244.8 1060.32,-244.8 1060.32,-262.4 1060.32,-262.4 1060.32,-268.4 1054.32,-274.4 1048.32,-274.4"/>
+<text xml:space="preserve" text-anchor="middle" x="1004.85" y="-257.8" font-family="Helvetica,sans-Serif" font-size="14.00">Type: GLOBAL</text>
+<text xml:space="preserve" text-anchor="middle" x="1004.85" y="-241" font-family="Helvetica,sans-Serif" font-size="14.00">Val: </text>
+</g>
+<!-- node_1890991699184 -->
+<g id="node2" class="node">
+<title>node_1890991699184</title>
+<path fill="none" stroke="black" d="M1002.57,-196.8C1002.57,-196.8 851.14,-196.8 851.14,-196.8 845.14,-196.8 839.14,-190.8 839.14,-184.8 839.14,-184.8 839.14,-167.2 839.14,-167.2 839.14,-161.2 845.14,-155.2 851.14,-155.2 851.14,-155.2 1002.57,-155.2 1002.57,-155.2 1008.57,-155.2 1014.57,-161.2 1014.57,-167.2 1014.57,-167.2 1014.57,-184.8 1014.57,-184.8 1014.57,-190.8 1008.57,-196.8 1002.57,-196.8"/>
+<text xml:space="preserve" text-anchor="middle" x="926.85" y="-180.2" font-family="Helvetica,sans-Serif" font-size="14.00">Type: DIRECTIVES</text>
+<text xml:space="preserve" text-anchor="middle" x="926.85" y="-163.4" font-family="Helvetica,sans-Serif" font-size="14.00">Val: '#include &lt;iostream&gt;'</text>
+</g>
+<!-- node_1890991699424&#45;&gt;node_1890991699184 -->
+<g id="edge1" class="edge">
+<title>node_1890991699424-&gt;node_1890991699184</title>
+<path fill="none" stroke="black" d="M983.95,-232.34C972.67,-221.41 958.79,-207.96 947.54,-197.05"/>
+</g>
+<!-- node_1890991699568 -->
+<g id="node3" class="node">
+<title>node_1890991699568</title>
+<path fill="none" stroke="black" d="M1123.04,-196.8C1123.04,-196.8 1044.67,-196.8 1044.67,-196.8 1038.67,-196.8 1032.67,-190.8 1032.67,-184.8 1032.67,-184.8 1032.67,-167.2 1032.67,-167.2 1032.67,-161.2 1038.67,-155.2 1044.67,-155.2 1044.67,-155.2 1123.04,-155.2 1123.04,-155.2 1129.04,-155.2 1135.04,-161.2 1135.04,-167.2 1135.04,-167.2 1135.04,-184.8 1135.04,-184.8 1135.04,-190.8 1129.04,-196.8 1123.04,-196.8"/>
+<text xml:space="preserve" text-anchor="middle" x="1083.85" y="-180.2" font-family="Helvetica,sans-Serif" font-size="14.00">Type: BLOCK</text>
+<text xml:space="preserve" text-anchor="middle" x="1083.85" y="-163.4" font-family="Helvetica,sans-Serif" font-size="14.00">Val: ''</text>
+</g>
+<!-- node_1890991699424&#45;&gt;node_1890991699568 -->
+<g id="edge2" class="edge">
+<title>node_1890991699424-&gt;node_1890991699568</title>
+<path fill="none" stroke="black" d="M1026.03,-232.34C1037.45,-221.41 1051.51,-207.96 1062.9,-197.05"/>
+</g>
+<!-- node_1890991699280 -->
+<g id="node4" class="node">
+<title>node_1890991699280</title>
+<path fill="none" stroke="black" d="M169.71,-119.2C169.71,-119.2 12,-119.2 12,-119.2 6,-119.2 0,-113.2 0,-107.2 0,-107.2 0,-89.6 0,-89.6 0,-83.6 6,-77.6 12,-77.6 12,-77.6 169.71,-77.6 169.71,-77.6 175.71,-77.6 181.71,-83.6 181.71,-89.6 181.71,-89.6 181.71,-107.2 181.71,-107.2 181.71,-113.2 175.71,-119.2 169.71,-119.2"/>
+<text xml:space="preserve" text-anchor="middle" x="90.85" y="-102.6" font-family="Helvetica,sans-Serif" font-size="14.00">Type: NUMERICAL_TYPE</text>
+<text xml:space="preserve" text-anchor="middle" x="90.85" y="-85.8" font-family="Helvetica,sans-Serif" font-size="14.00">Val: 'int'</text>
+</g>
+<!-- node_1890991699568&#45;&gt;node_1890991699280 -->
+<g id="edge3" class="edge">
+<title>node_1890991699568-&gt;node_1890991699280</title>
+<path fill="none" stroke="black" d="M1032.38,-157.01C1029.51,-156.33 1026.66,-155.71 1023.85,-155.2 659.34,-88.5 558.79,-163.32 190.85,-119.2 187.96,-118.85 185.01,-118.47 182.05,-118.05"/>
+</g>
+<!-- node_1890991694096 -->
+<g id="node5" class="node">
+<title>node_1890991694096</title>
+<path fill="none" stroke="black" d="M320.2,-119.2C320.2,-119.2 211.51,-119.2 211.51,-119.2 205.51,-119.2 199.51,-113.2 199.51,-107.2 199.51,-107.2 199.51,-89.6 199.51,-89.6 199.51,-83.6 205.51,-77.6 211.51,-77.6 211.51,-77.6 320.2,-77.6 320.2,-77.6 326.2,-77.6 332.2,-83.6 332.2,-89.6 332.2,-89.6 332.2,-107.2 332.2,-107.2 332.2,-113.2 326.2,-119.2 320.2,-119.2"/>
+<text xml:space="preserve" text-anchor="middle" x="265.85" y="-102.6" font-family="Helvetica,sans-Serif" font-size="14.00">Type: IDENTIFIER</text>
+<text xml:space="preserve" text-anchor="middle" x="265.85" y="-85.8" font-family="Helvetica,sans-Serif" font-size="14.00">Val: 'somma'</text>
+</g>
+<!-- node_1890991699568&#45;&gt;node_1890991694096 -->
+<g id="edge4" class="edge">
+<title>node_1890991699568-&gt;node_1890991694096</title>
+<path fill="none" stroke="black" d="M1032.37,-157.05C1029.51,-156.35 1026.66,-155.73 1023.85,-155.2 725.1,-99.07 641.17,-166.24 340.85,-119.2 338.06,-118.76 335.22,-118.26 332.36,-117.72"/>
+</g>
+<!-- node_1890991695680 -->
+<g id="node6" class="node">
+<title>node_1890991695680</title>
+<path fill="none" stroke="black" d="M451.87,-119.2C451.87,-119.2 361.84,-119.2 361.84,-119.2 355.84,-119.2 349.84,-113.2 349.84,-107.2 349.84,-107.2 349.84,-89.6 349.84,-89.6 349.84,-83.6 355.84,-77.6 361.84,-77.6 361.84,-77.6 451.87,-77.6 451.87,-77.6 457.87,-77.6 463.87,-83.6 463.87,-89.6 463.87,-89.6 463.87,-107.2 463.87,-107.2 463.87,-113.2 457.87,-119.2 451.87,-119.2"/>
+<text xml:space="preserve" text-anchor="middle" x="406.85" y="-102.6" font-family="Helvetica,sans-Serif" font-size="14.00">Type: OPAREN</text>
+<text xml:space="preserve" text-anchor="middle" x="406.85" y="-85.8" font-family="Helvetica,sans-Serif" font-size="14.00">Val: '('</text>
+</g>
+<!-- node_1890991699568&#45;&gt;node_1890991695680 -->
+<g id="edge5" class="edge">
+<title>node_1890991699568-&gt;node_1890991695680</title>
+<path fill="none" stroke="black" d="M1032.37,-157.09C1029.5,-156.38 1026.65,-155.74 1023.85,-155.2 782.95,-108.37 714.37,-162.74 472.85,-119.2 470.03,-118.69 467.15,-118.1 464.26,-117.46"/>
+</g>
+<!-- node_1890991694960 -->
+<g id="node7" class="node">
+<title>node_1890991694960</title>
+<path fill="none" stroke="black" d="M651.71,-119.2C651.71,-119.2 494,-119.2 494,-119.2 488,-119.2 482,-113.2 482,-107.2 482,-107.2 482,-89.6 482,-89.6 482,-83.6 488,-77.6 494,-77.6 494,-77.6 651.71,-77.6 651.71,-77.6 657.71,-77.6 663.71,-83.6 663.71,-89.6 663.71,-89.6 663.71,-107.2 663.71,-107.2 663.71,-113.2 657.71,-119.2 651.71,-119.2"/>
+<text xml:space="preserve" text-anchor="middle" x="572.85" y="-102.6" font-family="Helvetica,sans-Serif" font-size="14.00">Type: NUMERICAL_TYPE</text>
+<text xml:space="preserve" text-anchor="middle" x="572.85" y="-85.8" font-family="Helvetica,sans-Serif" font-size="14.00">Val: 'int'</text>
+</g>
+<!-- node_1890991699568&#45;&gt;node_1890991694960 -->
+<g id="edge6" class="edge">
+<title>node_1890991699568-&gt;node_1890991694960</title>
+<path fill="none" stroke="black" d="M1032.34,-157.21C1029.49,-156.47 1026.64,-155.8 1023.85,-155.2 870.5,-122.44 827.94,-142.45 672.85,-119.2 669.97,-118.77 667.04,-118.31 664.08,-117.83"/>
+</g>
+<!-- node_1890991694768 -->
+<g id="node8" class="node">
+<title>node_1890991694768</title>
+<path fill="none" stroke="black" d="M802.2,-119.2C802.2,-119.2 693.51,-119.2 693.51,-119.2 687.51,-119.2 681.51,-113.2 681.51,-107.2 681.51,-107.2 681.51,-89.6 681.51,-89.6 681.51,-83.6 687.51,-77.6 693.51,-77.6 693.51,-77.6 802.2,-77.6 802.2,-77.6 808.2,-77.6 814.2,-83.6 814.2,-89.6 814.2,-89.6 814.2,-107.2 814.2,-107.2 814.2,-113.2 808.2,-119.2 802.2,-119.2"/>
+<text xml:space="preserve" text-anchor="middle" x="747.85" y="-102.6" font-family="Helvetica,sans-Serif" font-size="14.00">Type: IDENTIFIER</text>
+<text xml:space="preserve" text-anchor="middle" x="747.85" y="-85.8" font-family="Helvetica,sans-Serif" font-size="14.00">Val: 'a'</text>
+</g>
+<!-- node_1890991699568&#45;&gt;node_1890991694768 -->
+<g id="edge7" class="edge">
+<title>node_1890991699568-&gt;node_1890991694768</title>
+<path fill="none" stroke="black" d="M1032.28,-157.47C1029.44,-156.66 1026.62,-155.9 1023.85,-155.2 935.88,-132.92 911.47,-138.8 822.85,-119.2 820.09,-118.59 817.28,-117.95 814.44,-117.28"/>
+</g>
+<!-- node_1890991695584 -->
+<g id="node9" class="node">
+<title>node_1890991695584</title>
+<path fill="none" stroke="black" d="M933.48,-119.2C933.48,-119.2 844.23,-119.2 844.23,-119.2 838.23,-119.2 832.23,-113.2 832.23,-107.2 832.23,-107.2 832.23,-89.6 832.23,-89.6 832.23,-83.6 838.23,-77.6 844.23,-77.6 844.23,-77.6 933.48,-77.6 933.48,-77.6 939.48,-77.6 945.48,-83.6 945.48,-89.6 945.48,-89.6 945.48,-107.2 945.48,-107.2 945.48,-113.2 939.48,-119.2 933.48,-119.2"/>
+<text xml:space="preserve" text-anchor="middle" x="888.85" y="-102.6" font-family="Helvetica,sans-Serif" font-size="14.00">Type: CPAREN</text>
+<text xml:space="preserve" text-anchor="middle" x="888.85" y="-85.8" font-family="Helvetica,sans-Serif" font-size="14.00">Val: ')'</text>
+</g>
+<!-- node_1890991699568&#45;&gt;node_1890991695584 -->
+<g id="edge8" class="edge">
+<title>node_1890991699568-&gt;node_1890991695584</title>
+<path fill="none" stroke="black" d="M1032.37,-155.04C1004.16,-144.1 969.28,-130.58 940.97,-119.61"/>
+</g>
+<!-- node_1890991694384 -->
+<g id="node10" class="node">
+<title>node_1890991694384</title>
+<path fill="none" stroke="black" d="M1065.87,-119.2C1065.87,-119.2 975.84,-119.2 975.84,-119.2 969.84,-119.2 963.84,-113.2 963.84,-107.2 963.84,-107.2 963.84,-89.6 963.84,-89.6 963.84,-83.6 969.84,-77.6 975.84,-77.6 975.84,-77.6 1065.87,-77.6 1065.87,-77.6 1071.87,-77.6 1077.87,-83.6 1077.87,-89.6 1077.87,-89.6 1077.87,-107.2 1077.87,-107.2 1077.87,-113.2 1071.87,-119.2 1065.87,-119.2"/>
+<text xml:space="preserve" text-anchor="middle" x="1020.85" y="-102.6" font-family="Helvetica,sans-Serif" font-size="14.00">Type: OBRACE</text>
+<text xml:space="preserve" text-anchor="middle" x="1020.85" y="-85.8" font-family="Helvetica,sans-Serif" font-size="14.00">Val: '{'</text>
+</g>
+<!-- node_1890991699568&#45;&gt;node_1890991694384 -->
+<g id="edge9" class="edge">
+<title>node_1890991699568-&gt;node_1890991694384</title>
+<path fill="none" stroke="black" d="M1066.97,-154.74C1057.86,-143.81 1046.65,-130.36 1037.57,-119.45"/>
+</g>
+<!-- node_1890991694720 -->
+<g id="node11" class="node">
+<title>node_1890991694720</title>
+<path fill="none" stroke="black" d="M1186.04,-119.2C1186.04,-119.2 1107.67,-119.2 1107.67,-119.2 1101.67,-119.2 1095.67,-113.2 1095.67,-107.2 1095.67,-107.2 1095.67,-89.6 1095.67,-89.6 1095.67,-83.6 1101.67,-77.6 1107.67,-77.6 1107.67,-77.6 1186.04,-77.6 1186.04,-77.6 1192.04,-77.6 1198.04,-83.6 1198.04,-89.6 1198.04,-89.6 1198.04,-107.2 1198.04,-107.2 1198.04,-113.2 1192.04,-119.2 1186.04,-119.2"/>
+<text xml:space="preserve" text-anchor="middle" x="1146.85" y="-102.6" font-family="Helvetica,sans-Serif" font-size="14.00">Type: BLOCK</text>
+<text xml:space="preserve" text-anchor="middle" x="1146.85" y="-85.8" font-family="Helvetica,sans-Serif" font-size="14.00">Val: ''</text>
+</g>
+<!-- node_1890991699568&#45;&gt;node_1890991694720 -->
+<g id="edge10" class="edge">
+<title>node_1890991699568-&gt;node_1890991694720</title>
+<path fill="none" stroke="black" d="M1100.74,-154.74C1109.85,-143.81 1121.06,-130.36 1130.14,-119.45"/>
+</g>
+<!-- node_1890991694144 -->
+<g id="node24" class="node">
+<title>node_1890991694144</title>
+<path fill="none" stroke="black" d="M1317.47,-119.2C1317.47,-119.2 1228.24,-119.2 1228.24,-119.2 1222.24,-119.2 1216.24,-113.2 1216.24,-107.2 1216.24,-107.2 1216.24,-89.6 1216.24,-89.6 1216.24,-83.6 1222.24,-77.6 1228.24,-77.6 1228.24,-77.6 1317.47,-77.6 1317.47,-77.6 1323.47,-77.6 1329.47,-83.6 1329.47,-89.6 1329.47,-89.6 1329.47,-107.2 1329.47,-107.2 1329.47,-113.2 1323.47,-119.2 1317.47,-119.2"/>
+<text xml:space="preserve" text-anchor="middle" x="1272.85" y="-102.6" font-family="Helvetica,sans-Serif" font-size="14.00">Type: RETURN</text>
+<text xml:space="preserve" text-anchor="middle" x="1272.85" y="-85.8" font-family="Helvetica,sans-Serif" font-size="14.00">Val: 'return'</text>
+</g>
+<!-- node_1890991699568&#45;&gt;node_1890991694144 -->
+<g id="edge23" class="edge">
+<title>node_1890991699568-&gt;node_1890991694144</title>
+<path fill="none" stroke="black" d="M1134.5,-154.74C1161.73,-143.85 1195.2,-130.46 1222.39,-119.58"/>
+</g>
+<!-- node_1890991694480 -->
+<g id="node25" class="node">
+<title>node_1890991694480</title>
+<path fill="none" stroke="black" d="M1468.2,-119.2C1468.2,-119.2 1359.51,-119.2 1359.51,-119.2 1353.51,-119.2 1347.51,-113.2 1347.51,-107.2 1347.51,-107.2 1347.51,-89.6 1347.51,-89.6 1347.51,-83.6 1353.51,-77.6 1359.51,-77.6 1359.51,-77.6 1468.2,-77.6 1468.2,-77.6 1474.2,-77.6 1480.2,-83.6 1480.2,-89.6 1480.2,-89.6 1480.2,-107.2 1480.2,-107.2 1480.2,-113.2 1474.2,-119.2 1468.2,-119.2"/>
+<text xml:space="preserve" text-anchor="middle" x="1413.85" y="-102.6" font-family="Helvetica,sans-Serif" font-size="14.00">Type: IDENTIFIER</text>
+<text xml:space="preserve" text-anchor="middle" x="1413.85" y="-85.8" font-family="Helvetica,sans-Serif" font-size="14.00">Val: 'a'</text>
+</g>
+<!-- node_1890991699568&#45;&gt;node_1890991694480 -->
+<g id="edge24" class="edge">
+<title>node_1890991699568-&gt;node_1890991694480</title>
+<path fill="none" stroke="black" d="M1135.29,-164.42C1186.89,-153.64 1268.59,-136.15 1338.85,-119.2 1341.6,-118.54 1344.41,-117.85 1347.24,-117.15"/>
+</g>
+<!-- node_1890991694624 -->
+<g id="node26" class="node">
+<title>node_1890991694624</title>
+<path fill="none" stroke="black" d="M1619.59,-119.2C1619.59,-119.2 1510.12,-119.2 1510.12,-119.2 1504.12,-119.2 1498.12,-113.2 1498.12,-107.2 1498.12,-107.2 1498.12,-89.6 1498.12,-89.6 1498.12,-83.6 1504.12,-77.6 1510.12,-77.6 1510.12,-77.6 1619.59,-77.6 1619.59,-77.6 1625.59,-77.6 1631.59,-83.6 1631.59,-89.6 1631.59,-89.6 1631.59,-107.2 1631.59,-107.2 1631.59,-113.2 1625.59,-119.2 1619.59,-119.2"/>
+<text xml:space="preserve" text-anchor="middle" x="1564.85" y="-102.6" font-family="Helvetica,sans-Serif" font-size="14.00">Type: OPERATOR</text>
+<text xml:space="preserve" text-anchor="middle" x="1564.85" y="-85.8" font-family="Helvetica,sans-Serif" font-size="14.00">Val: '+'</text>
+</g>
+<!-- node_1890991699568&#45;&gt;node_1890991694624 -->
+<g id="edge25" class="edge">
+<title>node_1890991699568-&gt;node_1890991694624</title>
+<path fill="none" stroke="black" d="M1135.32,-169.88C1212.56,-161.75 1362.84,-144.2 1488.85,-119.2 1491.8,-118.62 1494.8,-117.99 1497.82,-117.32"/>
+</g>
+<!-- node_1890991695728 -->
+<g id="node27" class="node">
+<title>node_1890991695728</title>
+<path fill="none" stroke="black" d="M1770.2,-119.2C1770.2,-119.2 1661.51,-119.2 1661.51,-119.2 1655.51,-119.2 1649.51,-113.2 1649.51,-107.2 1649.51,-107.2 1649.51,-89.6 1649.51,-89.6 1649.51,-83.6 1655.51,-77.6 1661.51,-77.6 1661.51,-77.6 1770.2,-77.6 1770.2,-77.6 1776.2,-77.6 1782.2,-83.6 1782.2,-89.6 1782.2,-89.6 1782.2,-107.2 1782.2,-107.2 1782.2,-113.2 1776.2,-119.2 1770.2,-119.2"/>
+<text xml:space="preserve" text-anchor="middle" x="1715.85" y="-102.6" font-family="Helvetica,sans-Serif" font-size="14.00">Type: IDENTIFIER</text>
+<text xml:space="preserve" text-anchor="middle" x="1715.85" y="-85.8" font-family="Helvetica,sans-Serif" font-size="14.00">Val: 'b'</text>
+</g>
+<!-- node_1890991699568&#45;&gt;node_1890991695728 -->
+<g id="edge26" class="edge">
+<title>node_1890991699568-&gt;node_1890991695728</title>
+<path fill="none" stroke="black" d="M1135.3,-172.57C1234,-167.31 1456.52,-152.55 1640.85,-119.2 1643.64,-118.7 1646.47,-118.14 1649.32,-117.55"/>
+</g>
+<!-- node_1890991695488 -->
+<g id="node28" class="node">
+<title>node_1890991695488</title>
+<path fill="none" stroke="black" d="M1927.31,-119.2C1927.31,-119.2 1812.4,-119.2 1812.4,-119.2 1806.4,-119.2 1800.4,-113.2 1800.4,-107.2 1800.4,-107.2 1800.4,-89.6 1800.4,-89.6 1800.4,-83.6 1806.4,-77.6 1812.4,-77.6 1812.4,-77.6 1927.31,-77.6 1927.31,-77.6 1933.31,-77.6 1939.31,-83.6 1939.31,-89.6 1939.31,-89.6 1939.31,-107.2 1939.31,-107.2 1939.31,-113.2 1933.31,-119.2 1927.31,-119.2"/>
+<text xml:space="preserve" text-anchor="middle" x="1869.85" y="-102.6" font-family="Helvetica,sans-Serif" font-size="14.00">Type: SEMICOLON</text>
+<text xml:space="preserve" text-anchor="middle" x="1869.85" y="-85.8" font-family="Helvetica,sans-Serif" font-size="14.00">Val: ';'</text>
+</g>
+<!-- node_1890991699568&#45;&gt;node_1890991695488 -->
+<g id="edge27" class="edge">
+<title>node_1890991699568-&gt;node_1890991695488</title>
+<path fill="none" stroke="black" d="M1135.22,-173.88C1252.28,-170.68 1547.53,-159.01 1790.85,-119.2 1793.92,-118.7 1797.05,-118.14 1800.2,-117.53"/>
+</g>
+<!-- node_1890991694288 -->
+<g id="node29" class="node">
+<title>node_1890991694288</title>
+<path fill="none" stroke="black" d="M2058.48,-119.2C2058.48,-119.2 1969.23,-119.2 1969.23,-119.2 1963.23,-119.2 1957.23,-113.2 1957.23,-107.2 1957.23,-107.2 1957.23,-89.6 1957.23,-89.6 1957.23,-83.6 1963.23,-77.6 1969.23,-77.6 1969.23,-77.6 2058.48,-77.6 2058.48,-77.6 2064.48,-77.6 2070.48,-83.6 2070.48,-89.6 2070.48,-89.6 2070.48,-107.2 2070.48,-107.2 2070.48,-113.2 2064.48,-119.2 2058.48,-119.2"/>
+<text xml:space="preserve" text-anchor="middle" x="2013.85" y="-102.6" font-family="Helvetica,sans-Serif" font-size="14.00">Type: CBRACE</text>
+<text xml:space="preserve" text-anchor="middle" x="2013.85" y="-85.8" font-family="Helvetica,sans-Serif" font-size="14.00">Val: '}'</text>
+</g>
+<!-- node_1890991699568&#45;&gt;node_1890991694288 -->
+<g id="edge28" class="edge">
+<title>node_1890991699568-&gt;node_1890991694288</title>
+<path fill="none" stroke="black" d="M1135.47,-175.72C1270.26,-176.74 1643.47,-173.95 1947.85,-119.2 1950.8,-118.67 1953.8,-118.06 1956.81,-117.38"/>
+</g>
+<!-- node_1890991694816 -->
+<g id="node12" class="node">
+<title>node_1890991694816</title>
+<path fill="none" stroke="black" d="M394.71,-41.6C394.71,-41.6 251,-41.6 251,-41.6 245,-41.6 239,-35.6 239,-29.6 239,-29.6 239,-12 239,-12 239,-6 245,0 251,0 251,0 394.71,0 394.71,0 400.71,0 406.71,-6 406.71,-12 406.71,-12 406.71,-29.6 406.71,-29.6 406.71,-35.6 400.71,-41.6 394.71,-41.6"/>
+<text xml:space="preserve" text-anchor="middle" x="322.85" y="-25" font-family="Helvetica,sans-Serif" font-size="14.00">Type: CONDITIONAL_K</text>
+<text xml:space="preserve" text-anchor="middle" x="322.85" y="-8.2" font-family="Helvetica,sans-Serif" font-size="14.00">Val: 'if'</text>
+</g>
+<!-- node_1890991694720&#45;&gt;node_1890991694816 -->
+<g id="edge11" class="edge">
+<title>node_1890991694720-&gt;node_1890991694816</title>
+<path fill="none" stroke="black" d="M1095.37,-79.45C1092.51,-78.75 1089.66,-78.13 1086.85,-77.6 793.36,-22.32 711.92,-80.81 415.85,-41.6 412.99,-41.22 410.08,-40.8 407.15,-40.35"/>
+</g>
+<!-- node_1890991695776 -->
+<g id="node13" class="node">
+<title>node_1890991695776</title>
+<path fill="none" stroke="black" d="M526.87,-41.6C526.87,-41.6 436.84,-41.6 436.84,-41.6 430.84,-41.6 424.84,-35.6 424.84,-29.6 424.84,-29.6 424.84,-12 424.84,-12 424.84,-6 430.84,0 436.84,0 436.84,0 526.87,0 526.87,0 532.87,0 538.87,-6 538.87,-12 538.87,-12 538.87,-29.6 538.87,-29.6 538.87,-35.6 532.87,-41.6 526.87,-41.6"/>
+<text xml:space="preserve" text-anchor="middle" x="481.85" y="-25" font-family="Helvetica,sans-Serif" font-size="14.00">Type: OPAREN</text>
+<text xml:space="preserve" text-anchor="middle" x="481.85" y="-8.2" font-family="Helvetica,sans-Serif" font-size="14.00">Val: '('</text>
+</g>
+<!-- node_1890991694720&#45;&gt;node_1890991695776 -->
+<g id="edge12" class="edge">
+<title>node_1890991694720-&gt;node_1890991695776</title>
+<path fill="none" stroke="black" d="M1095.36,-79.49C1092.5,-78.79 1089.65,-78.15 1086.85,-77.6 851.21,-31.62 784.11,-84.36 547.85,-41.6 545.03,-41.09 542.15,-40.5 539.26,-39.85"/>
+</g>
+<!-- node_1890991695344 -->
+<g id="node14" class="node">
+<title>node_1890991695344</title>
+<path fill="none" stroke="black" d="M677.2,-41.6C677.2,-41.6 568.51,-41.6 568.51,-41.6 562.51,-41.6 556.51,-35.6 556.51,-29.6 556.51,-29.6 556.51,-12 556.51,-12 556.51,-6 562.51,0 568.51,0 568.51,0 677.2,0 677.2,0 683.2,0 689.2,-6 689.2,-12 689.2,-12 689.2,-29.6 689.2,-29.6 689.2,-35.6 683.2,-41.6 677.2,-41.6"/>
+<text xml:space="preserve" text-anchor="middle" x="622.85" y="-25" font-family="Helvetica,sans-Serif" font-size="14.00">Type: IDENTIFIER</text>
+<text xml:space="preserve" text-anchor="middle" x="622.85" y="-8.2" font-family="Helvetica,sans-Serif" font-size="14.00">Val: 'a'</text>
+</g>
+<!-- node_1890991694720&#45;&gt;node_1890991695344 -->
+<g id="edge13" class="edge">
+<title>node_1890991694720-&gt;node_1890991695344</title>
+<path fill="none" stroke="black" d="M1095.35,-79.58C1092.49,-78.85 1089.65,-78.18 1086.85,-77.6 916.88,-42.17 868.82,-71.86 697.85,-41.6 695.07,-41.11 692.24,-40.56 689.38,-39.98"/>
+</g>
+<!-- node_1890991694240 -->
+<g id="node15" class="node">
+<title>node_1890991694240</title>
+<path fill="none" stroke="black" d="M828.59,-41.6C828.59,-41.6 719.12,-41.6 719.12,-41.6 713.12,-41.6 707.12,-35.6 707.12,-29.6 707.12,-29.6 707.12,-12 707.12,-12 707.12,-6 713.12,0 719.12,0 719.12,0 828.59,0 828.59,0 834.59,0 840.59,-6 840.59,-12 840.59,-12 840.59,-29.6 840.59,-29.6 840.59,-35.6 834.59,-41.6 828.59,-41.6"/>
+<text xml:space="preserve" text-anchor="middle" x="773.85" y="-25" font-family="Helvetica,sans-Serif" font-size="14.00">Type: OPERATOR</text>
+<text xml:space="preserve" text-anchor="middle" x="773.85" y="-8.2" font-family="Helvetica,sans-Serif" font-size="14.00">Val: '='</text>
+</g>
+<!-- node_1890991694720&#45;&gt;node_1890991694240 -->
+<g id="edge14" class="edge">
+<title>node_1890991694720-&gt;node_1890991694240</title>
+<path fill="none" stroke="black" d="M1095.3,-79.78C1092.46,-78.99 1089.63,-78.26 1086.85,-77.6 982.8,-52.75 953.62,-63.29 848.85,-41.6 846.22,-41.05 843.53,-40.47 840.83,-39.86"/>
+</g>
+<!-- node_1890991694576 -->
+<g id="node16" class="node">
+<title>node_1890991694576</title>
+<path fill="none" stroke="black" d="M979.59,-41.6C979.59,-41.6 870.12,-41.6 870.12,-41.6 864.12,-41.6 858.12,-35.6 858.12,-29.6 858.12,-29.6 858.12,-12 858.12,-12 858.12,-6 864.12,0 870.12,0 870.12,0 979.59,0 979.59,0 985.59,0 991.59,-6 991.59,-12 991.59,-12 991.59,-29.6 991.59,-29.6 991.59,-35.6 985.59,-41.6 979.59,-41.6"/>
+<text xml:space="preserve" text-anchor="middle" x="924.85" y="-25" font-family="Helvetica,sans-Serif" font-size="14.00">Type: OPERATOR</text>
+<text xml:space="preserve" text-anchor="middle" x="924.85" y="-8.2" font-family="Helvetica,sans-Serif" font-size="14.00">Val: '='</text>
+</g>
+<!-- node_1890991694720&#45;&gt;node_1890991694576 -->
+<g id="edge15" class="edge">
+<title>node_1890991694720-&gt;node_1890991694576</title>
+<path fill="none" stroke="black" d="M1095.37,-79.87C1062.19,-68.57 1018.95,-53.84 984.31,-42.05"/>
+</g>
+<!-- node_1890991695392 -->
+<g id="node17" class="node">
+<title>node_1890991695392</title>
+<path fill="none" stroke="black" d="M1130.2,-41.6C1130.2,-41.6 1021.51,-41.6 1021.51,-41.6 1015.51,-41.6 1009.51,-35.6 1009.51,-29.6 1009.51,-29.6 1009.51,-12 1009.51,-12 1009.51,-6 1015.51,0 1021.51,0 1021.51,0 1130.2,0 1130.2,0 1136.2,0 1142.2,-6 1142.2,-12 1142.2,-12 1142.2,-29.6 1142.2,-29.6 1142.2,-35.6 1136.2,-41.6 1130.2,-41.6"/>
+<text xml:space="preserve" text-anchor="middle" x="1075.85" y="-25" font-family="Helvetica,sans-Serif" font-size="14.00">Type: IDENTIFIER</text>
+<text xml:space="preserve" text-anchor="middle" x="1075.85" y="-8.2" font-family="Helvetica,sans-Serif" font-size="14.00">Val: 'b'</text>
+</g>
+<!-- node_1890991694720&#45;&gt;node_1890991695392 -->
+<g id="edge16" class="edge">
+<title>node_1890991694720-&gt;node_1890991695392</title>
+<path fill="none" stroke="black" d="M1127.83,-77.14C1117.56,-66.21 1104.93,-52.76 1094.69,-41.85"/>
+</g>
+<!-- node_1890991694432 -->
+<g id="node18" class="node">
+<title>node_1890991694432</title>
+<path fill="none" stroke="black" d="M1261.48,-41.6C1261.48,-41.6 1172.23,-41.6 1172.23,-41.6 1166.23,-41.6 1160.23,-35.6 1160.23,-29.6 1160.23,-29.6 1160.23,-12 1160.23,-12 1160.23,-6 1166.23,0 1172.23,0 1172.23,0 1261.48,0 1261.48,0 1267.48,0 1273.48,-6 1273.48,-12 1273.48,-12 1273.48,-29.6 1273.48,-29.6 1273.48,-35.6 1267.48,-41.6 1261.48,-41.6"/>
+<text xml:space="preserve" text-anchor="middle" x="1216.85" y="-25" font-family="Helvetica,sans-Serif" font-size="14.00">Type: CPAREN</text>
+<text xml:space="preserve" text-anchor="middle" x="1216.85" y="-8.2" font-family="Helvetica,sans-Serif" font-size="14.00">Val: ')'</text>
+</g>
+<!-- node_1890991694720&#45;&gt;node_1890991694432 -->
+<g id="edge17" class="edge">
+<title>node_1890991694720-&gt;node_1890991694432</title>
+<path fill="none" stroke="black" d="M1165.61,-77.14C1175.74,-66.21 1188.19,-52.76 1198.29,-41.85"/>
+</g>
+<!-- node_1890991695440 -->
+<g id="node19" class="node">
+<title>node_1890991695440</title>
+<path fill="none" stroke="black" d="M1393.87,-41.6C1393.87,-41.6 1303.84,-41.6 1303.84,-41.6 1297.84,-41.6 1291.84,-35.6 1291.84,-29.6 1291.84,-29.6 1291.84,-12 1291.84,-12 1291.84,-6 1297.84,0 1303.84,0 1303.84,0 1393.87,0 1393.87,0 1399.87,0 1405.87,-6 1405.87,-12 1405.87,-12 1405.87,-29.6 1405.87,-29.6 1405.87,-35.6 1399.87,-41.6 1393.87,-41.6"/>
+<text xml:space="preserve" text-anchor="middle" x="1348.85" y="-25" font-family="Helvetica,sans-Serif" font-size="14.00">Type: OBRACE</text>
+<text xml:space="preserve" text-anchor="middle" x="1348.85" y="-8.2" font-family="Helvetica,sans-Serif" font-size="14.00">Val: '{'</text>
+</g>
+<!-- node_1890991694720&#45;&gt;node_1890991695440 -->
+<g id="edge18" class="edge">
+<title>node_1890991694720-&gt;node_1890991695440</title>
+<path fill="none" stroke="black" d="M1198.35,-78.13C1227.81,-67.1 1264.73,-53.29 1294.63,-42.1"/>
+</g>
+<!-- node_1890991695632 -->
+<g id="node20" class="node">
+<title>node_1890991695632</title>
+<path fill="none" stroke="black" d="M1525.47,-41.6C1525.47,-41.6 1436.24,-41.6 1436.24,-41.6 1430.24,-41.6 1424.24,-35.6 1424.24,-29.6 1424.24,-29.6 1424.24,-12 1424.24,-12 1424.24,-6 1430.24,0 1436.24,0 1436.24,0 1525.47,0 1525.47,0 1531.47,0 1537.47,-6 1537.47,-12 1537.47,-12 1537.47,-29.6 1537.47,-29.6 1537.47,-35.6 1531.47,-41.6 1525.47,-41.6"/>
+<text xml:space="preserve" text-anchor="middle" x="1480.85" y="-25" font-family="Helvetica,sans-Serif" font-size="14.00">Type: RETURN</text>
+<text xml:space="preserve" text-anchor="middle" x="1480.85" y="-8.2" font-family="Helvetica,sans-Serif" font-size="14.00">Val: 'return'</text>
+</g>
+<!-- node_1890991694720&#45;&gt;node_1890991695632 -->
+<g id="edge19" class="edge">
+<title>node_1890991694720-&gt;node_1890991695632</title>
+<path fill="none" stroke="black" d="M1198.42,-79.85C1201.26,-79.05 1204.09,-78.29 1206.85,-77.6 1297.87,-54.84 1323.54,-63.12 1414.85,-41.6 1417.88,-40.89 1420.98,-40.11 1424.09,-39.3"/>
+</g>
+<!-- node_1890991694048 -->
+<g id="node21" class="node">
+<title>node_1890991694048</title>
+<path fill="none" stroke="black" d="M1676.2,-41.6C1676.2,-41.6 1567.51,-41.6 1567.51,-41.6 1561.51,-41.6 1555.51,-35.6 1555.51,-29.6 1555.51,-29.6 1555.51,-12 1555.51,-12 1555.51,-6 1561.51,0 1567.51,0 1567.51,0 1676.2,0 1676.2,0 1682.2,0 1688.2,-6 1688.2,-12 1688.2,-12 1688.2,-29.6 1688.2,-29.6 1688.2,-35.6 1682.2,-41.6 1676.2,-41.6"/>
+<text xml:space="preserve" text-anchor="middle" x="1621.85" y="-25" font-family="Helvetica,sans-Serif" font-size="14.00">Type: IDENTIFIER</text>
+<text xml:space="preserve" text-anchor="middle" x="1621.85" y="-8.2" font-family="Helvetica,sans-Serif" font-size="14.00">Val: 'a'</text>
+</g>
+<!-- node_1890991694720&#45;&gt;node_1890991694048 -->
+<g id="edge20" class="edge">
+<title>node_1890991694720-&gt;node_1890991694048</title>
+<path fill="none" stroke="black" d="M1198.37,-79.63C1201.23,-78.88 1204.07,-78.2 1206.85,-77.6 1355.41,-45.61 1397.4,-69.07 1546.85,-41.6 1549.64,-41.09 1552.47,-40.53 1555.32,-39.93"/>
+</g>
+<!-- node_1890991695008 -->
+<g id="node22" class="node">
+<title>node_1890991695008</title>
+<path fill="none" stroke="black" d="M1833.31,-41.6C1833.31,-41.6 1718.4,-41.6 1718.4,-41.6 1712.4,-41.6 1706.4,-35.6 1706.4,-29.6 1706.4,-29.6 1706.4,-12 1706.4,-12 1706.4,-6 1712.4,0 1718.4,0 1718.4,0 1833.31,0 1833.31,0 1839.31,0 1845.31,-6 1845.31,-12 1845.31,-12 1845.31,-29.6 1845.31,-29.6 1845.31,-35.6 1839.31,-41.6 1833.31,-41.6"/>
+<text xml:space="preserve" text-anchor="middle" x="1775.85" y="-25" font-family="Helvetica,sans-Serif" font-size="14.00">Type: SEMICOLON</text>
+<text xml:space="preserve" text-anchor="middle" x="1775.85" y="-8.2" font-family="Helvetica,sans-Serif" font-size="14.00">Val: ';'</text>
+</g>
+<!-- node_1890991694720&#45;&gt;node_1890991695008 -->
+<g id="edge21" class="edge">
+<title>node_1890991694720-&gt;node_1890991695008</title>
+<path fill="none" stroke="black" d="M1198.35,-79.52C1201.21,-78.8 1204.06,-78.16 1206.85,-77.6 1421.04,-35.06 1481.26,-76.27 1696.85,-41.6 1699.93,-41.11 1703.05,-40.55 1706.2,-39.95"/>
+</g>
+<!-- node_1890991695296 -->
+<g id="node23" class="node">
+<title>node_1890991695296</title>
+<path fill="none" stroke="black" d="M1964.48,-41.6C1964.48,-41.6 1875.23,-41.6 1875.23,-41.6 1869.23,-41.6 1863.23,-35.6 1863.23,-29.6 1863.23,-29.6 1863.23,-12 1863.23,-12 1863.23,-6 1869.23,0 1875.23,0 1875.23,0 1964.48,0 1964.48,0 1970.48,0 1976.48,-6 1976.48,-12 1976.48,-12 1976.48,-29.6 1976.48,-29.6 1976.48,-35.6 1970.48,-41.6 1964.48,-41.6"/>
+<text xml:space="preserve" text-anchor="middle" x="1919.85" y="-25" font-family="Helvetica,sans-Serif" font-size="14.00">Type: CBRACE</text>
+<text xml:space="preserve" text-anchor="middle" x="1919.85" y="-8.2" font-family="Helvetica,sans-Serif" font-size="14.00">Val: '}'</text>
+</g>
+<!-- node_1890991694720&#45;&gt;node_1890991695296 -->
+<g id="edge22" class="edge">
+<title>node_1890991694720-&gt;node_1890991695296</title>
+<path fill="none" stroke="black" d="M1198.34,-79.46C1201.2,-78.76 1204.05,-78.13 1206.85,-77.6 1489.83,-24.01 1570.18,-91.32 1853.85,-41.6 1856.8,-41.08 1859.8,-40.48 1862.82,-39.81"/>
+</g>
+</g>
+</svg>

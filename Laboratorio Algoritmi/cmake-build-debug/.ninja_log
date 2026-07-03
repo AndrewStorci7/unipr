@@ -1,0 +1,7 @@
+# ninja log v7
+15	119	8040272313546979	CMakeFiles/LAESD_6.dir/consegne/consegna-6/v2/enums/enums.cpp.obj	dbb6c9cdb6a949a7
+43	173	8040731937515614	CMakeFiles/LAESD_6.dir/consegne/consegna-6/v2/sd/queue.cpp.obj	2af34ca911a9b7a
+32	338	8040731937415393	CMakeFiles/LAESD_6.dir/consegne/consegna-6/v2/sd/nw_tree.cpp.obj	74cded1fbc8327c9
+19	277	8040733812855160	CMakeFiles/LAESD_6.dir/consegne/consegna-6/v2/enums/enums.cpp.obj	c51db4021de10513
+30	283	8040733812955161	CMakeFiles/LAESD_6.dir/consegne/consegna-6/v2/sd/queue.cpp.obj	a7e4042240ea489d
+24	302	8040733812905160	CMakeFiles/LAESD_6.dir/consegne/consegna-6/v2/sd/nw_tree.cpp.obj	6b4b36862a04b5ca

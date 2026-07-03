@@ -28,7 +28,7 @@
 					[
 						0
 					],
-					"name" : "LABORATORIO_ALGORITMI",
+					"name" : "LAESD_6",
 					"targetIndexes" : 
 					[
 						0
@@ -39,9 +39,9 @@
 			[
 				{
 					"directoryIndex" : 0,
-					"id" : "LABORATORIO_ALGORITMI::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-LABORATORIO_ALGORITMI-Debug-ccc97cbf201248ccb26a.json",
-					"name" : "LABORATORIO_ALGORITMI",
+					"id" : "LAESD_6::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-LAESD_6-Debug-c807d8fb93f748fc9b2b.json",
+					"name" : "LAESD_6",
 					"projectIndex" : 0
 				}
 			]

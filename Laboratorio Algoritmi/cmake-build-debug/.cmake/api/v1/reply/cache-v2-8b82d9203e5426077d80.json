@@ -915,7 +915,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "LABORATORIO_ALGORITMI"
+			"value" : "LAESD_6"
 		},
 		{
 			"name" : "CMAKE_PROJECT_SPDX_LICENSE",
@@ -1347,6 +1347,42 @@
 		},
 		{
 			"name" : "LABORATORIO_ALGORITMI_SOURCE_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : "C:/Users/sandr_ft5c0vu/Desktop/UNIpr/00-Github/unipr/Laboratorio Algoritmi"
+		},
+		{
+			"name" : "LAESD_6_BINARY_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : "C:/Users/sandr_ft5c0vu/Desktop/UNIpr/00-Github/unipr/Laboratorio Algoritmi/cmake-build-debug"
+		},
+		{
+			"name" : "LAESD_6_IS_TOP_LEVEL",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : "ON"
+		},
+		{
+			"name" : "LAESD_6_SOURCE_DIR",
 			"properties" : 
 			[
 				{

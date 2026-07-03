@@ -308,8 +308,6 @@ queue_t* parser(const std::string& file_name) {
     if (!temp.empty())
         parserAux(tokens_source, temp);
 
-    tokens_source->print();
-
     stream.close();
     return tokens_source;
 }
@@ -474,31 +472,36 @@ void needlemanWunsch(std::string fname_source, std::string fname_new) {
     int i = static_cast<int>(size1 - 1);
     int j = static_cast<int>(size2 - 1);
 
-    bool del_already_ins = false; // per gestire se hoo gia' inserito il carattere '-' (di elimina)
+    bool del_already_ins = true; // per gestire se hoo gia' inserito il carattere '-' (di elimina)
 
     while (i > 0 || j > 0) {
         sepNew = " ";
         if (j > 0 && (S2[j]->key == DIRECTIVES || strcmp(S2[j]->val, ";") == 0 ||
                       strcmp(S2[j]->val, "{") == 0 || strcmp(S2[j]->val, "}") == 0)) {
-            sepNew = "\n";
+            if (!del_already_ins) {
+                sepNew = "\nd: ";
+                del_already_ins = true;
+            } else {
+                sepNew = "\n-: ";
+            }
         }
 
         if (i > 0 && j > 0 && matrix[i][j] == matrix[i - 1][j - 1] + similarity(S1[i], S2[j])) {
             alignSource = std::string(S1[i]->val) + " " + alignSource;
-            alignNew = std::string("-: ") + std::string(S2[j]->val) + sepNew + alignNew;
+            alignNew = std::string(S2[j]->val) + sepNew + alignNew;
             --i;
             --j;
             del_already_ins = false;
         } else if (i > 0 && matrix[i][j] == matrix[i - 1][j] + GAP_PENALTY) {
             alignSource = std::string(S1[i]->val) + " " + alignSource;
-            if (!del_already_ins) {
-                alignNew = "d: \n" + alignNew;
-                del_already_ins = true;
-            }
+            // if (!del_already_ins) {
+            //     alignNew = "d: \n" + alignNew;
+            //     del_already_ins = true;
+            // }
             --i;
         } else {
             // alignSource = "-\n" + alignSource;
-            alignNew = std::string("-: ") + std::string(S2[j]->val) + sepNew + alignNew;
+            alignNew = std::string(S2[j]->val) + sepNew + alignNew;
             --j;
             del_already_ins = false;
         }
